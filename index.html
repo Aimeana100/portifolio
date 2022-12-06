@@ -6,19 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KARINGANIRE Anathole</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
     <div class="web__content">
       <header>
-        <div class="container navigation__bar">
+        <nav class="container navigation__bar">
             <div class="logo">
-                <img width="70" src="assets/images/Ana10_icon.svg" alt="">
+                <img width="60" src="assets/images/Ana10_icon.svg" alt="">
             </div>
-            <nav>
+          
 
-                <ul>
-                    <li> <a href="#"> Home </a> </li>
+                <ul id="navbar" class="navbar">
+                    <li> <a href="/"> Home </a> </li>
                     <li> <a href="#"> About me </a> </li>
                     <li> <a href="#"> Skills </a> </li>
                     <li> <a href="#"> My Work </a> </li>
@@ -26,13 +31,52 @@
                     <li> <a href="#"> Contact me </a> </li>
                 </ul>
 
-            </nav>
+            
             <div class="call__to__action">
                 <a href="login"> Sign in | Sign up </a>
+
             </div>
-        </div>
+
+            <div  class="menu__toogle ">
+              <img id="mobile-nav-toggle" width="50" src="assets/images/Menu.svg" alt="">
+              <img id="desktop-nav-toggle" width="40" src="assets/images/Close.svg" alt="">
+            </div>
+          </nav>
       </header>
-      <main></main>
+      <main>
+        <section id="home">
+          <div class="container home__container home__container__dim">
+            <p> Hello, <span>I ' am  </span> </p>
+            <h1>KARINGANIRE </h1>
+            <h2>Anathole</h2>
+
+            <p class="intro">
+              A full stack
+              software developer, Optimistic and Future-Focused,
+              embracing collabollation.
+
+              <br>
+              <br>
+
+              With  3  years of web and mobile application using Javascript, 
+              Typescript,Python,
+                React js, Node Js and React native .
+            </p>
+            
+            <div class="home__option">
+             
+                <a class="download__cv" href="#"> Download CV </a>
+                <a class="hire__me" href="#"> Hire me  </a>
+            </div>
+
+          </div>
+        </section>
+
+        <section id="about__me">
+
+        </section>
+      </main>
+
       <footer></footer>
     </div>
 

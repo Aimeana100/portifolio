@@ -2,6 +2,7 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  font-family: "Public Sans", sans-serif;
 }
 
 :root {
@@ -20,6 +21,17 @@ body {
   background-color: var(--bg_color);
 }
 
+header,
+nav,
+nav ul,
+nav ul li {
+  background-color: gradient;
+}
+
+/* .web__content{
+  margin: auto;
+} */
+
 li {
   list-style: none;
 }
@@ -29,31 +41,185 @@ a {
 }
 
 .container {
-  max-width: 1200px;
-  margin: auto auto;
+  max-width: 1300px;
+  margin: auto;
+  justify-self: center;
+  padding: 0px 20px;
 }
-header nav{
-  /* border-bottom: 0.01em solid var(--dim__red); */
-}
+
 .navigation__bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: transparent;
+  position: relative;
 }
-.navigation__bar nav ul {
+.navigation__bar ul {
+  position: relative;
   display: flex;
   align-items: center;
 }
-.navigation__bar nav ul a {
+.navigation__bar ul a {
   padding: 10px;
   color: var(--white);
   font-weight: 500;
   font-size: 20;
 }
 
-.navigation__bar .call__to__action a{
+.call__to__action a {
   background: var(--red_green_gradient);
   color: var(--white);
   border-radius: 30px;
   padding: 10px;
+}
+
+.menu__toogle , #desktop-nav-toggle{
+  display: none;
+}
+
+.home__container {
+  background: url("../assets/images/Anathole_bg_2.svg") no-repeat right 30% top -140px,
+    url("../assets/images/Ellipse_inner.svg") no-repeat left 0% bottom 10%,
+    radial-gradient(ellipse at left, var(--bg_color), transparent),
+    radial-gradient(ellipse at bottom, #50606b, transparent);
+  height: 600px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  filter: brightness(90%);
+}
+
+.home__container::after {
+  content: "";
+  height: 300px;
+  width: 50%;
+  position: absolute;
+  background-color: red;
+  left: 50%;
+  bottom: 0%;
+  transform: translate(-50%);
+  z-index: -2;
+  border-radius: 50%;
+  box-sizing: border-box;
+  filter: brightness(10%);
+  background:
+    /* radial-gradient(
+      50% 50% at 50% 50%,
+      rgba(248, 249, 250, 0.342) 0%,
+      rgba(80, 96, 107, 0.1632) 100%,
+    ), */ linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 0, 0, 0.171) 50%
+    ),
+    radial-gradient(circle closest-side, #00c0fb11, rgba(0, 0, 0, 0.281));
+}
+
+.home__container p,
+.home__container h1,
+.home__container h2,
+.home__option {
+  color: var(--white);
+  margin: 0px 0px 0px 10%;
+  display: block;
+  position: relative;
+}
+
+.home__container h1 {
+  font-size: 45px;
+  margin-top: 10px;
+}
+
+.home__container p {
+  font-size: 18px;
+}
+
+.home__container p.intro {
+  max-width: 400px;
+  line-height: 1.2em;
+  margin-top: 40px;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.home__option {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+
+}
+
+.home__container .home__option {
+  /* display: block; */
+  margin-top: 70px;
+}
+
+.home__option  .download__cv {
+  align-items: center;
+  background: linear-gradient(105.75deg, #c07070 -20.75%, #2bfa19 145.32%);
+  border-radius: 30px;
+  padding: 8px !important;
+  color: var(--white);
+}
+
+.home__option  .hire__me {
+  align-items: center;
+  background: linear-gradient(112.17deg, rgba(208, 130, 112, 0.66) -3.98%, rgba(192, 112, 112, 0) 161.85%);
+  filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.25));
+  border-radius: 30px;  border-radius: 30px;
+  padding: 8px !important;
+  color: var(--white)
+
+}
+
+/* responsive ipad */
+
+@media only screen and (max-width: 834px) {
+  .menu__toogle {
+    display: flex;
+  }
+
+
+  .navigation__bar .call__to__action a {
+    float: right;
+    justify-self: flex-end;
+    justify-self: end;
+    background: var(--bg_color);
+    color: rgba(255, 255, 255, 0.74);
+    border-bottom: 0.1em solid black;
+    display: none;
+
+  }
+
+  .navigation__bar ul {
+    position: absolute;
+    flex-direction: column;
+    z-index: 30;
+    width: calc(100% - 46px);
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: var(--white);
+
+    background-color: #8F7979;
+    display: none;
+  }
+
+  .navigation__bar ul li {
+    position: relative;
+
+  }
+
+  .navigation__bar ul a {
+    padding: 10px;
+    display: block;
+    /* color: var(--bg_color); */
+  }
+
+  .home__container h1 {
+    font-size: 30px;
+    margin-top: 10px;
+  }
 }
