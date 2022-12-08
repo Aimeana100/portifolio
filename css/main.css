@@ -22,6 +22,10 @@ body {
   background-color: var(--bg_color);
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 header,
 nav,
 nav ul,
@@ -65,6 +69,11 @@ a {
   color: var(--white);
   font-weight: 500;
   font-size: 20;
+}
+
+.navigation__bar ul a:hover {
+  border-bottom: #2bfa19 1px solid;
+  color:rgba(125, 188, 73, 0.768);
 }
 
 .call__to__action a {
@@ -474,6 +483,7 @@ a {
   color: rgba(255, 255, 255, 0.6);
 }
 
+
 /* -----------Proects---------- */
 #projects {
   padding: 50px 0px;
@@ -490,7 +500,7 @@ a {
   /* width: 30%; */
   background-color: rgba(27, 39, 48, 1);
   padding-bottom: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   height: fit-content;
 }
 
@@ -542,10 +552,23 @@ a {
   background: linear-gradient(105.75deg, #c07070 -20.75%, #2bfa19 145.32%);
   color: var(--white);
 }
+
+.project_container .item .goto .web:hover{
+  background: #68C23D;
+  margin-right:4px ;
+  padding-right: 13px;
+
+}
 .project_container .item .goto .github {
   padding: 5px 10px;
   background: var(--red_green_gradient);
   color: var(--white);
+}
+
+.project_container .item .goto .github:hover{
+  background: #c07070;
+  margin-left:4px ;
+
 }
 
 /* ---- Blogs ----- */
@@ -553,6 +576,7 @@ a {
 #blogs {
   padding: 50px 0px;
 }
+
 .blogs_container {
   position: relative;
   display: flex;
@@ -562,17 +586,24 @@ a {
   align-items: center;
 }
 
-.blogs .blogs_container::before {
+#blogs .blogs_container::before {
   content: "";
   position: absolute;
-  height: 500px;
-  width: 100%;
-  /* background: linear-gradient(rgba(43, 250, 25, 1),rgba(43, 250, 25, 0)); */
-  background: red;
-  top: 0px;
-  left: 0px;
-  z-index: 99;
+  height: 480px;
+  width: 450px;
+  background: rgba(129, 148, 127, 0.5);
+  background: radial-gradient(circle, rgba(170, 214, 167, 0.056) 0%,
+   rgba(125, 188, 73, 0.568) 30%, rgba(174, 192, 163, 0.513) 55%, 
+  rgba(183,115,83,0.0524) 100%, rgba(162, 172, 164, 0.46) 100%);
+  /* bottom: 70px; */
+  left: 50%;
+  /* top: 50%; */
+  transform: rotate(-45deg) translate(-50%, -50%); 
+  /* right: 10%; */
+  z-index: -1;
+  overflow: hidden;
 }
+
 .blogs_container .item {
   display: flex;
   background-color: var(--white);
@@ -582,7 +613,6 @@ a {
 }
 
 .blogs_container .item .img {
-  /* height: 178px; */
   max-width: 150px;
 }
 .blogs_container .item .img img {
@@ -629,26 +659,49 @@ a {
   width: fit-content;
   margin: 5px;
 }
-.description .comment_views span {
+.blogs_container .description .comment_views span {
   font-size: 10px;
   margin: 0px;
   padding: 0px;
 }
 
-.description .read__more {
+.blogs_container .description .read__more {
   background-image: linear-gradient(
     112.17deg,
     rgba(192, 112, 112, 0.06) -4%,
     rgba(0, 0, 0, 0.29) 161.85%
   );
   border-radius: 13px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: fit-content;
   color: #000000;
   padding: 6px 15px;
 }
+
+
+
+#blogs .more__container a{
+  background: linear-gradient(105.75deg, #c07070 -20.75%, #2bfa19 145.32%);
+  border-radius: 13px;
+  margin: 5px auto;
+  width: fit-content;
+  display: block;
+  color: #000000;
+  padding: 6px 15px;
+  position: relative;
+}
+
+#blogs .more__container a:hover img{
+  right: 0px;
+  margin-right: -12px;
+  margin-left: 16px;
+  transition: .5s ease-in-out;
+  width: 12px;
+}
+
+#blogs .more__container a:hover{
+  background: linear-gradient(50deg, #c07070 -20.75%, #2bfa19 200.32%);
+}
+
 
 /* Contact me */
 
@@ -667,15 +720,17 @@ a {
   width: 40%;
 }
 
+
 .contact__me__container .form__container input,
 .contact__me__container .form__container textarea {
-  border: 0.01em solid rgba(192, 112, 112, 1);
+  border: 0.01em solid rgba(192, 112, 112, .51);
   margin: 10px 0px;
   padding: 10px;
   width: 100%;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.13);
   color: var(--white);
+  outline: none;
 }
 
 .form__container .send button {
@@ -684,12 +739,14 @@ a {
     rgba(192, 112, 112, 1),
     rgba(43, 250, 25, 0.7) 145.32%
   );
+
   padding: 6px 25px;
   border-radius: 20px;
   font-size: 14px;
   font-style: normal;
   color: var(--white);
   border: none;
+  cursor: pointer;
 }
 
 .contact__me__container .address__container {
@@ -710,14 +767,149 @@ a {
   grid-row: span 1;
   max-height: 200px;
   margin: 10px;
-  padding: 20px 30px;
+  padding: 15px 30px;
+  position: relative;
 }
+
+.address__container .address__info img{
+  width: 40px;
+  position: absolute;
+  top: -10px;
+  left: -25px;
+
+}
+
+
 
 .address__container .address__info p {
   color: var(--white);
-  opacity: 0.8;
+  opacity: 0.6;
   padding: 2px;
 }
+
+
+/* ------------LOGIN ---------------------- */
+
+.login__container{
+  height: calc(100vh - 190px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.login__container .login__form__container {
+  padding: 20px;
+  width: 40%;
+  min-height: 80%;
+  margin: auto;
+  background-color: rgba(194, 177, 177, 0.28);
+
+
+}
+.login__form__container form{
+  margin-top: 50px;
+}
+.login__form__container .login__with__google{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+
+
+.login__form__container .login__with__google img{
+ max-width: 200px;
+}
+.login__form__container .form__row, .login__form__container .send{
+  max-width: 350px;
+  margin: auto;
+}
+.login__form__container form input{
+  border: 0.01em solid rgba(192, 112, 112, .51);
+  margin: 10px 0px;
+  padding: 10px;
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.13);
+  color: var(--white);
+  outline: none;
+}
+
+.login__form__container form label{
+  color: var(--white);
+  opacity: .7;
+}
+
+
+.login__form__container button{
+  background: linear-gradient(
+    105.75deg,
+    rgba(192, 112, 112, 1),
+    rgba(43, 250, 25, 0.7) 145.32%
+  );
+
+  padding: 6px 25px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-style: normal;
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+}
+
+.login__form__container .new__register{
+  margin: 20px auto;
+  display: flex;
+  justify-content:center;
+  color: var(--white);
+
+}
+
+.login__form__container .new__register span{
+  color: var(--green);
+  opacity: 0.85;
+  margin: 0px 3px;
+}
+
+
+/* -------- FOOTER----------- */
+
+
+footer{
+  padding: 40px ;
+  display: flex;
+  justify-content:center;
+  flex-direction: column;
+  background-color: rgba(21, 44, 24, 0.46);
+}
+
+.footer__container .social{
+
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  position: relative;
+  width: fit-content;
+  margin: 30px auto;
+  border-top: 1px dashed var(--dim__red);
+
+  }
+
+ .footer__container .social a{
+  margin: 10px;
+  font-size: 14px;
+  vertical-align: center;
+  color: var(--red_color);
+  padding: 20px 2px;
+
+  }
+
+  .footer__container p{
+    color: var(--white);
+    opacity: 0.7;
+  }
 
 /*-------------------------------------- responsive ipad ---------------------------------------------*/
 
@@ -770,6 +962,7 @@ a {
     height: 200px;
     width: 40%;
   }
+
 
   /**\ about me  */
 
@@ -841,6 +1034,7 @@ a {
 
   .project_container {
     flex-wrap: wrap;
+    grid-template-columns: 1fr;
     justify-content: center;
   }
 
@@ -848,6 +1042,34 @@ a {
     margin: 5px;
     width: 100%;
     max-width: 270px;
+  }
+
+  .project_container .item .img {
+    position: relative;
+    height: 250px;
+  }
+
+  /* Blogs */
+
+  #blogs .blogs_container::before {
+    width: 0px;
+    height: 0px;
+  }
+  .blogs_container .item {
+    flex-direction: column;
+  }
+
+  .blogs_container .item .img {
+    max-width: 100%;
+    max-width: 220px;
+    margin: auto;
+
+  }
+
+  .blogs_container .item .img img{
+    overflow-y: auto;
+    max-height: 120%;
+
   }
 
   /* Contact me */
@@ -872,19 +1094,77 @@ a {
     margin: auto;
   }
 
+  .contact__me__container .address__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row: auto;
+    grid-gap: 5px;
+    padding: 10px 0px;
+    flex-wrap: wrap;
+  }
+
+
   .contact__me__container .address__container .address__info {
     /* padding: 10px;*/
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px;
-    padding: 20pxpx;
-    width: calc(100% - 10px);
+    margin: 5px;
+    padding: 20px;
+    width: calc(100% - 50px);
   }
+
+  .address__container .address__info img{
+    width: 30px;
+    top: -12px;
+    left: -16px;
+  
+  }
+
+
+
+
+/* ------------LOGIN ---------------------- */
+
+.login__container{
+  height: calc(100vh - 190px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.login__container .login__form__container {
+  width: calc(100% - 100px);
+  min-height: 80%;
+
+
+}
+.login__form__container form{
+  margin-top: 50px;
+}
+.login__form__container .login__with__google{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+
+.login__form__container .new__register p{
+font-size: 13px;
+
+}
+
+.login__form__container .new__register span{
+  color: var(--green);
+  opacity: 0.85;
+  margin: 0px 3px;
+}
+
 }
 
 /*  Mobile phone  */
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 450px) {
   .home__container::after {
     content: "";
     height: 100px;
@@ -949,7 +1229,7 @@ a {
   }
   .project_container .item .img {
     position: relative;
-    height: 150px;
+    height: 240px;
   }
 
   .project_container .item .img img {
@@ -961,7 +1241,23 @@ a {
     font-size: 16px;
   }
 
+  /* Blogs */
+
+  .description .read__more {
+    align-self: center;
+  }
+
+
   /* Contact me */
+
+
+  .contact__me__container {
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-around;
+    align-items: center;
+  }
 
   .contact__me__container .address__container {
     display: flex;
@@ -969,4 +1265,46 @@ a {
     flex-wrap: wrap;
     align-items: center;
   }
+
+  .address__container .address__info img{
+    width: 20px;
+    top: -12px;
+    left: -16px;
+  
+  }
+  .contact__me__container .address__container .address__info {
+    width: 100%;
+  }
+
+/* ------------LOGIN ---------------------- */
+
+.login__container{
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.login__container .login__form__container {
+  width: calc(100% - 10px);
+  min-height: 80%;
+
+}
+.login__form__container form{
+  margin-top: 30px;
+}
+.login__form__container .login__with__google{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+
+.login__form__container .new__register p{
+font-size: 12px;
+
+}
+
+
 }
