@@ -33,10 +33,6 @@ nav ul li {
   background-color: gradient;
 }
 
-/* .web__content{
-  margin: auto;
-} */
-
 li {
   list-style: none;
 }
@@ -51,6 +47,37 @@ a {
   justify-self: center;
   padding: 0px 20px;
 }
+
+
+.breadcumb{
+  background: url("../assets/images/breadcumb_bg2.jpg"), var(--bg_color);
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.breadcumb h1{
+  font-size: 50px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: var(--white);
+}
+
+/* .breadcumb .heading{
+  margin-bottom: 40px;
+} */
+
+header.scrolled{
+  position:sticky;
+  top: 0px;
+  background-color: var(--bg_color);
+  box-shadow: 3px 1px 3px 0.1px #1c3f58;
+  z-index: 100;
+  
+}
+
 
 .navigation__bar {
   display: flex;
@@ -703,6 +730,103 @@ a {
 }
 
 
+/*  all blogs page  */
+
+.all__blogs_content{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.all__blogs_content > *:nth-child(1){
+  flex: 1 1 73%;
+}
+.all__blogs_content > *:nth-child(2){
+  flex: 1 1 25%;
+}
+
+.all__blogs_content .pagination__container{
+  display: flex;
+  margin: 5px auto;
+  padding: 0px;
+  justify-content: center;
+  align-items: center;
+}
+
+.all__blogs_content .pagination__container .left__navigation{
+  content: "Previous";
+  margin-right: 2px;
+}
+
+.all__blogs_content .pagination__container .right__navigation{
+  content: "Previous";
+  margin-left: 2px;
+}
+
+.all__blogs_content .pagination__container span{
+  padding: 10px 15px;
+  margin: 1px;
+  background-color: var(--red_color);
+}
+
+
+.right__summary{
+
+margin-top: 50px;
+  
+}
+
+.right__summary
+.categories{
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+
+}
+
+.categories  p{
+  padding: 10px;
+  color: var(--white);
+  opacity: 0.6;
+  
+}
+
+
+.categories .blog__item{
+  padding: 10px 2px;
+}
+
+.blog__item .description .comment_views {
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+}
+.blog__item .description .comment_views .views,
+.blog__item .description .comment_views .comments {
+  width: fit-content;
+  margin: 5px;
+}
+.blog__item .description .comment_views span {
+  font-size: 10px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.latest__blog__container .blog__item{
+  padding:5px;
+  display: flex;
+  margin: 10px 2px;
+}
+.latest__blog__container .blog__item .img{
+  max-width: 120px;
+  max-height: 120px;
+}
+
+.latest__blog__container .blog__item .img img{
+  max-width:100%;
+  max-height:100%;
+  /* overflow : hidden; */
+}
+
+
 /* Contact me */
 
 #contact__me {
@@ -905,6 +1029,12 @@ footer{
   padding: 20px 2px;
 
   }
+
+  .footer__container .social a:hover{
+    color: var(--white);
+    transition: .4s ease;
+  }
+
 
   .footer__container p{
     color: var(--white);

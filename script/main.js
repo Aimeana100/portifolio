@@ -16,3 +16,12 @@ desktop__nav__toggle.addEventListener('click', e=>{
   navbar.style.transition = "0.5 ease";
   mobile__nav__toggle.style.display = "flex";
 });
+
+
+// scroll && header background
+
+const scrollDemo = document.querySelector("#contact__me");
+
+scrollDemo.addEventListener("scroll", event => {
+   console.log(scrollDemo.scrollTop);
+}, { passive: true });
