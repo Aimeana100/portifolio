@@ -35,7 +35,7 @@
             <li><a href="#projects"> My Work </a></li>
             <li><a href="#blogs"> Blogs </a></li>
             <li><a href="#contact__me"> Contact me </a></li>
-            <!-- <li><a href="dashboard/index.html"> Dashboard</a></li> -->
+            <li class="call__to__action"><a href="login.html"> Sign in</a></li>
           </ul>
 
           <div class="call__to__action">
@@ -560,19 +560,25 @@
             <div class="form__container">
               <form id="contact__me__form" action="">
                 <div class="form__row">
-                  <input type="text" 
-                  name="names" id="contact__name" 
-                  placeholder="Names" 
-                  onkeyup="formSubmitted && validateName()" />
+                  <input
+                    type="text"
+                    name="names"
+                    id="contact__name"
+                    placeholder="Names"
+                    onkeyup="formSubmitted && validateName()"
+                  />
 
                   <span id="name__error" class="name__error"></span>
                 </div>
 
                 <div class="form__row">
-                  <input type="text" name="email"
-                   id="contact__email" 
-                   placeholder="Email" 
-                   onkeyup="formSubmitted && validateEmail()" />
+                  <input
+                    type="text"
+                    name="email"
+                    id="contact__email"
+                    placeholder="Email"
+                    onkeyup="formSubmitted && validateEmail()"
+                  />
                   <span id="email__error" class="email__error"></span>
                 </div>
 
@@ -589,13 +595,12 @@
                 </div>
 
                 <div class="form__error">
-                  <p id="form__error" class="form__error">  </p>
+                  <p id="form__error" class="form__error"></p>
                 </div>
 
                 <div class="send">
-                  <button class="send" >Send message</button>
+                  <button class="send">Send message</button>
                 </div>
-
               </form>
             </div>
 
@@ -653,104 +658,103 @@
     <script src="script/main.js"></script>
 
     <script>
+      // Contact Formvalidation
 
-// Contact Formvalidation 
+      var nameError = document.getElementById("name__error");
+      var emailError = document.getElementById("email__error");
+      var messageError = document.getElementById("message__error");
+      var formError = document.getElementById("form__error");
+      var contact__me__form = document.getElementById("contact__me__form");
 
-var nameError = document.getElementById('name__error')
-var emailError = document.getElementById('email__error')
-var messageError = document.getElementById('message__error')
-var formError = document.getElementById('form__error');
-var contact__me__form = document.getElementById('contact__me__form');
+      var formSubmitted = false;
 
-var formSubmitted = false;
+      // name validation
+      const validateName = () => {
+        var name = document.getElementById("contact__name").value;
 
+        if (name.length == 0) {
+          nameError.innerHTML = "Name is required";
+          return false;
+        }
 
-// name validation
-const validateName = () =>{
+        // if(name.match(/^[A-Za-z]*\s{1}[A-Za-z]*&/)){
+        //   nameError.innerHTML = "Write full name";
+        //   return false;
+        // }
 
-  var name = document.getElementById('contact__name').value;
+        var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
-  if(name.length == 0){
-    nameError.innerHTML = "Name is required";
-    return false;
-  }
+        if (format.test(name)) {
+          nameError.innerHTML = "Invalid character";
+          return false;
+        }
 
-  // if(name.match(/^[A-Za-z]*\s{1}[A-Za-z]*&/)){
-  //   nameError.innerHTML = "Write full name";
-  //   return false;
-  // }
+        nameError.innerHTML = "<i class='fas fa-check-circle' ></i>";
+        return true;
+      };
 
-  nameError.innerHTML = "<i class='fas fa-check-circle' ></i>";
-  return true;
-}
+      const validateEmail = () => {
+        var email = document.getElementById("contact__email").value;
 
-const validateEmail = () => {
-  var email = document.getElementById('contact__email').value;
+        if (email.length == 0) {
+          emailError.innerHTML = "Email is required";
 
-  if(email.length == 0){
-    emailError.innerHTML = "Email is required";
+          return false;
+        }
 
-    return false;
-  }
+        if (!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+          emailError.innerHTML = "Email Invalid";
+          return false;
+        }
 
-  if(!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)){
-    emailError.innerHTML = "Email Invalid";
-    return false;
-  }
+        emailError.innerHTML = "<i class='fas fa-check-circle' ></i>";
+        return true;
+      };
 
-  emailError.innerHTML = "<i class='fas fa-check-circle' ></i>";
-  return true;
-}
+      const validateMessage = () => {
+        var message = document.getElementById("contact__message").value;
+        var required = 10;
+        var left = required - message.length;
 
-const validateMessage = () =>{
-  var message = document.getElementById('contact__message').value;
-  var required = 10;
-  var left = required - message.length;
+        if (left > 0) {
+          messageError.innerHTML = left + " more characters required";
+          return false;
+        }
+        messageError.innerHTML = "<i class='fas fa-check-circle' ></i>";
+        return true;
+      };
 
-  if(left > 0){
+      contact__me__form.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    messageError.innerHTML = left + " more characters required";
-    return false;
-  }
-  messageError.innerHTML = "<i class='fas fa-check-circle' ></i>";
-  return true;
-}
+        if (validateForm()) {
+          alert("Thank you");
+        }
+      });
 
-contact__me__form.addEventListener('submit', function(e){
+      const validateForm = () => {
+        var valid = true;
+        formSubmitted = true;
 
-  e.preventDefault();
+        if (!validateName()) {
+          valid = false;
+        }
 
-  if(validateForm()){
-    alert('Thank you');
-  };
+        if (!validateEmail()) {
+          valid = false;
+        }
 
-});
+        if (!validateMessage()) {
+          valid = false;
+        }
 
-const validateForm = () => {
-
-  var valid = true;
-  formSubmitted = true;
-
-  if(!validateName()){
-    
-    valid =  false;
-  }
-
-  if(!validateEmail()){
-  valid =  false;
-  }
-
- if(!validateMessage()){
-  valid =  false;
-  }
-
-  if(valid){
-    return true;
-  }else{
-    return false;
-  }
-}
- </script>
+        if (valid) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+    </script>
 
     <script type="module">
       // Import the functions you need from the SDKs you need
@@ -758,7 +762,7 @@ const validateForm = () => {
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
-    
+
       // Your web app's Firebase configuration
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
       const firebaseConfig = {
@@ -768,9 +772,9 @@ const validateForm = () => {
         storageBucket: "portifoilio.appspot.com",
         messagingSenderId: "963289524335",
         appId: "1:963289524335:web:f5f2c0d4404c457d36859a",
-        measurementId: "G-1V3GVQ4HZB"
+        measurementId: "G-1V3GVQ4HZB",
       };
-    
+
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);

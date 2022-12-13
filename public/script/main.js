@@ -20,11 +20,11 @@ desktop__nav__toggle.addEventListener('click', e=>{
 
 // scroll && header background
 
-const scrollDemo = document.querySelector("#contact__me");
+// const scrollDemo = document.querySelector("#contact__me");
 
-scrollDemo.addEventListener("scroll", event => {
-   console.log(scrollDemo.scrollTop);
-}, { passive: true });
+// scrollDemo.addEventListener("scroll", event => {
+//    console.log(scrollDemo.scrollTop);
+// }, { passive: true });
 
 
 

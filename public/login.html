@@ -73,18 +73,27 @@
               <form id="login__form" action="dashboard/index.html" method="post">
                 <div class="form__row has__block__label">
                   <label for="login__username"> Username </label>
-                  <input type="text" name="login__username" id="login__username" placeholder="" />
+                  <input type="text"
+                   name="login__username" 
+                   id="login__username" 
+                   placeholder=""
+                   onkeyup="validateUsername()" />
                   <span id="username__error"> </span>
                 </div>
 
                 <div class="form__row has__block__label">
                   <label for="login__password"> Passowrd </label>
-                  <input type="text" name="login__password" id="login__password" placeholder="" />
+                  <input type="text" 
+                  name="login__password" 
+                  id="login__password" 
+                  placeholder="" 
+                  onkeyup="validatePassoword()"
+                  />
                   <span id="password__error"></span>
 
                 </div>
 
-                <div class="login__error">
+                <div id="login__error" class="login__error form__error">
                   
                 </div>
 
@@ -144,47 +153,69 @@
   var username__error = document.getElementById('username__error');
   var passowrd__error = document.getElementById('passowrd__error');
   var login_form = document.getElementById('login__form');
+  var login__error = document.getElementById('login__error');
 
+  var username = document.getElementById('login__username');
+  var passowrd = document.getElementById('login__password');
 
   login_form.addEventListener('submit', function(e){
     e.preventDefault();
 
-    var username = document.getElementById('login__username');
-    var passowrd = document.getElementById('login__password');
+    validateUsername();
+    validatePassoword();
+    auth(username.value, passowrd.value );
+  });
+
+
+
+
 
     const validateUsername = () => {
-      if(username.value){
+      if(username.value == 0){
         username__error.innerHTML = "Plese enter your username";
         return false;
       }
-      var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-                                         
-    if(format.test(username.value)){
-      username__error.innerHTML = "Enter a valid username characters";
-        return false;
-    }
-    username__error.innerHTML = "<i class='fas fa-check-circle' ></i>";
+
+    // username__error.innerHTML = "<i class='fas fa-check-circle' ></i>";
+     username__error.innerHTML = "";
       return true;
     }
 
     const validatePassoword = () => {
-      username__error.innerHTML = "Plese enter your username";
-      return false;
+
+      if(passowrd.value == 0){
+        password__error.innerHTML = "Plese enter your Password";
+        return false;
+      }
+
+      // password__error.innerHTML = "<i class='fas fa-check-circle' ></i>";
+      password__error.innerHTML = "";
+      return true;
     }
 
 
-    if(username.value == 0 ){
-      username__error.innerHTML = "Plese enter your username";
-      return false;
-    }
-    if(passowrd.value == 0 ){
-      message += "<p>  Write your Password </p>";
-      return false;
+    const auth = (username, passowrd) => {
+      var message = "";
+      if(username != "Anathole"){
+        message += " <p> username is : Anathole </p> ";
+
+      }
+
+      if(username != "Anathole"){
+        message += " <p> pass is : 12345 </p> ";
+
+
+      }
+
+      if(message != ""){
+        login__error.innerHTML = message;
+        return false;
+      }
+      else{ 
+        window.location.href = "dashboard/index.html";
+      }
 
     }
-  
-  });
-
 
     </script>
   </body>

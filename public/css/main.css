@@ -1077,14 +1077,12 @@ max-width: 300px;
    .form__row span,
    .form__row i
    {
-
     position: absolute;
     color: rgb(208,130,112);
     right: 10px;
     top: 50%;
     transform: translate(0, -50%);
   }
-
 
    .has__block__label.form__row span,
    .has__block__label.form__row i{
@@ -1094,6 +1092,7 @@ max-width: 300px;
     top: calc(10px + 50%);
     transform: translate(0, -50%);
   }
+
   .form__row i
   {
 
@@ -1105,16 +1104,15 @@ max-width: 300px;
  }
 
 
+   .form__error {
+    color: rgb(208,130,112);
+    margin: 5px 0px 20px 50px ;
+
+  }
+
   .form__row i{
     color: seagreen;
   }
-
-  .form__error .form__error{
-    color: rgb(208,130,112);
-    margin: 5px 0px 10px 0px ;
-
-  }
-
 /* ------------LOGIN ---------------------- */
 
 .login__container{
@@ -1255,7 +1253,7 @@ footer{
     display: flex;
   }
 
-  .navigation__bar .call__to__action a {
+  .navigation__bar div.call__to__action a {
     float: right;
     justify-self: flex-end;
     justify-self: end;
