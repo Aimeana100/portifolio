@@ -103,7 +103,7 @@ header.scrolled{
   font-size: 20;
 }
 
-.navigation__bar ul a:hover {
+.navigation__bar ul a:hover, .navigation__bar ul a.active {
   border-bottom: #2bfa19 1px solid;
   color:rgba(125, 188, 73, 0.768);
 }
@@ -1004,7 +1004,7 @@ max-width: 300px;
 
 .contact__me__container .form__container input,
 .contact__me__container .form__container textarea {
-  border: 0.01em solid rgba(192, 112, 112, .51);
+  border: 0.01em solid #afafaf82;
   margin: 10px 0px;
   padding: 10px;
   width: 100%;
@@ -1066,6 +1066,54 @@ max-width: 300px;
   padding: 2px;
 }
 
+ .form__row
+{
+  position: relative;
+  /* background-color: darkcyan; */
+  /* margin: 2px; */
+}
+  /* ========= Contact me form validaton ======= */
+
+   .form__row span,
+   .form__row i
+   {
+
+    position: absolute;
+    color: rgb(208,130,112);
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+
+   .has__block__label.form__row span,
+   .has__block__label.form__row i{
+    position: absolute;
+    color: rgb(208,130,112);
+    right: 10px;
+    top: calc(10px + 50%);
+    transform: translate(0, -50%);
+  }
+  .form__row i
+  {
+
+   position: absolute;
+   color: rgb(208,130,112);
+   right: 10px;
+   top: 50%;
+   transform: translate(0, -50%);
+ }
+
+
+  .form__row i{
+    color: seagreen;
+  }
+
+  .form__error .form__error{
+    color: rgb(208,130,112);
+    margin: 5px 0px 10px 0px ;
+
+  }
 
 /* ------------LOGIN ---------------------- */
 
@@ -1107,7 +1155,7 @@ max-width: 300px;
   margin: auto;
 }
 .login__form__container form input{
-  border: 0.01em solid rgba(192, 112, 112, .51);
+  border: 0.01em solid rgba(167, 167, 167, 0.51);
   margin: 10px 0px;
   padding: 10px;
   width: 100%;
@@ -1153,6 +1201,8 @@ max-width: 300px;
   opacity: 0.85;
   margin: 0px 3px;
 }
+
+
 
 
 /* -------- FOOTER----------- */

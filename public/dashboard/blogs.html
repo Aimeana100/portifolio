@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script
+      src="https://kit.fontawesome.com/e7a6391963.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/e7a6391963.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="dashboard__container">
+      <header>
+        <div class="top__nav">
+          <div class="left">
+            <div class="logo__container">
+              <img width="40" src="../assets/images/Ana10_icon.svg" alt="" />
+            </div>
+          </div>
+
+          <div class="right">
+            <div class="menu__toogler">
+              <img
+                width="30"
+                height="30"
+                src="../assets/images/Menu.svg"
+                alt=""
+              />
+              <!-- <img
+                width="30"
+                height="30"
+                src="../assets/images/Close.svg"
+                alt=""
+              /> -->
+            </div>
+
+            <div class="profile">
+              Anathole <span><a href="../">logout</a></span>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div class="main__content">
+          <div class="sidebar menu__open">
+            <ul>
+              <li class="">
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="./"> Dashboard </a>
+              </li>
+              <li class="active">
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="blogs.html"> Blogs </a>
+              </li>
+              <li>
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="contacts.html"> Contacts </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="content">
+            <div class="breadcumb">
+              <ul>
+                <li><a href=""> Dashboard </a></li>
+                <li class="current">Blogs</li>
+              </ul>
+            </div>
+
+            <div class="content__heading">
+              <h3>All Blog</h3>
+
+              <a href="add-blogs.html"> Add Blogs </a>
+            </div>
+
+            <div class="form-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>views</th>
+                    <th>comments</th>
+                    <th>Option</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>12</td>
+                    <td>How to start Software development as a career</td>
+                    <td>
+                      <img
+                        width="150"
+                        height="100"
+                        src="../assets/images/bolog_2.jpg"
+                        alt=""
+                      />
+                    </td>
+                    <td>200</td>
+                    <td>100</td>
+                    <td>
+                      <a class="view" href="#"> <button>View</button> </a>
+                      <a class="edit" href="#"> <button>Edit</button> </a>
+                      <a class="status" href="#"> <button>Burn</button> </a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>12</td>
+                    <td>How to start Software development as a career</td>
+                    <td>
+                      <img
+                        width="150"
+                        height="100"
+                        src="../assets/images/bolog_2.jpg"
+                        alt=""
+                      />
+                    </td>
+                    <td>200</td>
+                    <td>100</td>
+                    <td>
+                      <a class="view" href="#"> <button>View</button> </a>
+                      <a class="edit" href="#"> <button>Edit</button> </a>
+                      <a class="status" href="#"> <button>Burn</button> </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="css/main.css" />
-  
+    <script
+      src="https://kit.fontawesome.com/e7a6391963.js"
+      crossorigin="anonymous"
+    ></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,7 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
-</head>
+  </head>
   <body>
     <div class="dashboard__container">
       <header>
@@ -44,91 +47,79 @@
             <div class="profile">
               Anathole <span><a href="../">logout</a></span>
             </div>
-
           </div>
         </div>
       </header>
       <main>
         <div class="main__content">
-
-          <div class="sidebar">
+          <div class="sidebar menu__open">
             <ul>
               <li class="">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="./"> Dashboard </a>
               </li>
-              <li class="active">
+              <li>
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="blogs.html"> Blogs </a>
               </li>
-              <li>
+              <li class="active">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="contacts.html"> Contacts </a>
-              </li>
-              <li>
-                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
-                <a class="menu__item" href="#"> Exprience </a>
               </li>
             </ul>
           </div>
 
           <div class="content">
-
             <div class="breadcumb">
-                <ul>
-                    <li> <a href=""> Dashboard  </a></li>
-                    <li class="current">  Blogs </li>
-                </ul>
+              <ul>
+                <li><a href=""> Dashboard </a></li>
+                <li class="current">Contacts</li>
+              </ul>
             </div>
 
             <div class="content__heading">
+              <h3>All messages</h3>
 
-                <h3> All Blog </h3>
-
-                <a href="add-blogs.html"> Add Blogs </a>
-                    
+              <!-- <a href="add-blogs.html"> Add Blogs </a> -->
             </div>
 
             <div class="form-content">
+              <div class="contact__row">
 
-                <table>
-                    <thead>
-                        <tr> 
-                            <th> Id  </th>
-                            <th> Title </th>
-                            <th> Image  </th>
-                            <th> views  </th>
-                            <th> comments  </th>
-                            <th> Option  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="message__item">
+                    <div class="sender">
+                        <h2 class="name">Karinganire Anathole</h2>
+                        <h4 class="email"> aimeanathole@gmail.com </h4>
+                        <p class="message">
+                           Hey, we are recruiting and we are pleased by your work. 
+                          can we have a deep convs about your availablity ? 
+                      </p>
+                      </div>
+                      <div class="option">
+                          <button class="reply">
+                              Reply
+                          </button>
+                      </div>
+                </div>
 
-                        <tr>
-                            <td>12 </td>
-                            <td> How to start Software development as a career</td>
-                            <td> <img width="150" src="../assets/images/bolog_2.jpg" alt=""> </td>
-                            <td> 200 </td>
-                            <td> 100 </td>
-                            <td> <button> View </button> <button> Edit </button>   </td>
-                        </tr>
+                <div class="message__item">
+                    <div class="sender">
+                        <h2 class="name">Karinganire Anathole</h2>
+                        <h4 class="email"> aimeanathole@gmail.com </h4>
+                        <p class="message">
+                           Hey, we are recruiting and we are pleased by your work. 
+                          can we have a deep convs about your availablity ? 
+                      </p>
+      
+                      </div>
+                      <div class="option">
+                          <button class="reply">
+                              Reply
+                          </button>
+                      </div>
+                </div>
 
-                        <tr>
-                            <td>12 </td>
-                            <td> How to start Software development as a career</td>
-                            <td> <img width="150" src="../assets/images/bolog_2.jpg" alt=""> </td>
-                            <td> 200 </td>
-                            <td> 100 </td>
-                            <td> <button> View </button> <button> Edit </button>   </td>
-                        </tr>
-
-
-
-
-                    </tbody>
-                </table>
-
-                
+              </div>
             </div>
           </div>
         </div>

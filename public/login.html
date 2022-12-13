@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KARINGANIRE Anathole</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/main.css" />
+    <script
+      src="https://kit.fontawesome.com/e7a6391963.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="web__content">
+      <header class="scrolled">
+        <nav class="container navigation__bar">
+          <div class="logo">
+            <img width="60" src="assets/images/Ana10_icon.svg" alt="" />
+          </div>
+
+          <ul id="navbar" class="navbar">
+            <li><a class="active" href="/"> Home </a></li>
+            <li><a href="index.html#about__me"> About me </a></li>
+            <li><a href="index.html#skills"> Skills </a></li>
+            <li><a href="index.html#projects"> My Work </a></li>
+            <li><a href="index.html#blogs"> Blogs </a></li>
+            <li><a href="index.html#contact__me"> Contact me </a></li>
+          </ul>
+
+          <div class="call__to__action">
+            <a href="login.html"> Sign in | Sign up </a>
+          </div>
+
+          <div class="menu__toogle">
+            <img
+              id="mobile-nav-toggle"
+              width="50"
+              src="assets/images/Menu.svg"
+              alt=""
+            />
+            <img
+              id="desktop-nav-toggle"
+              width="40"
+              src="assets/images/Close.svg"
+              alt=""
+            />
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <section id="login">
+          <div class="container login__container">
+            <div class="login__form__container">
+              <div class="heading container">
+                <h2>Login</h2>
+              </div>
+
+              <div class="login__with__google">
+                <img src="assets/images/login_google.svg" alt="" />
+              </div>
+
+              <form id="login__form" action="dashboard/index.html" method="post">
+                <div class="form__row has__block__label">
+                  <label for="login__username"> Username </label>
+                  <input type="text" name="login__username" id="login__username" placeholder="" />
+                  <span id="username__error"> </span>
+                </div>
+
+                <div class="form__row has__block__label">
+                  <label for="login__password"> Passowrd </label>
+                  <input type="text" name="login__password" id="login__password" placeholder="" />
+                  <span id="password__error"></span>
+
+                </div>
+
+                <div class="login__error">
+                  
+                </div>
+
+
+
+                
+
+                <div class="send">
+                  <button class="send" type="submit">Login</button>
+                </div>
+
+                <div class="new__register">
+                  <p>
+                    <s>
+                      Don't have an account ?
+                      <a href="register.html"><span> Register</span></a>
+                    </s>
+                  </p>
+                </div>
+
+                <div class="new__register">
+                  <p>
+                    Go to dashboard
+                    <a href="dashboard/index.html"><span> Dashboard</span></a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="container footer__container">
+          <div class="copyright">
+            <p>Copy right &copy; KARINGANIRE Anathole <span>2022</span></p>
+          </div>
+          <div class="social">
+            <a href="">
+              <img src="assets/images/github.svg" alt="" /> github
+            </a>
+            <a href="">
+              <img src="assets/images/linkedin.svg" alt="" /> linkedin
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="script/main.js"></script>
+
+    <script>
+
+
+
+// Login form validation
+
+  var username__error = document.getElementById('username__error');
+  var passowrd__error = document.getElementById('passowrd__error');
+  var login_form = document.getElementById('login__form');
+
+
+  login_form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var username = document.getElementById('login__username');
+    var passowrd = document.getElementById('login__password');
+
+    const validateUsername = () => {
+      if(username.value){
+        username__error.innerHTML = "Plese enter your username";
+        return false;
+      }
+      var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+                                         
+    if(format.test(username.value)){
+      username__error.innerHTML = "Enter a valid username characters";
+        return false;
+    }
+    username__error.innerHTML = "<i class='fas fa-check-circle' ></i>";
+      return true;
+    }
+
+    const validatePassoword = () => {
+      username__error.innerHTML = "Plese enter your username";
+      return false;
+    }
+
+
+    if(username.value == 0 ){
+      username__error.innerHTML = "Plese enter your username";
+      return false;
+    }
+    if(passowrd.value == 0 ){
+      message += "<p>  Write your Password </p>";
+      return false;
+
+    }
+  
+  });
+
+
+    </script>
+  </body>
+</html>

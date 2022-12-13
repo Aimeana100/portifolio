@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="css/main.css" />
-  
+    <script
+      src="https://kit.fontawesome.com/e7a6391963.js"
+      crossorigin="anonymous"
+    ></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,7 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
-</head>
+  </head>
   <body>
     <div class="dashboard__container">
       <header>
@@ -44,13 +47,11 @@
             <div class="profile">
               Anathole <span><a href="../">logout</a></span>
             </div>
-
           </div>
         </div>
       </header>
       <main>
         <div class="main__content">
-
           <div class="sidebar">
             <ul>
               <li class="">
@@ -65,35 +66,25 @@
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="contacts.html"> Contacts </a>
               </li>
-              <li>
-                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
-                <a class="menu__item" href="#"> Exprience </a>
-              </li>
             </ul>
           </div>
 
           <div class="content">
-
             <div class="breadcumb">
-                <ul>
-                    <li> <a href=""> Dashboard  </a></li>
-                    <li class="current">  Blogs </li>
-                </ul>
+              <ul>
+                <li><a href=""> Dashboard </a></li>
+                <li class="current">Blogs</li>
+              </ul>
             </div>
 
             <div class="content__heading">
+              <h3>Add Blog</h3>
 
-                <h3> Add Blog </h3>
-
-                <a href="blogs.html"> All Blogs </a>
-                    
+              <a href="blogs.html"> All Blogs </a>
             </div>
 
             <div class="form-content">
-
-
               <form action="">
-
                 <div class="form-row">
                   <label for=""> Blog Title </label>
                   <input class="form-control" type="text" />
@@ -116,16 +107,30 @@
 
                 <div class="form-row">
                   <label for=""> Description </label>
-                  <textarea class="form-control" name="" id="" rows="4"></textarea>
+                  <textarea
+                    class="form-control"
+                    name=""
+                    id="description"
+                    rows="20"
+                  ></textarea>
                 </div>
 
-                <button class="btn btn__send" type="submit"> Add </button>
-
-            </form>
+                <button class="btn btn__send" type="submit">Add</button>
+              </form>
             </div>
           </div>
         </div>
       </main>
     </div>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+
+    <script>
+      ClassicEditor.create(document.querySelector("#description")).catch(
+        (error) => {
+          console.error(error);
+        }
+      );
+    </script>
   </body>
 </html>

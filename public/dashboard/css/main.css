@@ -10,10 +10,12 @@
     padding: 0px 30px;
 }
 
+
 header{
 
-
 }
+
+
 
 .top__nav{
     height: 75px;
@@ -65,12 +67,14 @@ header{
     display: flex;
     align-items: center;
 }
+
 .main__content .sidebar ul li {
     padding: 0px;
     list-style: none;
     display: flex;
     align-items: center;
 }
+
 .main__content .sidebar ul li.active {
     border-left: 10px solid green;
     background-color: #1B2730;
@@ -78,10 +82,12 @@ header{
     border-top-left-radius: 5px;
     margin-left: -10px;
 }
+
 .main__content .sidebar ul li:hover{
     background-color: #1B2730;
     transition: 0.5s ease-out;
 }
+
 .main__content .sidebar ul{
     margin: 8px;
 }
@@ -96,6 +102,7 @@ header{
 .main__content .content{
     flex: 1;
 }
+
 .main__content .content .breadcumb{
     padding: 8px 25px;
     /* margin:5px; */
@@ -105,7 +112,6 @@ header{
 
 .breadcumb ul{
     display: flex;
-
 }
 
 .breadcumb ul li{
@@ -129,7 +135,7 @@ header{
     margin-right: 10px;
 }
 
-.content  .content__heading{
+.content  .content__heading {
     margin: 20px ;
     padding: 10px;
     background-color: #2b3944d8 ;
@@ -138,6 +144,7 @@ header{
     justify-content:space-between;
     
 }
+
 .content  .content__heading h3{
     color: rgb(230, 230, 230);
     font: 13px 700 ;
@@ -156,10 +163,13 @@ header{
  padding: 20px;
  display: flex;
  flex-wrap: wrap;
- /* justify-content: center;    */
+
+ /* justify-content: center; */
 }
+
+
 .content .cards__container .cards{
-    width: 200px;
+    width: 240px;
     height: 150px;
     padding: 10px;
     background-color: rgb(255, 255, 255);
@@ -176,14 +186,13 @@ header{
     font-size: 36px;
     font-weight: 700;
     color:rgb(40, 87, 87);
-
 }
 
-/* Add Blogs  */
 
+/* Add Blogs  */
 .main__content .content .form-content{
     padding: 20px;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
 }
 
  
@@ -202,17 +211,19 @@ header{
     margin: 10px 0px;
     border-radius: 5px;
     border: .01em solid rgba(243, 243, 243, 0.719);
-    
-
+    background-color: #00000005;
 }
+
 .form-content form .form-row label{
     margin-bottom: 5px;
 }
+
 .form-content form .form-row .form-control{
     padding:10px;
     border-radius: 3px;
-    border: 0.01em solid rgb(173, 218, 218);
+    border: 0.01em solid rgba(173, 218, 218, 0.212);
     outline:none;
+    background-color: #f1f1f17a;
 }
 
 .form-content form .btn__send{
@@ -240,11 +251,178 @@ header{
     margin: 0 10%;
     overflow-x: scroll;
 }
+
 .form-content table tr td{
  padding: 10px;
 }
 
+.form-content table button, .form-content table a{
+    border-radius: 3px;
+    display: inline-block;
+    border:none;
+    text-decoration: none;
+
+}
+
+
 .form-content table button{
-    padding:  3px 4px;
+    padding:  4px 6px;
+    font-weight: 700;
+    background-color: transparent;
+    border:none;
+    color: rgb(247, 247, 247);
+    cursor: pointer;
+}
+
+.form-content table a.edit{
+    background-color: #0f5e92;
+}
+
+.form-content table a.edit:hover{
+    background-color: #062b44;
+}
+
+
+.form-content table a.view{
+    background-color: #292e31;
+}
+
+.form-content table a.view:hover{
+    background-color: #707d85;
+}
+
+.form-content table a.status{
+    background-color: #4e00008a;
+}
+
+.form-content table a.status:hover{
+    background-color: #690000c4;
+}
+
+
+
+/* 
+Generic Styling, for Desktops/Laptops 
+*/
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+  }
+  /* Zebra striping */
+  tr:nth-of-type(odd) { 
+    background: #eee; 
+  }
+  th { 
+    background: #333; 
+    color: white; 
+    font-weight: bold; 
+  }
+  td, th { 
+    padding: 6px; 
+    border: 1px solid #ccc; 
+    text-align: left; 
+  }
+
+  /* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+        position: relative;
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 50px !important;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+
+	/* td:nth-of-type(1):before { content: "Id"; }
+	td:nth-of-type(2):before { content: "Title"; }
+	td:nth-of-type(3):before { content: "Image"; } */
+	td:nth-of-type(4):after { content: "Views"; font-size: 10px; }
+	td:nth-of-type(5):after { content: "Comments"; font-size: 10px; }
+	/* td:nth-of-type(6):before { content: "Options"; } */
+}
+
+/* 
+Contacts
+*/
+
+.contact__row{
+    margin: 5px 0px;
+}
+
+.contact__row .message__item{
+    margin: 5px 0px;
+    padding: 10px;
+    background-color: #f1f1f1d8;
+}
+
+.contact__row .message__item:hover{
+    background-color: #dfdfdfd8;
+
+}
+
+.contact__row .message__item .sender{
+    display: flex;
+    flex-direction: column;
+}
+.message__item .sender .name{
+    color:rgba(58, 58, 58, 0.938);
+}
+.message__item .sender .email{ 
+    color:rgb(156, 156, 156)
+}
+.message__item .sender p{
+    margin: 8px 0px 5px 0px;
+}
+
+.message__item  button{
+    padding: 3px 8px;
+    margin: 5px 0px;
+    background-color: #062b44;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+}
+
+.message__item  button:hover{
+ color: #062b44;
+ background-color: #fff;
+ border: 1px solid #062b44;
 
 }
