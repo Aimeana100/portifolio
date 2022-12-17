@@ -240,6 +240,7 @@
           </div>
 
           <div class="container project_container">
+
             <div class="item">
               <div class="img">
                 <img src="assets/images/anathole_cv_project.png" alt="" />
@@ -295,7 +296,8 @@
             <h2>My latest blogs.</h2>
           </div>
 
-          <div class="container blogs_container">
+          <div class="container latest__blog blogs_container">
+            
             <div class="item">
               <div class="img">
                 <img src="assets/images/blog_1.jpg" alt="" />
@@ -378,169 +380,6 @@
               </div>
             </div>
 
-            <div class="item">
-              <div class="img">
-                <img src="assets/images/blog_1.jpg" alt="" />
-              </div>
-              <div class="description">
-                <p class="date__desktop">
-                  <img src="assets/images/Alarm.svg" alt="" /> December , 20
-                  2022
-                </p>
-                <h3 class="title">
-                  How to start Software development as a career
-                </h3>
-
-                <p class="description__text">
-                  Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.
-                </p>
-
-                <p class="date__mobile">
-                  <img src="assets/images/Alarm.svg" alt="" /> December , 20
-                  2022
-                </p>
-
-                <div class="comment_views">
-                  <p class="comments">
-                    <img src="assets/images/inser_ comment.svg" alt="" />
-                    <span>12</span>
-                  </p>
-
-                  <p class="views">
-                    <img src="assets/images/views.svg" alt="" />
-                    <span>12</span>
-                  </p>
-                </div>
-
-                <a href="blog-single.html" class="read__more"
-                  >Read more
-                  <img src="assets/images/arrow_right_alt.svg" alt="" />
-                </a>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="img">
-                <img src="assets/images/blog_1.jpg" alt="" />
-              </div>
-              <div class="description">
-                <p class="date__desktop">
-                  <img src="assets/images/Alarm.svg" alt="" /> December , 20
-                  2022
-                </p>
-                <h3 class="title">
-                  How to start Software development as a career
-                </h3>
-
-                <p class="description__text">
-                  Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.
-                </p>
-
-                <p class="date__mobile">
-                  <img src="assets/images/Alarm.svg" alt="" /> December , 20
-                  2022
-                </p>
-
-                <div class="comment_views">
-                  <p class="comments">
-                    <img src="assets/images/inser_ comment.svg" alt="" />
-                    <span>12</span>
-                  </p>
-
-                  <p class="views">
-                    <img src="assets/images/views.svg" alt="" />
-                    <span>12</span>
-                  </p>
-                </div>
-
-                <a href="blog-single.html" class="read__more"
-                  >Read more
-                  <img src="assets/images/arrow_right_alt.svg" alt="" />
-                </a>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="img">
-                <img src="assets/images/blog_1.jpg" alt="" />
-              </div>
-              <div class="description">
-                <p class="date__desktop">
-                  <img src="assets/images/Alarm.svg" alt="" /> December , 20
-                  2022
-                </p>
-                <h3 class="title">
-                  How to start Software development as a career
-                </h3>
-
-                <p class="description__text">
-                  Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.
-                </p>
-
-                <p class="date__mobile">
-                  <img src="assets/images/Alarm.svg" alt="" /> December , 20
-                  2022
-                </p>
-
-                <div class="comment_views">
-                  <p class="comments">
-                    <img src="assets/images/inser_ comment.svg" alt="" />
-                    <span>12</span>
-                  </p>
-
-                  <p class="views">
-                    <img src="assets/images/views.svg" alt="" />
-                    <span>12</span>
-                  </p>
-                </div>
-
-                <a href="blog-single.html" class="read__more"
-                  >Read more
-                  <img src="assets/images/arrow_right_alt.svg" alt="" />
-                </a>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="img">
-                <img src="assets/images/blog_1.jpg" alt="" />
-              </div>
-              <div class="description">
-                <p class="date__desktop">
-                  <img src="assets/images/Alarm.svg" alt="" /> December , 20
-                  2022
-                </p>
-                <h3 class="title">
-                  How to start Software development as a career
-                </h3>
-
-                <p class="description__text">
-                  Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.
-                </p>
-
-                <p class="date__mobile">
-                  <img src="assets/images/Alarm.svg" alt="" /> December , 20
-                  2022
-                </p>
-
-                <div class="comment_views">
-                  <p class="comments">
-                    <img src="assets/images/inser_ comment.svg" alt="" />
-                    <span>12</span>
-                  </p>
-
-                  <p class="views">
-                    <img src="assets/images/views.svg" alt="" />
-                    <span>12</span>
-                  </p>
-                </div>
-
-                <a href="blog-single.html" class="read__more"
-                  >Read more
-                  <img src="assets/images/arrow_right_alt.svg" alt="" />
-                </a>
-              </div>
-            </div>
           </div>
 
           <div class="more__container">
@@ -717,7 +556,7 @@
         var left = required - message.length;
 
         if (left > 0) {
-          messageError.innerHTML = left + " more characters required";
+          messageError.innerHTML = " minimum 10 characters";
           return false;
         }
         messageError.innerHTML = "<i class='fas fa-check-circle' ></i>";
@@ -726,7 +565,6 @@
 
       contact__me__form.addEventListener("submit", function (e) {
         e.preventDefault();
-
         if (validateForm()) {
           alert("Thank you");
         }
@@ -758,26 +596,59 @@
 
     <script type="module">
       // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+
+      // //  ------
+      //       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+      //       import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+      //       import {
+      //       getFirestore,
+      //       collection,
+      //       getDocs } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+      // ---------
+
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
 
       // Your web app's Firebase configuration
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyB-Zt1GfiH3rjQbPMITywFeU-NZdRFG5vw",
-        authDomain: "portifoilio.firebaseapp.com",
-        projectId: "portifoilio",
-        storageBucket: "portifoilio.appspot.com",
-        messagingSenderId: "963289524335",
-        appId: "1:963289524335:web:f5f2c0d4404c457d36859a",
-        measurementId: "G-1V3GVQ4HZB",
-      };
+
+      // const firebaseConfig = {
+      //   apiKey: "AIzaSyB-Zt1GfiH3rjQbPMITywFeU-NZdRFG5vw",
+      //   authDomain: "portifoilio.firebaseapp.com",
+      //   projectId: "portifoilio",
+      //   storageBucket: "portifoilio.appspot.com",
+      //   messagingSenderId: "963289524335",
+      //   appId: "1:963289524335:web:f5f2c0d4404c457d36859a",
+      //   measurementId: "G-1V3GVQ4HZB",
+      // };
 
       // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
+      // const app = initializeApp(firebaseConfig);
+      // const analytics = getAnalytics(app);
+
+      // init services
+      // const db = getFirestore(app);
+
+      // collection reff
+
+      // const colRef = collection(db, 'blogs');
+
+      // get collecction
+      // getDocs(colRef)
+      // .then((snapshot) => {
+      //       console.log(snapshot.docs);
+      // })
+    </script>
+
+    <!-- <script src="../dist/bundle.js"></script> -->
+    <script src="../src/Category.js"></script>
+    <script src="../src/Blog.js"></script>
+    <script src="../src/functions.js"></script>
+
+    <script>
+      var latest__blog = document.querySelector(".latest__blog.blogs_container");
+      var blg = Blog.getAllBlogs();
+      latest__blog.innerHTML = buildLatestBlogs(blg, 6);
     </script>
   </body>
 </html>

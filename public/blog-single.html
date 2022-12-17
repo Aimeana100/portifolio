@@ -29,11 +29,11 @@
               </div>
     
               <ul id="navbar" class="navbar">
-                <li><a class="active" href="/"> Home </a></li>
+                <li><a class="" href="/"> Home </a></li>
                 <li><a href="index.html#about__me"> About me </a></li>
                 <li><a href="index.html#skills"> Skills </a></li>
                 <li><a href="index.html#projects"> My Work </a></li>
-                <li><a href="index.html#blogs"> Blogs </a></li>
+                <li><a class="active" href="index.html#blogs"> Blogs </a></li>
                 <li><a href="index.html#contact__me"> Contact me </a></li>
               </ul>
     
@@ -80,10 +80,13 @@
             <div class="blog__img">
                 <img src="assets/images/bolog_2.jpg" alt="">
             </div>
+
             <div class="blog__content">
+
                 <div class="date__published">
                     <p>  <img src="assets/images/Alarm.svg" alt="">  December ,  20 2022 </p>
                 </div>
+
                     <h2 class="title"> How to start Software development as a career How to start Software development as a career </h2>
 
                     <div class="content">
@@ -97,9 +100,36 @@
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio itaque labore libero assumenda esse non aliquid cumque beatae harum consectetur laboriosam, dolorem ut eligendi doloribus ea sed obcaecati voluptatibus alias!
                             </p>
                         </div>
+                    </div>
+                  </div>
 
                         <div class="comments">
-                            <div class="">
+
+                          <div class="comment__form">
+                            <h3> Leave a comment here </h3>
+                            <form action="">
+
+                              <div class="form__group">
+                                <div class="form__row">
+                                  <input type="text" placeholder="Names">
+                                </div>
+                                <div class="form__row">
+                                  <input type="text" placeholder="Email">
+                                </div>
+                              </div>
+
+                              <div class="form__row">
+                                <textarea name="" id="" rows="4" placeholder="Comment message" >  </textarea>
+                              </div>
+
+                              <div class="form__row">
+                                <button> Send </button>
+                              </div>
+                            </form>
+                          </div>
+
+
+                            <div class="comments__list">
                                 <h3 class="comment__title"> 1 <span>Comment(s)</span> </h3>
 
                                 <!-- comment item -->
@@ -123,34 +153,10 @@
                                     </div>
                                 </div>
 
-                                <!-- comment item -->
-                                <!-- <div class="comment__content">
-                                    <div class="coment__item">
-                                        <div class="commenter__photo">
-                                            <img src="assets/images/Ana10_icon.svg" alt="">
-                                        </div>
-                                        <div class="commenter__description">
-                                            <p> <span class="name">Karinganire Anathole</span> <span class="comment__date" > June, 30 2020 </span>  </p>
-                                            <p class="comment__text">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                 tenetur ex nesciunt perferendis saepe fuga nostrum cupiditate soluta labore,
-                                                 <br> 
-                                                 <br> 
-                                                 eaque necessitatibus ullam assumenda, sunt voluptatibus! Sunt vel asperiores aspernatur porro vero blanditiis non facilis,?
-                                            </p>
-
-                                            <div class="reply"> <a href="">Reply</a> </div>
-                                        </div>
-                                    </div>
-                                </div> -->
-
                             </div>
+                           
                         </div>
-                        
-
-                    </div>
-
-            </div>
+                      
 
           </div>
 
@@ -159,12 +165,10 @@
             <div class="categories">
               <p class="category_item"> <img src="assets/images/arrow_right_alt_red.svg" alt=""> Software development </p>
               <p class="category_item"> <img src="assets/images/arrow_right_alt_red.svg" alt=""> Data science </p>
-              <p class="category_item"> <img src="assets/images/arrow_right_alt_red.svg" alt=""> Web development </p>
-              <p class="category_item"> <img src="assets/images/arrow_right_alt_red.svg" alt=""> Allitificial intelligent  </p>
             </div>
          
 
-            <div class="latest__blog__container">
+            <div class="latest__blog__container  most_viewed_blogs">
 
               <!-- item -->
               <div class="blog__item">
@@ -182,8 +186,33 @@
                     <img src="assets/images/views.svg" alt="" />
                     <span>12</span>
                   </p>
+                  <img class="read__more" width="30" src="assets/images/arrow_right_alt.svg" alt="" >
+                </div>
+                </div>
 
-           
+              </div>
+
+              <!--/ item -->
+
+              <!-- item -->
+
+              <div class="blog__item">
+
+                <div class="img">
+                  <img src="assets/images/blog_1.jpg" alt="">
+                </div>
+
+                <div class="description">
+                  <h4 class="title"> How to start Software development as a career  </h4>
+                  <p class="time__frame"> <img src="assets/images/Alarm.svg" alt=""> Dec, 22 2022 </p>
+                  <div class="comment_views">
+                  <p class="comments">
+                    <img src="assets/images/inser_ comment.svg" alt="" />
+                    <span>12</span>
+
+                    <img src="assets/images/views.svg" alt="" />
+                    <span>12</span>
+                  </p>
 
                   <img class="read__more" width="30" src="assets/images/arrow_right_alt.svg" alt="" >
                 </div>
@@ -192,8 +221,7 @@
               </div>
               <!-- /item -->
 
-
-
+              
               <!-- item -->
               <div class="blog__item">
                 <div class="img">
@@ -237,36 +265,6 @@
                     <img src="assets/images/views.svg" alt="" />
                     <span>12</span>
                   </p>
-
-           
-
-                  <img class="read__more" width="30" src="assets/images/arrow_right_alt.svg" alt="" >
-                </div>
-                </div>
-
-              </div>
-              <!-- /item -->
-
-              
-              <!-- item -->
-              <div class="blog__item">
-                <div class="img">
-                  <img src="assets/images/blog_1.jpg" alt="">
-                </div>
-                <div class="description">
-                  <h4 class="title"> How to start Software development as a career  </h4>
-                  <p class="time__frame"> <img src="assets/images/Alarm.svg" alt=""> Dec, 22 2022 </p>
-                  <div class="comment_views">
-                  <p class="comments">
-                    <img src="assets/images/inser_ comment.svg" alt="" />
-                    <span>12</span>
-
-                    <img src="assets/images/views.svg" alt="" />
-                    <span>12</span>
-                  </p>
-
-           
-
                   <img class="read__more" width="30" src="assets/images/arrow_right_alt.svg" alt="" >
                 </div>
                 </div>
@@ -331,6 +329,37 @@
 
       </footer>
 
-    <script src="script/main.js"></script>
+      <script src="../src/Category.js"></script>
+      <script src="../src/Blog.js"></script>
+      <script src="../src/functions.js"></script>
+
+      <script src="script/main.js"></script>
+
+    <script>
+      var all__category_container = document.querySelector('.right__summary .categories');
+      var all__most_viewd_container = document.querySelector('.right__summary .most_viewed_blogs');
+
+      var blg = Blog.getAllBlogs();
+      var ctg = Category.getAllCategories();
+
+      all__category_container.innerHTML = buildCategoriesList(ctg);
+      all__most_viewd_container.innerHTML = mostViewedBlogs(blg);
+
+
+     
+
+      if (urlParams.has("blog")) {
+       var title = document.querySelector('.blog__single__container .blog__content .title');
+       var desc = document.querySelector('.blog__single__container .blog__content .blog__content_text')
+       var img = document.querySelector('.blog__single__container .blog__img img')
+       
+        const id = urlParams.get("blog");
+        var blgs = Blog.getBlog(id)[0];
+         title.innerText = blgs.title;
+         desc.innerHTML = blgs.description;
+         img.setAttribute('src',blgs.image);
+      }
+
+    </script>
   </body>
 </html>

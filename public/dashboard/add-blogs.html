@@ -58,6 +58,10 @@
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="./"> Dashboard </a>
               </li>
+              <li class="">
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="category.html"> Category </a>
+              </li>
               <li class="active">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="blogs.html"> Blogs </a>
@@ -84,24 +88,35 @@
             </div>
 
             <div class="form-content">
-              <form action="">
+              <form action="" name="addBlogFrm" id="addBlogFrm">
                 <div class="form-row">
                   <label for=""> Blog Title </label>
-                  <input class="form-control" type="text" />
+                  <input
+                    class="form-control"
+                    name="title"
+                    type="text"
+                    required
+                  />
                 </div>
 
                 <div class="form-row">
                   <label for=""> Blog Image </label>
-                  <input class="form-control" type="file" />
+                  <input
+                    name="image"
+                    class="form-control image"
+                    id="image"
+                    type="file"
+                    required
+                  />
+
+                  <div style="margin-top: 10px" id="imagePreview"></div>
                 </div>
 
                 <div class="form-row">
                   <label for=""> Category </label>
-                  <select class="form-control" name="category" id="">
+                  <select class="form-control" name="category" id="category" required>
                     <option value="">--select--</option>
-                    <option value="">Software development</option>
-                    <option value="">Graphic design</option>
-                    <option value="">Carreer development</option>
+                    
                   </select>
                 </div>
 
@@ -109,10 +124,14 @@
                   <label for=""> Description </label>
                   <textarea
                     class="form-control"
-                    name=""
+                    name="description"
                     id="description"
                     rows="20"
                   ></textarea>
+                </div>
+
+                <div class="action__message">
+                  <h4 class="add__message"></h4>
                 </div>
 
                 <button class="btn btn__send" type="submit">Add</button>
@@ -131,6 +150,92 @@
           console.error(error);
         }
       );
+    </script>
+
+    <script src="../../src/Blog.js"></script>
+    <script src="../../src/Category.js"></script>
+    <script src="../../src/functions.js"></script>
+
+    <!-- <script src="../../dist/bundle.js"></script> -->
+
+    <script>
+
+      // ============ Submit Blog form        =======
+      // var fileItem = document.querySelector(".fileItem");
+      // var uploadPercentage = document.querySelector(".uploadPercentage");
+      // var progress = document.querySelector(".progress");
+
+      populateCategory("");
+ 
+      var image = document.getElementById("image");
+      var fileItem;
+      var fileName;
+   
+      function getFile(e) {
+        fileItem = e.target.files[0];
+        fileName = fileItem.name;
+      }
+
+      image &&
+        image.addEventListener("change", (e) => {
+          getFile(e);
+          console.log(fileItem);
+          if (!fileValidation("image")) {
+            return false;
+          }
+        });
+
+        
+      // ===== Adding blog ====
+      const addBlogForm = document.getElementById("addBlogFrm");
+      addBlogForm &&
+        addBlogForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          // var imageURL = uploadImage(fileItem, fileName);
+
+          var imgURL = "";
+          var id = create_UUID();
+          var title = addBlogForm.title.value;
+          var description = addBlogForm.description.value;
+          var category = addBlogForm.category.value;
+          var views = 0;
+          var status = true;
+
+          const reader = new FileReader();
+          reader.readAsDataURL(fileItem);
+
+          reader.addEventListener("load", function (ev) {
+            imgURL = getImageURL(reader);
+            var res = Blog.addBlog(
+              id,
+              title,
+              imgURL,
+              description,
+              category,
+              0,
+              true
+            );
+
+            if (res) {
+              var mesg = document.querySelector(".add__message");
+              mesg.style.padding = "10px";
+              mesg.innerText = "Blog created successfully";
+              addBlogForm.reset();
+
+              setTimeout(() => {
+                mesg.innerText = "";
+                mesg.style.padding = "0px";
+              }, 3000);
+            }
+          });
+        });
+
+      function getImageURL(reader) {
+        return reader.result;
+      }
+
+      console.log(Blog.getAllBlogs());
     </script>
   </body>
 </html>

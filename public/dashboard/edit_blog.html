@@ -58,6 +58,10 @@
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="./"> Dashboard </a>
               </li>
+              <li class="">
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="category.html"> Category </a>
+              </li>
               <li class="active">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="blogs.html"> Blogs </a>
@@ -84,35 +88,41 @@
             </div>
 
             <div class="form-content">
-              <form action="">
+              <form action="" id="editBlogFrm">
                 <div class="form-row">
                   <label for=""> Blog Title </label>
                   <input
                     class="form-control"
                     type="text"
-                    value="How to start Software development as a career"
+                    name="title"
+                    id="edit_title"
                   />
                 </div>
 
                 <div class="form-row">
                   <label for=""> Blog Image </label>
-                  <input class="form-control" type="file" />
+                  <input
+                    class="form-control"
+                    type="file"
+                    name="image"
+                    id="image"
+                  />
 
-                  <img
+                  <!--<img
                     style="margin-top: 10px"
                     height="100"
+                    width="150"
                     src="../assets/images/bolog_2.jpg"
                     alt=""
-                  />
+                  />-->
+
+                  <div style="margin-top: 10px" id="imagePreview"></div>
                 </div>
 
                 <div class="form-row">
                   <label for=""> Category </label>
-                  <select class="form-control" name="category" id="">
+                  <select class="form-control" name="category" id="category">
                     <option value="">--select--</option>
-                    <option selected value="">Software development</option>
-                    <option value="">Graphic design</option>
-                    <option value="">Carreer development</option>
                   </select>
                 </div>
 
@@ -120,49 +130,129 @@
                   <label for=""> Description </label>
                   <textarea
                     class="form-control"
-                    name=""
+                    name="description"
                     id="description"
                     rows="4"
+                    id="edit_description"
                   ></textarea>
                 </div>
 
-                <button class="btn btn__send" type="submit">Add</button>
+                <input type="hidden" id="id" name="id" />
+
+                <div class="action__message">
+                  <h4 class="add__message"></h4>
+                </div>
+
+
+                <button class="btn btn__send" type="submit">Update</button>
               </form>
             </div>
           </div>
         </div>
       </main>
     </div>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
 
-    <script src="https://cdn.ckbox.io/CKBox/1.2.1/ckbox.js"></script>
-    <div id="editor"></div>
     <script>
-      ClassicEditor.create(document.querySelector("#description"), {
-        ckbox: {
-          tokenUrl: "https://your.token.url",
-        },
-        toolbar: [
-          "ckbox",
-          "imageUpload",
-          "|",
-          "heading",
-          "|",
-          "undo",
-          "redo",
-          "|",
-          "bold",
-          "italic",
-          "|",
-          "blockQuote",
-          "indent",
-          "link",
-          "|",
-          "bulletedList",
-          "numberedList",
-        ],
-      }).catch((error) => {
-        console.error(error);
-      });
+      // ClassicEditor.create(document.querySelector("#description")).catch(
+      //   (error) => {
+      //     console.error(error);
+      //   }
+      // );
+    </script>
+    <!-- <script src="../../dist/bundle.js"></script> -->
+    <script src="../../src/Category.js"></script>
+    <script src="../../src/Blog.js"></script>
+    <script src="../../src/functions.js"></script>
+
+    <script>
+
+
+    var image = document.getElementById("image");
+      var fileItem;
+      var fileName;
+   
+      function getFile(e) {
+        fileItem = e.target.files[0];
+        fileName = fileItem.name;
+      }
+
+      image &&
+        image.addEventListener("change", (e) => {
+          getFile(e);
+          console.log(fileItem);
+          if (!fileValidation("image")) {
+            return false;
+          }
+        });
+
+
+      // ===== Updating blog ====
+      const editBlogForm = document.getElementById("editBlogFrm");
+      editBlogForm &&
+        editBlogForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          var imgURL = "";
+          var id = editBlogForm.id.value;
+          var title = editBlogForm.title.value;
+          var description = editBlogForm.description.value;
+          var category = editBlogForm.category.value;
+          var resuslt;
+
+          const reader = new FileReader();
+          // fileItem : @an instance of selected file image,
+
+          if (typeof fileItem != "undefined") {
+            reader.readAsDataURL(fileItem);
+
+            reader.addEventListener("load", function (ev) {
+              imgURL = getImageURL(reader);
+
+              var resuslt = Blog.update(
+                id,
+                title,
+                imgURL,
+                category,
+                description
+              );
+
+              if (resuslt) {
+                var mesg = document.querySelector(".add__message");
+                mesg.style.padding = "10px";
+                mesg.innerText = "Blog Updated successfully";
+                editBlogForm.reset();
+
+                setTimeout(() => {
+                  mesg.innerText = "";
+                  mesg.style.padding = "0px";
+                }, 10000);
+              }
+            });
+          } else {
+            var resuslt = Blog.update(id, title, imgURL, category, description);
+                console.log(resuslt);
+            if (resuslt) {
+              var mesg = document.querySelector(".add__message");
+              mesg.style.padding = "10px";
+              mesg.innerText = "Blog Updated successfully";
+              // editBlogForm.reset();
+
+              editBlogForm.description.value = "";
+              setTimeout(() => {
+                mesg.innerText = "";
+                mesg.style.padding = "0px";
+
+              }, 10000);
+            }
+          }
+        });
+
+      function getImageURL(reader) {
+        return reader.result;
+      }
+
+      console.log(Blog.getAllBlogs());
     </script>
   </body>
 </html>

@@ -61,11 +61,11 @@
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="./"> Dashboard </a>
               </li>
-              <li class="">
+              <li class="active">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="category.html"> Category </a>
               </li>
-              <li class="active">
+              <li >
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="blogs.html"> Blogs </a>
               </li>
@@ -80,29 +80,28 @@
             <div class="breadcumb">
               <ul>
                 <li><a href=""> Dashboard </a></li>
-                <li class="current">Blogs</li>
+                <li class="current">Blogs Categories</li>
               </ul>
             </div>
 
             <div class="content__heading">
-              <h3>All Blog</h3>
+              <h3>All Category</h3>
 
-              <a href="add-blogs.html"> Add Blogs </a>
+              <a href="add-category.html"> Add Category </a>
             </div>
 
-            <div class="form-content blogs-content">
-              <table id="blogs">
+            <div class="form-content categories-content">
+              <table id="categories">
                 <thead>
                   <tr>
                     <th>Id</th>
                     <th>Title</th>
-                    <th>Image</th>
-                    <th>views</th>
-                    <th>comments</th>
                     <th>Option</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+
+                </tbody>
               </table>
             </div>
           </div>
@@ -110,31 +109,8 @@
       </main>
     </div>
 
-    <script src="../../src/Blog.js"></script>
+    <script src="../../src/Category.js"></script>
     <script src="../../src/functions.js"></script>
-
     <!-- <script src="../../dist/bundle.js"></script> -->
-
-    <script>
-      var statusBtn = document.querySelectorAll("a.status, button.status");
-      var tblBody = document.querySelector("table#blogs tbody");
-      if (tblBody) {
-        tblBody.innerHTML = buildBlogList(Blog.getAllBlogs());
-      }
-
-      statusBtn.forEach(function (ele, index) {
-        console.log(ele);
-        ele.addEventListener("click", function (e) {
-          e.preventDefault();
-          id = this.getAttribute("blog_id");
-          console.log(id);
-          Blog.burn(id);
-          console.log(Blog.getBlog(id));
-          if (tblBody) {
-            tblBody.innerHTML = buildBlogList(Blog.getAllBlogs());
-          }
-        });
-      });
-    </script>
   </body>
 </html>

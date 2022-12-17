@@ -10,10 +10,6 @@
       src="https://kit.fontawesome.com/e7a6391963.js"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://kit.fontawesome.com/e7a6391963.js"
-      crossorigin="anonymous"
-    ></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -55,17 +51,17 @@
       </header>
       <main>
         <div class="main__content">
-          <div class="sidebar menu__open">
+          <div class="sidebar">
             <ul>
               <li class="">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="./"> Dashboard </a>
               </li>
-              <li class="">
+              <li class="active">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="category.html"> Category </a>
               </li>
-              <li class="active">
+              <li class="">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="blogs.html"> Blogs </a>
               </li>
@@ -80,61 +76,82 @@
             <div class="breadcumb">
               <ul>
                 <li><a href=""> Dashboard </a></li>
-                <li class="current">Blogs</li>
+                <li class="current"> Category </li>
               </ul>
             </div>
 
             <div class="content__heading">
-              <h3>All Blog</h3>
+              <h3>Add Blog Category</h3>
 
-              <a href="add-blogs.html"> Add Blogs </a>
+              <a href="category.html"> All Categories </a>
             </div>
 
-            <div class="form-content blogs-content">
-              <table id="blogs">
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Image</th>
-                    <th>views</th>
-                    <th>comments</th>
-                    <th>Option</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
+            <div class="form-content">
+              <form action="" name="addFrm" id="addFrm">
+                <div class="form-row">
+                  <label for="">  Title </label>
+                  <input
+                    class="form-control"
+                    name="title"
+                    type="text"
+                    required
+                  />
+                </div>
+                <div class="action__message">
+                  <h4 class="add__message"></h4>
+                </div>
+
+                <button class="btn btn__send" type="submit">Add</button>
+              </form>
             </div>
           </div>
         </div>
       </main>
     </div>
 
-    <script src="../../src/Blog.js"></script>
+
+    <script src="../../src/Category.js"></script>
     <script src="../../src/functions.js"></script>
 
     <!-- <script src="../../dist/bundle.js"></script> -->
 
     <script>
-      var statusBtn = document.querySelectorAll("a.status, button.status");
-      var tblBody = document.querySelector("table#blogs tbody");
-      if (tblBody) {
-        tblBody.innerHTML = buildBlogList(Blog.getAllBlogs());
-      }
+      // =======Submit Blog category form =======
 
-      statusBtn.forEach(function (ele, index) {
-        console.log(ele);
-        ele.addEventListener("click", function (e) {
+      // ===== Adding blog ====
+      const addBlogForm = document.getElementById("addFrm");
+      addBlogForm &&
+        addBlogForm.addEventListener("submit", (e) => {
           e.preventDefault();
-          id = this.getAttribute("blog_id");
-          console.log(id);
-          Blog.burn(id);
-          console.log(Blog.getBlog(id));
-          if (tblBody) {
-            tblBody.innerHTML = buildBlogList(Blog.getAllBlogs());
-          }
-        });
-      });
+
+          var id = create_UUID();
+          var title = addBlogForm.title.value;
+          var status = true;
+
+
+            var res = Category.addCategory(
+              id,
+              title,
+              true
+            );
+
+            if (res) {
+              var mesg = document.querySelector(".add__message");
+              mesg.style.padding = "10px";
+              mesg.innerText = "Blog Category created successfully";
+              addBlogForm.reset();
+
+              setTimeout(() => {
+                mesg.innerText = "";
+                mesg.style.padding = "0px";
+              }, 3000);
+              console.log(Category.getAllCategories());
+
+            }
+          });
+        
+
+
     </script>
   </body>
 </html>

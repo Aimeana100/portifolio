@@ -204,7 +204,6 @@ header{
 }
 
 .form-content form .form-row{
-
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -242,6 +241,14 @@ header{
 .form-content form .btn__send:hover{
     background-color: #324757;
     transition: .5s ease-in;
+}
+
+.action__message{
+    background-color: #007e26;
+}
+.action__message .add__message{
+    color: white;
+  
 }
 
 /* All Blogs */
