@@ -20,6 +20,7 @@ var Blog =  (function() {
     description,
     category,
     views,
+    created_at,
     status
   ) {
     this.id = id;
@@ -28,6 +29,7 @@ var Blog =  (function() {
     this.description = description;
     this.category = category;
     this.views = views;
+    this.created_at = created_at,
     this.status = status;
   }
 
@@ -62,7 +64,8 @@ var Blog =  (function() {
     description,
     category,
     views,
-    status
+    created_at,
+    status,
   ) => {
     if(data.filter(el => {return el.id == id}).length != 0){
         return;
@@ -74,6 +77,7 @@ var Blog =  (function() {
       description,
       category,
       views,
+      created_at,
       status
     );
 
@@ -107,7 +111,7 @@ obj.update = ((id, title, image, category, description) => {
     return blog;
   };
 
-  obj.getAllBlogs = ()=>{
+  obj.getAllBlogs = () =>{
     return data;
   }
 
@@ -116,6 +120,7 @@ obj.update = ((id, title, image, category, description) => {
     data = data.filter((blog,index) => {
       return blog.id != id;
     })
+    saveBlog();
   }
 
  //   clear all blogs
@@ -130,10 +135,25 @@ obj.update = ((id, title, image, category, description) => {
 
       if(data[item].id == id){
         data[item].status = !data[item].status;
+        saveBlog();
+        return true;
       }
     }
     
-    saveBlog();
+
+}
+
+// View a blog  || = Increament Views
+
+ obj.addView = (blog_id) =>{
+  for(let item in data){
+    if(data[item].id == blog_id){
+      data[item].views = Number(data[item].views) + 1;
+      saveBlog();
+      return true;
+    }
+  }
+  
 }
 
 return obj;

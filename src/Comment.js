@@ -18,6 +18,7 @@ var Comment =  (function() {
       email,
       description,
       blog_id,
+      comment_date,
       status
     ) {
       this.id = id;
@@ -25,6 +26,7 @@ var Comment =  (function() {
       this.email = email;
       this.description = description;
       this.blog_id = blog_id;
+      this.comment_date = comment_date;
       this.status = status;
     }
   
@@ -36,7 +38,7 @@ var Comment =  (function() {
     // load comments from storage
     function loadComments() {
   
-        data = JSON.parse(window.localStorage.getItem("comments"));
+      comments = JSON.parse(window.localStorage.getItem("comments"));
       
     }
   
@@ -57,10 +59,11 @@ var Comment =  (function() {
       name,
       email,
       description,
+      comment_date,
+      status,
       blog_id,
-      status
     ) => {
-      if(data.filter(el => {return el.id == id}).length != 0){
+      if(comments.filter(el => {return el.id == id}).length != 0){
           return;
       }
       var item = new Item(
@@ -68,27 +71,27 @@ var Comment =  (function() {
         name,
         email,
         description,
+        comment_date,
+        status,
         blog_id,
-        status
       );
   
       comments.push(item);
   
       saveComment();
+      return true;
     };
   
   //   update Comment
   
-  obj.update = ((id, name, email, description) => {
-      for(let item in data){
+  obj.update = ((id, description) => {
+      for(let item in comments){
           if(comments[item].id == id){
-              comments[item].name = name;
-              comments[item].email = email;
               comments[item].description = description;
+              saveComment();
+              return true;
           }
       }
-      saveComment();
-      
   })
   
     //get a single Comment
@@ -100,10 +103,11 @@ var Comment =  (function() {
     };
   
     obj.getAllComments = (blog_id)=>{
-      return data.filter((el, id)=> {
+      return comments.filter((el, id)=> {
         return el.blog_id == blog_id;
       });
     }
+    
   
     //   remove a single Comment
     obj.delete = (id) => {
@@ -117,12 +121,25 @@ var Comment =  (function() {
     comments = [];
        saveComment();
    }
+
+  //  
+  //  burn Comment
+  obj.burn = (id)=> {
+    for(let item in comments){
+      if(comment[item].id == id){
+        comment[item].status = !comment[item].status;
+        saveComment();
+        return true;
+      }
+    }
+    
+}
   
   return obj;
   
   })();
   
-  // Comment.addComment(123, "title", "imageURL", "description ..", "category ..", 12, [{}], true);
+  // Comment.addComment(123, "name", "email", "description", "blog_id" , new Date(),true);
   // Blog.clear();
-  // console.log(Blog.getAllBlogs());
+  console.log(Comment.getAllComments("blog_id"));
   

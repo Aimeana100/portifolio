@@ -15,12 +15,14 @@ var Contact =  (function() {
       id,
       name,
       email,
-      description
+      description,
+      contact_date
     ) {
       this.id = id;
       this.name = name;
       this.email = email;
       this.description = description;
+      this.contact_date = contact_date;
     }
   
     // save blogs to storage
@@ -52,6 +54,7 @@ var Contact =  (function() {
       name,
       email,
       description,
+      contact_date
     ) => {
       if(contacts.filter(el => {return el.id == id}).length != 0){
           return;
@@ -60,7 +63,8 @@ var Contact =  (function() {
         id,
         name,
         email,
-        description
+        description,
+        contact_date
       );
   
       contacts.push(item);
@@ -70,7 +74,7 @@ var Contact =  (function() {
       return true;
     };
   
-  //   update Blog
+  //   update Contact
   
   obj.update = ((id, name, email, description) => {
       for(let item in contacts){

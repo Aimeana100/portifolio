@@ -78,7 +78,7 @@ function buildBlogList(blogs) {
         <td> ${row.title} </td> 
         <td> <img  height="80" src="${row.image}" atl="${row.title}" /> </td>
         <td>${row.views}</td>
-        <td>0</td>
+        <td>${Comment.getAllComments(row.id).length}</td>
         <td>
         <a class="view" href="#"> <button>View</button> </a>
         <a class="edit" href="edit_blog.html?id=${
@@ -91,8 +91,8 @@ function buildBlogList(blogs) {
   return tableBody;
 }
 
-// build single blog in dashboard  =======================
-// Populate single blog into edit form ======================
+// build single blog in dashboard  =====================
+// Populate single blog into edit form =================
 function populateEditForm(blog) {
   var editBlogFrm = document.getElementById("editBlogFrm");
 
@@ -121,6 +121,43 @@ if (urlParams.has("id")) {
   const id = urlParams.get("id");
   populateEditForm(Blog.getBlog(id)[0]);
 }
+
+// ===========================================
+// ============BUILD COMMENTS on SINGLE BLOG==================
+// ===========================================
+
+
+function buildComments(blog_id){
+  let html ='';
+  const comments = Comment.getAllComments(blog_id);
+
+  console.log(blog_id);
+
+  comments.forEach((ele, index)=>{
+    html += `<div class="coment__item">
+    <div class="commenter__photo">
+      <img height="50" width="50"  src="assets/images/Ana10_icon.svg" alt="" />
+    </div>
+    <div class="commenter__description">
+
+      <p>
+        <span class="name">${ele.name}</span>
+        <span class="comment__date"> June, 30 2020 </span>
+      </p>
+
+      <p class="comment__text">
+      ${ele.description}
+      </p>
+
+      <div class="reply"> <a href=""> Reply</a></div>
+    </div>
+  </div>`;
+  })
+
+  return html;
+
+}
+
 
 // ================================================================
 // ========================BLOGs Category==========================
@@ -177,16 +214,15 @@ function buildLatestBlogs(blogs, number) {
     </div>
     <div class="description">
       <p class="date__desktop">
-        <img src="assets/images/Alarm.svg" alt="" /> December , 20
-        2022
+        <img src="assets/images/Alarm.svg" alt="" />  ${convertDateToString(ele.created_at)} 
       </p>
       <h3 class="title">
         ${ele.title}
       </h3>
 
-      <p class="description__text">
+      <div class="description__text">
         ${ele.description}
-      </p>
+      </div>
 
       <p class="date__mobile">
         <img src="assets/images/Alarm.svg" alt="" /> December , 20
@@ -196,7 +232,7 @@ function buildLatestBlogs(blogs, number) {
       <div class="comment_views">
         <p class="comments">
           <img src="assets/images/inser_ comment.svg" alt="" />
-          <span>12</span>
+          <span>${Comment.getAllComments(ele.id).length}</span>
         </p>
 
         <p class="views">
@@ -205,7 +241,7 @@ function buildLatestBlogs(blogs, number) {
         </p>
       </div>
 
-      <a href="blog-single.html?blog=${ele.id}" class="read__more"
+      <a blog_id="${ele.id}" href="blog-single.html?blog=${ele.id}" class="read__more"
         >Read more
         <img src="assets/images/arrow_right_alt.svg" alt="" />
       </a>
@@ -215,6 +251,7 @@ function buildLatestBlogs(blogs, number) {
 
   return latestBlogs;
 }
+
 
 // BUILD a category list on blogs page
 function buildCategoriesList(categories) {
@@ -229,17 +266,18 @@ function buildCategoriesList(categories) {
 function mostViewedBlogs(blogs) {
   var list = "";
   blogs.forEach((ele, index) => {
+    
     list += ` <div class="blog__item">
     <div class="img">
       <img src="${ele.image}" alt="">
     </div>
     <div class="description">
       <h4 class="title"> ${ele.title}  </h4>
-      <p class="time__frame"> <img src="assets/images/Alarm.svg" alt=""> Dec, 22 2022 </p>
+      <p class="time__frame"> <img src="assets/images/Alarm.svg" alt=""> ${convertDateToString(ele.created_at)} </p>
       <div class="comment_views">
       <p class="comments">
         <img src="assets/images/inser_ comment.svg" alt="" />
-        <span>12</span>
+        <span> ${Comment.getAllComments(ele.id).length}</span>
 
         <img src="assets/images/views.svg" alt="" />
         <span>${ele.views}</span>
@@ -258,3 +296,65 @@ function buildSingleBlog(blog_id) {
   var blgs = Blog.getBlog(blog_id)[0];
   return blgs;
 }
+
+
+// ===========================================
+// ============CONTACTS PAGE==================
+// ===========================================
+
+function buildContactsList(contacts){
+  var html = "";
+  contacts.forEach((ele)=>{
+    html += `<div class="message__item">
+    <div class="sender">
+      <h2 class="name">${ele.name}</h2>
+      <h5 class="contact_date"> ${new Date(ele.contact_date).getDate()}-${ Number(new Date(ele.contact_date).getMonth()) + 1 }-${ new Date(ele.contact_date).getFullYear() }    </h5>
+      <h4 class="email"> ${ele.email} </h4>
+      <p class="message">
+        ${ele.description}
+      </p>
+    </div>
+    <div class="option">
+      <button class="reply">Reply</button>
+    </div>
+  </div>`;
+  });
+
+  return html;
+}
+
+function convertDateToString(date){
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
+const d = new Date(date);
+const now = new Date();
+
+return d.getDate() + ", " + monthNames[Number(d.getMonth())] + " " + d.getFullYear();
+}
+
+
+// ====================================================================================
+//======================Authentication\\=================================================
+
+// ENCRYPT & DECRYPT FUNCTIONS
+    var crypt = {
+      // (B1) THE SECRET KEY
+      secret : "CIPHERKEY",
+     
+      // (B2) ENCRYPT
+      encrypt : (clear) => {
+        var cipher = CryptoJS.AES.encrypt(clear, crypt.secret);
+        cipher = cipher.toString();
+        return cipher;
+      },
+     
+      // (B3) DECRYPT
+      decrypt : (cipher) => {
+        var decipher = CryptoJS.AES.decrypt(cipher, crypt.secret);
+        decipher = decipher.toString(CryptoJS.enc.Utf8);
+        return decipher;
+      }
+    };
+     

@@ -73,7 +73,6 @@ var Category =  (function() {
       for(let item in categories){
           if(categories[item].id == id){
               categories[item].title = title;
-              console.log(categories[item].id,id);
           }
       }
       saveCategory();
