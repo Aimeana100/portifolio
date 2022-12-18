@@ -87,11 +87,13 @@
               <!-- <a href="add-blogs.html"> Add Blogs </a> -->
             </div>
 
-            <div class="form-content">
+            <div class="form-content contacts">
               <div class="contact__row">
+
                 <div class="message__item">
                   <div class="sender">
                     <h2 class="name">Karinganire Anathole</h2>
+                    <h5 class="contact_date"> date </h5>
                     <h4 class="email">aimeanathole@gmail.com</h4>
                     <p class="message">
                       Hey, we are recruiting and we are pleased by your work.
@@ -103,24 +105,21 @@
                   </div>
                 </div>
 
-                <div class="message__item">
-                  <div class="sender">
-                    <h2 class="name">Karinganire Anathole</h2>
-                    <h4 class="email">aimeanathole@gmail.com</h4>
-                    <p class="message">
-                      Hey, we are recruiting and we are pleased by your work.
-                      can we have a deep convs about your availablity ?
-                    </p>
-                  </div>
-                  <div class="option">
-                    <button class="reply">Reply</button>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>
         </div>
       </main>
     </div>
+    <script src="../../src/Contact.js"></script>
+    <script src="../../src/functions.js"></script>
+    <!-- <script src="../../dist/bundle.js"></script> -->
+
+    <script>
+      var contacts_container = document.querySelector(".contacts .contact__row");
+   
+      contacts_container.innerHTML = buildContactsList(Contact.getAllContacts());
+    </script>
   </body>
 </html>

@@ -298,11 +298,17 @@ header{
     background-color: #707d85;
 }
 
-.form-content table a.status{
+.form-content table .status.burn{
     background-color: #4e00008a;
 }
+.form-content table .status.revoke{
+    background-color: #00942c8a;
+}
+.form-content table .status.revoke:hover{
+    background-color: #005a1b8a;
+}
 
-.form-content table a.status:hover{
+.form-content table .status:hover.burn{
     background-color: #690000c4;
 }
 
@@ -391,12 +397,14 @@ Contacts
 
 .contact__row{
     margin: 5px 0px;
+    max-width: 1000px;
 }
 
 .contact__row .message__item{
     margin: 5px 0px;
     padding: 10px;
     background-color: #f1f1f1d8;
+    border-radius: 3px;
 }
 
 .contact__row .message__item:hover{
@@ -412,7 +420,9 @@ Contacts
     color:rgba(58, 58, 58, 0.938);
 }
 .message__item .sender .email{ 
-    color:rgb(156, 156, 156)
+    color:rgb(156, 156, 156);
+    border-bottom: 0.01px solid rgb(209, 205, 205);
+    max-width: 300px;
 }
 .message__item .sender p{
     margin: 8px 0px 5px 0px;
@@ -425,9 +435,20 @@ Contacts
     color: #ffffff;
     border: none;
     border-radius: 3px;
+    transition: .5s ease-in-out;
 }
 
-.message__item  button:hover{
+.message__item  .contact_date{
+    color: #82a1b4;
+    padding: 4px;
+    font-size: 12px;
+    width: fit-content;
+    background:#e2e2e2;
+    border-radius: 3px;
+
+}
+
+.message__item  button:hover {
  color: #062b44;
  background-color: #fff;
  border: 1px solid #062b44;

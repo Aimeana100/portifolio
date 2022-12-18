@@ -96,13 +96,16 @@
 
     <script src="../../src/Blog.js"></script>
     <script src="../../src/Category.js"></script>
+    <script src="../../src/Contact.js"></script>
     <script src="../../src/functions.js"></script>
 
     <script>
       var blg = document.getElementById('card__number__blogs');
       var catgr = document.getElementById('card__number__categories');
+      var cantct = document.getElementById('card__number__contacts');
       blg.innerText = Blog.getAllBlogs().length;
       catgr.innerText = Category.getAllCategories().length;
+      cantct.innerText = Contact.getAllContacts().length;
     </script>
   </body>
 </html>
