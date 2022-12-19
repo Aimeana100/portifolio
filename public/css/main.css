@@ -593,24 +593,31 @@ li.call__to__action a:hover{
   padding: 5px 10px;
   background: linear-gradient(105.75deg, #c07070 -20.75%, #2bfa19 145.32%);
   color: var(--white);
+  transition: .3s ease-in;
 }
 
 .project_container .item .goto .web:hover{
   background: #68C23D;
   margin-right:4px ;
   padding-right: 13px;
+  border-radius: 3px;
+  box-shadow: -2px 1px 5px 1px;
+
 
 }
 .project_container .item .goto .github {
   padding: 5px 10px;
   background: var(--red_green_gradient);
   color: var(--white);
+  transition: .3s ease-in;
+
 }
 
 .project_container .item .goto .github:hover{
   background: #c07070;
   margin-left:4px ;
-
+  border-radius: 3px;
+  box-shadow: 4px 1px 6px 1px;
 }
 
 /* ---- Blogs ----- */
@@ -631,23 +638,27 @@ li.call__to__action a:hover{
 #blogs .blogs_container::before {
   content: "";
   position: absolute;
-  height: 480px;
-  width: 450px;
-  background: rgba(129, 148, 127, 0.5);
-  background: radial-gradient(circle, rgba(170, 214, 167, 0.056) 0%,
-   rgba(125, 188, 73, 0.568) 30%, rgba(174, 192, 163, 0.513) 55%, 
-  rgba(183,115,83,0.0524) 100%, rgba(162, 172, 164, 0.46) 100%);
+  height: 450px;
+  width: 420px;
+  background: rgba(129, 148, 127, 0.103);
+  background: radial-gradient(circle, rgba(49, 82, 121, 0.007) 0%,
+   rgba(125, 188, 73, 0.233) 30%, rgba(57, 89, 112, 0.212) 55%, 
+  rgba(183,115,83,0.0524) 100%, rgba(45, 69, 86, 0.123) 100%);
   left: 50%;
-  transform: rotate(-45deg) translate(-50%, -50%); 
+  transform: rotate(-45deg) translate(-35%, -45%); 
   z-index: -1;
   overflow: hidden;
 }
 
+
+
 .blogs_container .item {
   display: flex;
+  align-items: center;
   background-color: var(--white);
   padding: 10px;
-  max-width: 400px;
+  max-width: 380px;
+  height: 220px;
   margin: 10px;
 }
 
@@ -664,6 +675,7 @@ li.call__to__action a:hover{
   justify-content: center;
   margin: 10px;
   padding: 10px;
+  width: 100%;
 }
 
 .blogs_container .description .date__desktop,
@@ -686,6 +698,9 @@ li.call__to__action a:hover{
 .blogs_container .description .description__text {
   font-style: Regular;
   font-size: 12px;
+}
+.blogs_container .description .description__text > *{
+  max-width: 100%;
 }
 
 .blogs_container .description .comment_views {
@@ -877,6 +892,7 @@ max-width: 300px;
 
 .latest__blog__container .blog__item .description {
   margin: 5px;
+  width: 100%;
 }
 .latest__blog__container .blog__item .description h4 {
  font-size: 15px;
@@ -1140,7 +1156,7 @@ max-width: 300px;
 }
   /* ========= Contact me form validaton ======= */
 
-   .form__row span,
+   .form__row .error,
    .form__row i
    {
     position: absolute;
@@ -1150,7 +1166,7 @@ max-width: 300px;
     transform: translate(0, -50%);
   }
 
-   .has__block__label.form__row span,
+   .has__block__label.form__row .error,
    .has__block__label.form__row i{
     position: absolute;
     color: rgb(208,130,112);
@@ -1265,8 +1281,6 @@ max-width: 300px;
   opacity: 0.85;
   margin: 0px 3px;
 }
-
-
 
 
 /* -------- FOOTER----------- */
@@ -1462,6 +1476,7 @@ footer{
   }
   .blogs_container .item {
     flex-direction: column;
+    height: fit-content;
   }
 
   .blogs_container .item .img {

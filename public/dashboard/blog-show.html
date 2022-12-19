@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script
+      src="https://kit.fontawesome.com/e7a6391963.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/e7a6391963.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="dashboard__container">
+      <header>
+        <div class="top__nav">
+          <div class="left">
+            <div class="logo__container">
+              <img width="40" src="../assets/images/Ana10_icon.svg" alt="" />
+            </div>
+          </div>
+
+          <div class="right">
+            <div class="menu__toogler">
+              <img
+                width="30"
+                height="30"
+                src="../assets/images/Menu.svg"
+                alt=""
+              />
+              <!-- <img
+                width="30"
+                height="30"
+                src="../assets/images/Close.svg"
+                alt=""
+              /> -->
+            </div>
+
+            <div class="profile">
+              Anathole <span><a href="../">logout</a></span>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div class="main__content">
+          <div class="sidebar menu__open">
+            <ul>
+              <li class="">
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="./"> Dashboard </a>
+              </li>
+              <li class="">
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="category.html"> Category </a>
+              </li>
+              <li class="active">
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="blogs.html"> Blogs </a>
+              </li>
+              <li>
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="contacts.html"> Contacts </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="content">
+            <div class="breadcumb">
+              <ul>
+                <li><a href=""> Dashboard </a></li>
+                <li class="current">Blogs</li>
+              </ul>
+            </div>
+
+            <div class="content__heading">
+              <h3>All Blog</h3>
+
+              <a href="blogs.html"> All Blogs </a>
+            </div>
+
+            <div class="form-content blogs-content">
+                <section class="blog__single">
+                    <div class="container blog__single__container">
+                      <div class="blog" id="blog">
+                        <div class="blog__img">
+                          <img src="assets/images/bolog_2.jpg" alt="" />
+                        </div>
+          
+                        <div class="blog__content">
+                          <div class="date__published">
+                            <p>
+                              <img src="assets/images/Alarm.svg" alt="" /> December , 20
+                              2022
+                            </p>
+                          </div>
+          
+                          <h2 class="title">
+                            How to start Software development as a career How to start
+                            Software development as a career
+                          </h2>
+          
+                          <div class="content">
+                            <div class="blog__content_text">
+                              <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Dolore vero nihil, repellat a dolor libero culpa, id
+                                placeat non dolores illum? Debitis dolor animi eveniet
+                                esse aliquam. Quisquam, dolor laboriosam magni amet, cum
+                                adipisci aliquid nobis consequuntur quam deserunt
+                                consequatur nihil tempore alias temporibus! Temporibus
+                                nostrum animi delectus magnam voluptas.
+                              </p>
+          
+                              <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                Odio itaque labore libero assumenda esse non aliquid
+                                cumque beatae harum consectetur laboriosam, dolorem ut
+                                eligendi doloribus ea sed obcaecati voluptatibus alias!
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+          
+                        <div class="comments">
+                          <div class="comment__form">
+                            <h3>Leave a comment here</h3>
+                            <form name="commentFrm" id="commentFrm" action="#" method="POST">
+                              <div class="form__group">
+                                <div class="form__row">
+                                  <input name="Names" id="Names" type="text" placeholder="Names" required />
+                                </div>
+                                <div class="form__row">
+                                  <input name="Email" id="Email" type="email" placeholder="Email" required/>
+                                </div>
+                              </div>
+          
+                              <div class="form__row">
+                                <textarea
+                                  name="comment__description"
+                                  id="comment__description"
+                                  rows="4"
+                                  placeholder="Comment message"
+                                  required
+                                ></textarea>
+                              </div>
+          
+                              <input type="hidden" id="blog_id" name="blog_id" />
+          
+                              <div class="form__row">
+                                <button type="submit"> Send </button>
+                              </div>
+                            </form>
+                          </div>
+          
+                          <div class="comments__list">
+                            <h3 class="comment__title">1 <span>Comment(s)</span></h3>
+          
+                            <!-- comment item -->
+                            <div class="comment__content">
+                              <div class="coment__item">
+                                <div class="commenter__photo">
+                                  <img src="assets/images/Ana10_icon.svg" alt="" />
+                                </div>
+                                <div class="commenter__description">
+                                  <p>
+                                    <span class="name">Karinganire Anathole</span>
+                                    <span class="comment__date"> June, 30 2020 </span>
+                                  </p>
+                                  <p class="comment__text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing
+                                    elit. tenetur ex nesciunt perferendis saepe fuga
+                                    nostrum cupiditate soluta labore,
+                                    <br />
+                                    <br />
+                                    eaque necessitatibus ullam assumenda, sunt
+                                    voluptatibus! Sunt vel asperiores aspernatur porro
+                                    vero blanditiis non facilis,?
+                                  </p>
+          
+                                  <div class="reply"><a href="">Reply</a></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+          
+                      <div class="right__summary">
+                        <div class="categories">
+                          <p class="category_item">
+                            <img src="assets/images/arrow_right_alt_red.svg" alt="" />
+                            Software development
+                          </p>
+                          <p class="category_item">
+                            <img src="assets/images/arrow_right_alt_red.svg" alt="" />
+                            Data science
+                          </p>
+                        </div>
+          
+                        <div class="latest__blog__container most_viewed_blogs">
+                          <!-- item -->
+                          <div class="blog__item">
+                            <div class="img">
+                              <img src="assets/images/blog_1.jpg" alt="" />
+                            </div>
+                            <div class="description">
+                              <h4 class="title">
+                                How to start Software development as a career
+                              </h4>
+                              <p class="time__frame">
+                                <img src="assets/images/Alarm.svg" alt="" /> Dec, 22 2022
+                              </p>
+                              <div class="comment_views">
+                                <p class="comments">
+                                  <img src="assets/images/inser_ comment.svg" alt="" />
+                                  <span>12</span>
+          
+                                  <img src="assets/images/views.svg" alt="" />
+                                  <span>12</span>
+                                </p>
+                                <img
+                                  class="read__more"
+                                  width="30"
+                                  src="assets/images/arrow_right_alt.svg"
+                                  alt=""
+                                />
+                              </div>
+                            </div>
+                          </div>
+          
+                          <!--/ item -->
+          
+                          <!-- item -->
+          
+                          <div class="blog__item">
+                            <div class="img">
+                              <img src="assets/images/blog_1.jpg" alt="" />
+                            </div>
+          
+                            <div class="description">
+                              <h4 class="title">
+                                How to start Software development as a career
+                              </h4>
+                              <p class="time__frame">
+                                <img src="assets/images/Alarm.svg" alt="" /> Dec, 22 2022
+                              </p>
+                              <div class="comment_views">
+                                <p class="comments">
+                                  <img src="assets/images/inser_ comment.svg" alt="" />
+                                  <span> 12 </span>
+          
+                                  <img src="assets/images/views.svg" alt="" />
+                                  <span> 12 </span>
+                                </p>
+          
+                                <img
+                                  class="read__more"
+                                  width="30"
+                                  src="assets/images/arrow_right_alt.svg"
+                                  alt=""
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /item -->
+          
+                      
+          
+                          <!-- item -->
+                          <div class="blog__item">
+                            <div class="img">
+                              <img src="assets/images/blog_1.jpg" alt="" />
+                            </div>
+                            <div class="description">
+                              <h4 class="title">
+                                How to start Software development as a career
+                              </h4>
+                              <p class="time__frame">
+                                <img src="assets/images/Alarm.svg" alt="" /> Dec, 22 2022
+                              </p>
+                              <div class="comment_views">
+                                <p class="comments">
+                                  <img src="assets/images/inser_ comment.svg" alt="" />
+                                  <span>12</span>
+          
+                                  <img src="assets/images/views.svg" alt="" />
+                                  <span>12</span>
+                                </p>
+                                <img
+                                  class="read__more"
+                                  width="30"
+                                  src="assets/images/arrow_right_alt.svg"
+                                  alt=""
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /item -->
+          
+                          <!-- item -->
+                          <div class="blog__item">
+                            <div class="img">
+                              <img src="assets/images/blog_1.jpg" alt="" />
+                            </div>
+                            <div class="description">
+                              <h4 class="title">
+                                How to start Software development as a career
+                              </h4>
+                              <p class="time__frame">
+                                <img src="assets/images/Alarm.svg" alt="" /> Dec, 22 2022
+                              </p>
+                              <div class="comment_views">
+                                <p class="comments">
+                                  <img src="assets/images/inser_ comment.svg" alt="" />
+                                  <span>12</span>
+          
+                                  <img src="assets/images/views.svg" alt="" />
+                                  <span>12</span>
+                                </p>
+          
+                                <img
+                                  class="read__more"
+                                  width="30"
+                                  src="assets/images/arrow_right_alt.svg"
+                                  alt=""
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /item -->
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../src/Blog.js"></script>
+    <script src="../../src/Comment.js"></script>
+    <script src="../../src/functions.js"></script>
+    <!-- <script src="../../dist/bundle.js"></script> -->
+
+    <script>
+        
+    </script>
+  </body>
+</html>

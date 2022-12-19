@@ -142,7 +142,7 @@ function buildComments(blog_id){
 
       <p>
         <span class="name">${ele.name}</span>
-        <span class="comment__date"> June, 30 2020 </span>
+        <span class="comment__date"> ${convertDateToString(ele.comment_date)} </span>
       </p>
 
       <p class="comment__text">
@@ -157,7 +157,6 @@ function buildComments(blog_id){
   return html;
 
 }
-
 
 // ================================================================
 // ========================BLOGs Category==========================
@@ -206,6 +205,7 @@ if (urlParams.has("category_id")) {
 
 // buld blog List form User interface
 function buildLatestBlogs(blogs, number) {
+  
   var latestBlogs = "";
   blg.forEach((ele, index) => {
     latestBlogs += `<div class="item">
@@ -282,7 +282,7 @@ function mostViewedBlogs(blogs) {
         <img src="assets/images/views.svg" alt="" />
         <span>${ele.views}</span>
       </p>
-      <img class="read__more" width="30" src="assets/images/arrow_right_alt.svg" alt="" >
+      <a blog_id="${ele.id}" href="#" class="read__more" > <img class="read__more" width="30" src="assets/images/arrow_right_alt.svg" alt="" > </a>
     </div>
     </div>
 

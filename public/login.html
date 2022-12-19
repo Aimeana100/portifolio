@@ -78,18 +78,19 @@
                    id="login__username" 
                    placeholder=""
                    onkeyup="validateUsername()" />
-                  <span id="username__error"> </span>
+                  <label for="login__username" class="error" id="username__error"> </label>
                 </div>
 
                 <div class="form__row has__block__label">
                   <label for="login__password"> Passowrd </label>
                   <input type="text" 
                   name="login__password" 
-                  id="login__password" 
+                  id="login__password"
+
                   placeholder="" 
                   onkeyup="validatePassoword()"
                   />
-                  <span id="password__error"></span>
+                  <label  for="login__password" class="error" id="password__error"></label>
 
                 </div>
 
@@ -114,7 +115,7 @@
                 <div class="new__register">
                   <p>
                     Go to dashboard
-                    <a href="dashboard/index.html"><span> Dashboard</span></a>
+                    <a href="dashboard/index.html"><span> Dashboard </span></a>
                   </p>
                 </div>
               </form>
@@ -138,13 +139,11 @@
           </div>
         </div>
       </footer>
+
     </div>
     <script src="script/main.js"></script>
 
     <script>
-
-
-
 // Login form validation
 
   var username__error = document.getElementById('username__error');
@@ -215,7 +214,6 @@
     }
 
 
-
   login_form.addEventListener('submit', function(e){
     e.preventDefault();
 
@@ -243,8 +241,6 @@
       window.location.href = "dashboard/index.html";
     }
   });
-
-
     </script>
   </body>
 </html>
