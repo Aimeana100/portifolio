@@ -1,5 +1,6 @@
 // Image validation at selection
-function fileValidation(imageId) {
+export function fileValidation(imageId) {
+
   var fileInput = document.getElementById(imageId);
   var filePath = fileInput.value;
   var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
@@ -10,7 +11,9 @@ function fileValidation(imageId) {
     fileInput.value = "";
     return false;
   } else {
+
     //Image preview
+
     if (fileInput.files && fileInput.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
@@ -20,41 +23,20 @@ function fileValidation(imageId) {
       reader.readAsDataURL(fileInput.files[0]);
       return true;
     }
+    return true;
   }
 }
 
-// ==========================================================
-//==========================LOCALSTORAGE=====================
-//===========================================================
-
-// Create Unique
-function create_UUID() {
-  var dt = new Date().getTime();
-  var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-    /[xy]/g,
-    function (c) {
-      var r = (dt + Math.random() * 16) % 16 | 0;
-      dt = Math.floor(dt / 16);
-      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-    }
-  );
-  return uuid;
-}
 
 // =========== populate category ============
 
-function populateCategory(id) {
-  var categ = document.getElementById("category");
-  var categories = Category.getAllCategories();
-
-  console.log(categories);
+export function populateCategory(categories, selectId) {
 
   var lists = '<option value="" > --- select --- </option>';
-
   categories.forEach((ele, index) => {
     lists +=
       "<option " +
-      (ele.id == id ? " selected " : "") +
+      (ele.id == selectId ? " selected " : "") +
       ' value="' +
       ele.id +
       '">' +
@@ -62,7 +44,8 @@ function populateCategory(id) {
       " </option>";
   });
 
-  categ.innerHTML = lists;
+  return lists;
+  
 }
 
 // ================================================================
@@ -70,34 +53,61 @@ function populateCategory(id) {
 // ================================================================
 
 // build blogList in dashboard
-function buildBlogList(blogs) {
+export function buildBlogList(blogs) {
   var tableBody = "";
   blogs.forEach((row, index) => {
     tableBody += `<tr><td>
      ${index + 1} ${row.status ? '' : '<i style="color:#ABB6A8" class="fa fa-trash" aria-hidden="true"></i>'} </td>
         <td> ${row.title} </td> 
-        <td> <img  height="80" src="${row.image}" atl="${row.title}" /> </td>
+        <td> <img  width="100" src="${row.image}" atl="${row.title}" /> </td>
         <td>${row.views}</td>
-        <td>${Comment.getAllComments(row.id).length}</td>
+        <td> ${row.comments.length} </td>
         <td>
         <a class="view" href="#"> <button>View</button> </a>
-        <a class="edit" href="edit_blog.html?id=${
+        <a class="edit" href="edit_blog.html?edit_blog=${
           row.id
         }"> <button>Edit</button> </a>
-        <a blog_id=${row.id} class="status ${row.status ? 'burn': "revoke"}" > <button> ${row.status ? "Burn": "Revoke"} </button></a>
+        <button blog_id=${row.id} status=${row.status} class="status ${row.status ? 'burn': "revoke"}" >  ${row.status ? "Burn": "Revoke"} </button>
         </td></tr>`;
   });
 
   return tableBody;
 }
 
+
+// build projects
+
+export function buildProjects(projects){
+  var projectHtml = "";
+  projects.forEach((row, index) => {
+    projectHtml += `<div class="project__item">
+    <div class="top">
+      <div class="image__container">
+        <img width="120" src="../assets/images/blog_1.jpg" alt="" />
+      </div>
+      <div class="links">
+        <h2 class="title">Title</h2>
+        <p><span> GitHub : </span> <a href=""> Git </a></p>
+        <p><span> WEB : </span> <a href=""> WEb </a></p>
+        <p class="description">description</p>
+      </div>
+    </div>
+
+    <div class="options">
+      <a href="#"> Edit </a>
+      <a href="#"> Delete </a>
+    </div>
+  </div>`;
+
+  })
+
+  return projectHtml ;
+}
+
 // build single blog in dashboard  =====================
 // Populate single blog into edit form =================
-function populateEditForm(blog) {
+export function populateEditForm(blog) {
   var editBlogFrm = document.getElementById("editBlogFrm");
-
-  populateCategory(blog.category);
-
   editBlogFrm.title.value = blog.title;
   editBlogFrm.description.value = blog.description;
   editBlogFrm.id.value = blog.id;
@@ -113,26 +123,13 @@ function populateEditForm(blog) {
 
 
 
-// =====Get single Blog =========
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-
-if (urlParams.has("id")) {
-  const id = urlParams.get("id");
-  populateEditForm(Blog.getBlog(id)[0]);
-}
-
 // ===========================================
 // ============BUILD COMMENTS on SINGLE BLOG==================
 // ===========================================
 
 
-function buildComments(blog_id){
+export function buildComments(comments){
   let html ='';
-  const comments = Comment.getAllComments(blog_id);
-
-  console.log(blog_id);
-
   comments.forEach((ele, index)=>{
     html += `<div class="coment__item">
     <div class="commenter__photo">
@@ -155,15 +152,16 @@ function buildComments(blog_id){
   })
 
   return html;
-
 }
+
+
 
 // ================================================================
 // ========================BLOGs Category==========================
 // ================================================================
 
 // build category in dashboard
-function buildBlogCategoryList(categories) {
+ export function buildBlogCategoryList(categories) {
   var bodyCategories = "";
   categories.forEach((row, index) => {
 
@@ -173,41 +171,30 @@ function buildBlogCategoryList(categories) {
         <a class="edit" href="edit_category.html?category_id=${
           row.id
         }"> <button>Edit</button> </a>
-        <a class="status" href="#"> <button>Burn</button> </a>
+       <button status=${row.status} cat_id=${row.id} class=" status ${row.status ? 'burn': "revoke"}" > ${row.status ? "Burn": "Revoke"} </button>
         </td>
         </tr>`;
   });
 
   return bodyCategories;
 }
-var tblBody = document.querySelector("table#categories tbody");
-if (tblBody) {
-  tblBody.innerHTML = buildBlogCategoryList(Category.getAllCategories());
-}
+
 
 // build single Cattegory in dashboard  =======================
 // Populate single category into edit form ======================
 
-function populateEditCategory(category) {
+export function populateEditCategory(category) {
   var editBlogFrm = document.getElementById("editCategoryFrm");
   editBlogFrm.title.value = category.title;
   editBlogFrm.id.value = category.id;
 }
 
-// =====Get single Blog =========
-// const queryString = window.location.search;
-// const urlParams = new URLSearchParams(queryString);
-
-if (urlParams.has("category_id")) {
-  const id = urlParams.get("category_id");
-  populateEditCategory(Category.getCategory(id)[0]);
-}
-
 // buld blog List form User interface
-function buildLatestBlogs(blogs, number) {
-  
+export function buildLatestBlogs(blogs, number) {
   var latestBlogs = "";
-  blg.forEach((ele, index) => {
+
+  blogs.forEach((ele, index) => {
+    console.log(ele.comments)
     latestBlogs += `<div class="item">
     <div class="img">
       <img style='min-height: 140px' src="${ele.image}" alt="" />
@@ -224,15 +211,10 @@ function buildLatestBlogs(blogs, number) {
         ${ele.description}
       </div>
 
-      <p class="date__mobile">
-        <img src="assets/images/Alarm.svg" alt="" /> December , 20
-        2022
-      </p>
-
       <div class="comment_views">
         <p class="comments">
           <img src="assets/images/inser_ comment.svg" alt="" />
-          <span>${Comment.getAllComments(ele.id).length}</span>
+          <span>${ele.comments.length}</span>
         </p>
 
         <p class="views">
@@ -241,7 +223,7 @@ function buildLatestBlogs(blogs, number) {
         </p>
       </div>
 
-      <a blog_id="${ele.id}" href="blog-single.html?blog=${ele.id}" class="read__more"
+      <a views=${ele.views} blog_id="${ele.id}" href="blog-single.html?blog=${ele.id}" class="read__more"
         >Read more
         <img src="assets/images/arrow_right_alt.svg" alt="" />
       </a>
@@ -254,7 +236,7 @@ function buildLatestBlogs(blogs, number) {
 
 
 // BUILD a category list on blogs page
-function buildCategoriesList(categories) {
+export function buildCategoriesList(categories) {
   var categoryList = "";
   categories.forEach((ele, index) => {
     categoryList += `<p category__id=${ele.id} title=${ele.title}  class="category_item"> <img src="assets/images/arrow_right_alt_red.svg" alt=""> ${ele.title} </p>`;
@@ -263,7 +245,7 @@ function buildCategoriesList(categories) {
 }
 
 // Build most viewd post on blogs page
-function mostViewedBlogs(blogs) {
+export function mostViewedBlogs(blogs) {
   var list = "";
   blogs.forEach((ele, index) => {
     
@@ -277,12 +259,13 @@ function mostViewedBlogs(blogs) {
       <div class="comment_views">
       <p class="comments">
         <img src="assets/images/inser_ comment.svg" alt="" />
-        <span> ${Comment.getAllComments(ele.id).length}</span>
+        <span> ${ele.comments.length} </span>
 
         <img src="assets/images/views.svg" alt="" />
         <span>${ele.views}</span>
       </p>
-      <a blog_id="${ele.id}" href="#" class="read__more" > <img class="read__more" width="30" src="assets/images/arrow_right_alt.svg" alt="" > </a>
+      <a  views=${ele.views}  blog_id="${ele.id}" href="#" class="read__more" > <i class="fa fa-arrow-right" aria-hidden="true"></i>
+      </a>
     </div>
     </div>
 
@@ -292,23 +275,21 @@ function mostViewedBlogs(blogs) {
   return list;
 }
 
-function buildSingleBlog(blog_id) {
-  var blgs = Blog.getBlog(blog_id)[0];
-  return blgs;
-}
+
+
 
 
 // ===========================================
 // ============CONTACTS PAGE==================
 // ===========================================
 
-function buildContactsList(contacts){
+export function buildContactsList(contacts){
   var html = "";
   contacts.forEach((ele)=>{
     html += `<div class="message__item">
     <div class="sender">
       <h2 class="name">${ele.name}</h2>
-      <h5 class="contact_date"> ${new Date(ele.contact_date).getDate()}-${ Number(new Date(ele.contact_date).getMonth()) + 1 }-${ new Date(ele.contact_date).getFullYear() }    </h5>
+      <h5 class="contact_date"> ${ convertDateToString(ele.created_at || ele.contact_date ) }    </h5>
       <h4 class="email"> ${ele.email} </h4>
       <p class="message">
         ${ele.description}
@@ -323,15 +304,29 @@ function buildContactsList(contacts){
   return html;
 }
 
-function convertDateToString(date){
+export function convertDateToString(timestamp){
+
+let date = timestamp.toDate();
+
+let mm = date.getMonth();
+let dd = date.getDate();
+let yyyy = date.getFullYear();
+
+// date = dd + '-' + mm + '-' + yyyy;
+
+
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
-const d = new Date(date);
-const now = new Date();
+// const d = new Date(date);
+const d = date;
+// const now = new Date();
 
 return d.getDate() + ", " + monthNames[Number(d.getMonth())] + " " + d.getFullYear();
+
+
+// return date;
 }
 
 
@@ -356,5 +351,7 @@ return d.getDate() + ", " + monthNames[Number(d.getMonth())] + " " + d.getFullYe
         decipher = decipher.toString(CryptoJS.enc.Utf8);
         return decipher;
       }
+
     };
-     
+
+

@@ -1,122 +1,88 @@
 
-// ***************************************************
-// BLOG API
-//****************************************************/
+      var nameError = document.getElementById("name__error");
+      var emailError = document.getElementById("email__error");
+      var messageError = document.getElementById("message__error");
 
-var Contact =  (function() {
-    // ===============================
-    // Private methods and properties
-    //================================
-  
-    contacts = [];
-  
-    // Constructor
-    function Item(
-      id,
-      name,
-      email,
-      description,
-      contact_date
-    ) {
-      this.id = id;
-      this.name = name;
-      this.email = email;
-      this.description = description;
-      this.contact_date = contact_date;
-    }
-  
-    // save blogs to storage
-    function saveContact() {
-      window.localStorage.setItem("contacts", JSON.stringify(contacts));
-    }
-  
-    // load blogs from storage
-    function loadBlogs() {
-  
-        contacts = JSON.parse(window.localStorage.getItem("contacts"));
-      
-    }
-  
-    if (window.localStorage.getItem("contacts") != null) {
-      loadBlogs();
-    }
-  
-    //================================
-    // public methods and properties
-    //================================
-  
-    var obj = {};
-  
-    // Add blog
-  
-    obj.addContact = (
-      id,
-      name,
-      email,
-      description,
-      contact_date
-    ) => {
-      if(contacts.filter(el => {return el.id == id}).length != 0){
-          return;
-      }
-      var item = new Item(
-        id,
-        name,
-        email,
-        description,
-        contact_date
-      );
-  
-      contacts.push(item);
-  
-      saveContact();
-  
-      return true;
-    };
-  
-  //   update Contact
-  
-  obj.update = ((id, name, email, description) => {
-      for(let item in contacts){
-          if(contacts[item].id == id){
-              contacts[item].name = name;
-              contacts[item].email = email;
-              contacts[item].description = description;
-          }
-      }
-      saveContact();
-      
-  })
-  
-    //get a single blog
-    obj.getContact = (id) => {
-      var contact = contacts.filter((ele, index) => {
-        return ele.id == id;
-      });
-      return contact;
-    };
-  
-    obj.getAllContacts = ()=>{
-      return contacts;
-    }
-  
-    //   remove a single blog
-    obj.delete = (id) => {
-      contacts = contacts.filter((ele,index) => {
-        return ele.id != id;
-      })
-    }
-  
-   //   clear all blogs
-   obj.clear = ()=>{
-       contacts = [];
-       saveContact();
-   }
-  
-  return obj;
-  
-  })();
-  
+      var formSubmitted = false;
 
-  console.log(Contact.getAllContacts());
-  
+      // name validation
+      export const validateName = () => {
+        var name = document.getElementById("contact__name").value;
+
+        if (name.length == 0) {
+          nameError.innerHTML = "Name is required";
+          return false;
+        }
+
+        // var format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
+        // if (format.test(name)) {
+        //   nameError.innerHTML = "Invalid character";
+        //   return false;
+        // }
+
+        nameError.innerHTML = "<i class='fas fa-check-circle' ></i>";
+        return true;
+      };
+
+     export const validateEmail = () => {
+        var email = document.getElementById("contact__email").value;
+
+        if (email.length == 0) {
+          emailError.innerHTML = "Email is required";
+
+          return false;
+        }
+
+        if (!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+          emailError.innerHTML = "Email Invalid";
+          return false;
+        }
+
+        emailError.innerHTML = "<i class='fas fa-check-circle' ></i>";
+        return true;
+      };
+
+
+
+      export const validateMessage = () => {
+
+        var message = document.getElementById("contact__message").value;
+        var required = 10;
+        var left = required - message.length;
+
+        if (left > 0) {
+          messageError.innerHTML = " minimum 10 characters";
+          return false;
+        }
+        messageError.innerHTML = "<i class='fas fa-check-circle' ></i>";
+        return true;
+      };
+
+      
+    
+      export const validateForm = () => {
+
+        // console.log(formSubmitted);
+        var valid = true;
+        formSubmitted = true;
+
+        if (!validateName()) {
+          valid = false;
+        }
+
+        if (!validateEmail()) {
+          valid = false;
+        }
+
+        if (!validateMessage()) {
+          valid = false;
+        }
+
+        if (valid) {
+          return true;
+        } else {
+          return false;
+        }
+
+      };

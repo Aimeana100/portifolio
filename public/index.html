@@ -21,6 +21,7 @@
     ></script>
   </head>
   <body>
+    
     <div class="web__content">
       <header class="scrolled">
         <nav class="container navigation__bar">
@@ -495,155 +496,19 @@
       </footer>
     </div>
 
-    <!-- <script src="../dist/bundle.js"></script> -->
-    <script src="../src/Category.js"></script>
-    <script src="../src/Blog.js"></script>
-    <script src="../src/Contact.js"></script>
-    <script src="../src/Comment.js"></script>
-    <script src="../src/functions.js"></script>
+    <!-- <script src="../src/Category.js"></script> -->
+    <!-- <script src="../src/Blog.js"></script> -->
+    <!-- <script src="../src/Contact.js"></script> -->
+    <!-- <script src="../src/Comment.js"></script> -->
+    <!-- <script src="../src/functions.js"></script> -->
+
+    <div class="loader">
+      <span></span>
+    </div>
+
+    <script src="../dist/bundle.js"></script>
     <script src="script/main.js"></script>
 
-    <script>
-      // Contact Formvalidation
-
-      var nameError = document.getElementById("name__error");
-      var emailError = document.getElementById("email__error");
-      var messageError = document.getElementById("message__error");
-      var formError = document.getElementById("form__error");
-      var contact__me__form = document.getElementById("contact__me__form");
-
-      var formSubmitted = false;
-
-      // name validation
-      const validateName = () => {
-        var name = document.getElementById("contact__name").value;
-
-        if (name.length == 0) {
-          nameError.innerHTML = "Name is required";
-          return false;
-        }
-
-        // var format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-
-        // if (format.test(name)) {
-        //   nameError.innerHTML = "Invalid character";
-        //   return false;
-        // }
-
-        nameError.innerHTML = "<i class='fas fa-check-circle' ></i>";
-        return true;
-      };
-
-      const validateEmail = () => {
-        var email = document.getElementById("contact__email").value;
-
-        if (email.length == 0) {
-          emailError.innerHTML = "Email is required";
-
-          return false;
-        }
-
-        if (!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
-          emailError.innerHTML = "Email Invalid";
-          return false;
-        }
-
-        emailError.innerHTML = "<i class='fas fa-check-circle' ></i>";
-        return true;
-      };
-
-      const validateMessage = () => {
-        var message = document.getElementById("contact__message").value;
-        var required = 10;
-        var left = required - message.length;
-
-        if (left > 0) {
-          messageError.innerHTML = " minimum 10 characters";
-          return false;
-        }
-        messageError.innerHTML = "<i class='fas fa-check-circle' ></i>";
-        return true;
-      };
-
-      contact__me__form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        
-        if (validateForm()) {
-          // ===========SAVE The Contact FORM =======
-          var name = document.getElementById("contact__name").value;
-          var email = document.getElementById("contact__email").value;
-          var message = document.getElementById("contact__message").value;
-          var date = new Date();
-
-
-          var saved = Contact.addContact(create_UUID(), name, email, message, date);
-          if(saved){
-            if (saved) {
-              var mesg = document.querySelector(".add__message");
-              mesg.style.padding = "10px";
-              mesg.style.color = "green";
-              mesg.innerText = "Thank you, we will reply via the email asp";
-              this.reset();
-              setTimeout(() => {
-                mesg.innerText = "";
-                mesg.style.padding = "0px";
-
-              }, 10000);
-            }
-
-          }
-        }
-      });
-
-      const validateForm = () => {
-        var valid = true;
-        formSubmitted = true;
-
-        if (!validateName()) {
-          valid = false;
-        }
-
-        if (!validateEmail()) {
-          valid = false;
-        }
-
-        if (!validateMessage()) {
-          valid = false;
-        }
-
-        if (valid) {
-          return true;
-        } else {
-          return false;
-        }
-      };
-    </script>
-
-    <script>
-      var latest__blog = document.querySelector(
-        ".latest__blog.blogs_container"
-      );
-
-
-      var blg = Blog.getAllBlogs();
-      latest__blog.innerHTML = buildLatestBlogs(blg, 6);
-
-      var read__more = document.querySelectorAll('.description .read__more');
-
-      read__more.forEach((ele)=>{
-        ele.addEventListener("click", function(e){
-        e.preventDefault();
-      
-        var blog_id = this.getAttribute('blog_id');
-        console.log(blog_id);
-        if(Blog.addView(blog_id)){
-          window.location.href = "blog-single.html?blog="+blog_id;
-        }
-      })
-      })
-
-  
-    </script>
 
     <script type="module">
       // Import the functions you need from the SDKs you need

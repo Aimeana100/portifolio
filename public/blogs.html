@@ -68,7 +68,7 @@
 
         <section class="all__blogs">
           <div class="container all__blogs_content">
-            <div id="blogs  ">
+            <div id="blogs">
               <div class="blogs_container">
                 <div class="item">
                   <div class="img">
@@ -188,42 +188,31 @@
       </footer>
     </div>
 
-    <script src="../src/Category.js"></script>
+  
+    <!-- <script src="../src/Category.js"></script>
     <script src="../src/Blog.js"></script>
     <script src="../src/Comment.js"></script>
-    <script src="../src/functions.js"></script>
+    <script src="../src/functions.js"></script> -->
 
+
+    <script src="../dist/bundle.js"></script>
     <script src="script/main.js"></script>
 
     <script>
-      var all__blog_container = document.querySelector(".blogs_container");
-      var all__category_container = document.querySelector(
-        ".right__summary .categories"
-      );
-      var all__most_viewd_container = document.querySelector(
-        ".right__summary .most_viewed_blogs"
-      );
 
-      var blg = Blog.getAllBlogs();
-      var ctg = Category.getAllCategories();
+      // var read__more = document.querySelectorAll(".description .read__more");
 
-      all__blog_container.innerHTML = buildLatestBlogs(blg, 8);
-      all__category_container.innerHTML = buildCategoriesList(ctg);
-      all__most_viewd_container.innerHTML = mostViewedBlogs(blg);
+      // read__more.forEach((ele) => {
+      //   ele.addEventListener("click", function (e) {
+      //     e.preventDefault();
 
-      var read__more = document.querySelectorAll(".description .read__more");
-
-      read__more.forEach((ele) => {
-        ele.addEventListener("click", function (e) {
-          e.preventDefault();
-
-          var blog_id = this.getAttribute("blog_id");
-          console.log(blog_id);
-          if (Blog.addView(blog_id)) {
-            window.location.href = "blog-single.html?blog=" + blog_id;
-          }
-        });
-      });
+      //     var blog_id = this.getAttribute("blog_id");
+      //     console.log(blog_id);
+      //     if (Blog.addView(blog_id)) {
+      //       window.location.href = "blog-single.html?blog=" + blog_id;
+      //     }
+      //   });
+      // });
     </script>
   </body>
 </html>

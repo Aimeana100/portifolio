@@ -71,6 +71,11 @@
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="contacts.html"> Contacts </a>
               </li>
+
+              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="projects.html"> Projects </a></li>
+
+              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="exprience.html"> Exprience </a></li>
+
             </ul>
           </div>
 
@@ -106,7 +111,7 @@
 
                 <input type="hidden" id="id" name="id" />
 
-                <button class="btn btn__send" type="submit">Add</button>
+                <button class="btn btn__send" type="submit"> Update </button>
               </form>
             </div>
           </div>
@@ -122,46 +127,11 @@
       //   }
       // );
     </script>
-    <!-- <script src="../../dist/bundle.js"></script>-->
-    <script src="../../src/Category.js"></script>
+    <!-- <script src="../../src/Category.js"></script>
     <script src="../../src/Blog.js"></script>
-    <script src="../../src/functions.js"></script>
+    <script src="../../src/functions.js"></script> -->
 
-    <script>
-      // =======Submit Blog category form =======
+    <script src="../../dist/bundle.js"></script>
 
-      // ===== Adding blog ====
-      const addCategoryForm = document.getElementById("editCategoryFrm");
-      addCategoryForm &&
-        addCategoryForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-
-          
-          var title = addCategoryForm.title.value;
-          var id = addCategoryForm.id.value;
-          var status = true;
-            var res = Category.update(
-              id,
-              title
-            );
-
-            if (res) {
-              var mesg = document.querySelector(".add__message");
-              mesg.style.padding = "10px";
-              mesg.innerText = "Blog Category Updated successfully";
-              addCategoryForm.reset();
-              setTimeout(() => {
-                mesg.innerText = "";
-                mesg.style.padding = "0px";
-                window.location.href = "category.html";
-              }, 3000);
-            
-            }
-          });
-        
-      console.log(Category.getAllCategories());
-
-      
-    </script>
   </body>
 </html>

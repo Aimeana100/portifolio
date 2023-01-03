@@ -135,6 +135,11 @@ li.call__to__action a:hover{
   
 }
 
+
+
+
+
+/* Home  */
 .home__container {
   background: url("../assets/images/Anathole_bg_2.svg") no-repeat right 30% top -140px,
     url("../assets/images/Ellipse_inner.svg") no-repeat left 0% bottom 10%,
@@ -698,6 +703,12 @@ li.call__to__action a:hover{
 .blogs_container .description .description__text {
   font-style: Regular;
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+          line-clamp: 3; 
+  -webkit-box-orient: vertical;
 }
 .blogs_container .description .description__text > *{
   max-width: 100%;

@@ -14,7 +14,6 @@
       href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
-  
   </head>
   <body>
     <div class="dashboard__container">
@@ -55,9 +54,14 @@
           <div class="sidebar">
             <ul>
               <li class="active"> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="./"> Dashboard </a></li>
+              <li class="">
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="category.html"> Category </a>
+              </li>
               <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="blogs.html"> Blogs </a></li>
               <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="contacts.html"> Contacts </a></li>
-              <!-- <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="#"> Exprience </a></li> -->
+              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="projects.html"> Projects </a></li>
+              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="exprience.html"> Exprience </a></li>
             </ul>
           </div>
 
@@ -94,18 +98,17 @@
       </main>
     </div>
 
-    <script src="../../src/Blog.js"></script>
+    <!-- <script src="../../src/Blog.js"></script>
     <script src="../../src/Category.js"></script>
-    <script src="../../src/Contact.js"></script>
-    <script src="../../src/functions.js"></script>
+    <script src="../../src/Contact.js"></script> -->
+
+    <script src="../../dist/bundle.js"></script>
 
     <script>
-      var blg = document.getElementById('card__number__blogs');
-      var catgr = document.getElementById('card__number__categories');
-      var cantct = document.getElementById('card__number__contacts');
-      blg.innerText = Blog.getAllBlogs().length;
-      catgr.innerText = Category.getAllCategories().length;
-      cantct.innerText = Contact.getAllContacts().length;
+
+      // var cantct = document.getElementById('card__number__contacts');
+      // cantct.innerText = Contact.getAllContacts().length;
+
     </script>
   </body>
 </html>
