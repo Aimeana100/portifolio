@@ -243,7 +243,9 @@ const blogs_query = query(colRef_blog, orderBy("created_at"));
 onSnapshot(blogs_query, (snapshot) => {
   let blogs = [];
   snapshot.docs.forEach((doc) => {
+    
     let comm = [];
+
     onSnapshot(query(collection(db, `blogs/${doc.id}/comments`)), (snapshot) =>{
       snapshot.docs.forEach(doc => {
         comm.push({...doc.data(), id: doc.id});
@@ -386,7 +388,6 @@ onSnapshot(blogs_query, (snapshot) => {
 
 // real time collecction data
 const projects_query = query(colRef_project, orderBy("created_at"));
-
 // document.addEventListener("DOMSubtreeModified", (evnt) => {
 
 onSnapshot(projects_query, (snapshot) => {
@@ -401,12 +402,7 @@ var projects_container = document.querySelector('.form-content.projects-content'
 projects_container.innerHTML = buildProjects(projects);
 
 
-
-
-
 });
-
-
 
 
 
@@ -745,7 +741,7 @@ addProjectFrm &&
 
           //adding
 
-          var res = addDoc(colRef_blog, {
+          var res = addDoc(colRef_project, {
             title: title,
             webUrl: web,
             description: description,
@@ -826,8 +822,8 @@ editProjectFrm &&
               console.log(downloadURL);
 
               // updating
-              const docRef_blog = doc(db, "blogs", id);
-              updateDoc(docRef_blog, {
+              const docRef_project = doc(db, "projects", id);
+              updateDoc(docRef_project, {
                 title: title,
                 description: description,
                 image: downloadURL,
@@ -853,16 +849,17 @@ editProjectFrm &&
 
         // updating
 
-        const docRef_blog = doc(db, "blogs", id);
-        updateDoc(docRef_blog, {
+        const docRef_project = doc(db, "projects", id);
+        updateDoc(docRef_project, {
           title: title,
           description: description,
-          category: category,
+          githubUrl: githubUrl,
+          webUrl: webUrl
         }).then(() => {
           editProjectFrm.reset();
           var mesg = document.querySelector(".add__message");
           mesg.style.padding = "10px";
-          mesg.innerText = "Blog Updated successfully";
+          mesg.innerText = "Project Updated successfully";
           setTimeout(() => {
             mesg.innerText = "";
             mesg.style.padding = "0px";
