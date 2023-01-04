@@ -1,32 +1,25 @@
 
-      var nameError = document.getElementById("name__error");
-      var emailError = document.getElementById("email__error");
-      var messageError = document.getElementById("message__error");
+      let nameError = document.getElementById("name__error");
+      let emailError = document.getElementById("email__error");
+      let messageError = document.getElementById("message__error");
 
-      var formSubmitted = false;
+      let formSubmitted = false;
 
       // name validation
       export const validateName = () => {
-        var name = document.getElementById("contact__name").value;
+        let name = document.getElementById("contact__name").value;
 
         if (name.length == 0) {
           nameError.innerHTML = "Name is required";
           return false;
         }
-
-        // var format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-
-        // if (format.test(name)) {
-        //   nameError.innerHTML = "Invalid character";
-        //   return false;
-        // }
-
+   
         nameError.innerHTML = "<i class='fas fa-check-circle' ></i>";
         return true;
       };
 
      export const validateEmail = () => {
-        var email = document.getElementById("contact__email").value;
+        let email = document.getElementById("contact__email").value;
 
         if (email.length == 0) {
           emailError.innerHTML = "Email is required";
@@ -47,9 +40,9 @@
 
       export const validateMessage = () => {
 
-        var message = document.getElementById("contact__message").value;
-        var required = 10;
-        var left = required - message.length;
+        let message = document.getElementById("contact__message").value;
+        let required = 10;
+        let left = required - message.length;
 
         if (left > 0) {
           messageError.innerHTML = " minimum 10 characters";
@@ -63,8 +56,7 @@
     
       export const validateForm = () => {
 
-        // console.log(formSubmitted);
-        var valid = true;
+        let valid = true;
         formSubmitted = true;
 
         if (!validateName()) {
@@ -79,10 +71,6 @@
           valid = false;
         }
 
-        if (valid) {
-          return true;
-        } else {
-          return false;
-        }
+        return (valid);
 
       };

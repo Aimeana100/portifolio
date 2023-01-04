@@ -17,8 +17,6 @@ import {
   populateEditForm,
 } from "./functions";
 
-// import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-// import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
 
 import {
   getFirestore,
@@ -33,8 +31,7 @@ import {
   orderBy,
   getDoc,
   updateDoc,
-  collectionGroup,
-  Timestamp,
+  getDocs
 } from "firebase/firestore";
 
 import { getAuth } from "firebase/auth";
@@ -87,8 +84,8 @@ const colRef_project = collection(db, "projects");
 addCategoryFrm &&
   addCategoryFrm.addEventListener("submit", (e) => {
     e.preventDefault();
-    var title = addCategoryFrm.title.value;
-    var status = true;
+    let title = addCategoryFrm.title.value;
+    let status = true;
 
     addDoc(colRef_category, {
       title: title,
@@ -96,7 +93,7 @@ addCategoryFrm &&
     }).then(() => {
 
       addCategoryFrm.reset();
-      var mesg = document.querySelector(".add__message");
+      let mesg = document.querySelector(".add__message");
       mesg.style.padding = "10px";
       mesg.innerText = "Category created successfully";
       setTimeout(() => {
@@ -107,8 +104,7 @@ addCategoryFrm &&
 
   });
 
-// Populate CATEGORIES in drop downs
-// real time collecction data
+// Populate CATEGORIES in drop downs <-> real time collecction data
 let categories = [];
 const cat_query = query(colRef_category);
 onSnapshot(cat_query, (snapshot) => {
@@ -118,27 +114,24 @@ onSnapshot(cat_query, (snapshot) => {
   });
 
   //
-  var categ = document.getElementById("category");
+  let categ = document.getElementById("category");
   categ && populateCategory(categories, "");
 
   // list categories in dashboard
-  var tblBody = document.querySelector("table#categories tbody");
+  let tblBody = document.querySelector("table#categories tbody");
   if (tblBody) {
     tblBody.innerHTML = buildBlogCategoryList(categories);
   }
 
   // handle status change in dashboard
-  var statusBtnCat = document.querySelectorAll("table#categories  td .status");
+  let statusBtnCat = document.querySelectorAll("table#categories  td .status");
   statusBtnCat.forEach(function (ele, index) {
   ele.addEventListener("click", function (e) {
 
 
-    var Bid = this.getAttribute("cat_id");
-    var statusI = this.getAttribute("status");
-    var newStatus = statusI == "true" ? false : true;
-
-    console.log(Bid, newStatus , statusI);
-
+    let Bid = this.getAttribute("cat_id");
+    let statusI = this.getAttribute("status");
+    let newStatus = statusI == "true" ? false : true;
     const docCategRef = doc(db, "categories", Bid);
     updateDoc(docCategRef, {
       status: newStatus,
@@ -152,13 +145,13 @@ if(tblBody){
     for(const mutation of mutationList ){
       if(mutation.type === 'childList'){
 
-        var statusBtnCat = document.querySelectorAll("table#categories  td .status");
+        let statusBtnCat = document.querySelectorAll("table#categories  td .status");
           statusBtnCat.forEach(function (ele, index) {
           ele.addEventListener("click", function (e) {
           
-            var Bid = this.getAttribute("cat_id");
-            var statusI = this.getAttribute("status");
-            var newStatus = statusI == "true" ? false : true;
+            let Bid = this.getAttribute("cat_id");
+            let statusI = this.getAttribute("status");
+            let newStatus = statusI == "true" ? false : true;
             const docCategRef = doc(db, "categories", Bid);
             updateDoc(docCategRef, {
               status: newStatus,
@@ -174,7 +167,7 @@ if(tblBody){
 
 
   // list categories on blogs and single blog page
-  var all__category_container = document.querySelector(
+  let all__category_container = document.querySelector(
     ".right__summary .categories"
   );
 
@@ -196,11 +189,12 @@ if(tblBody){
   }
 
   // counts card in dashbord
-  var catgr = document.getElementById("card__number__categories");
+  let catgr = document.getElementById("card__number__categories");
   if (catgr) {
     catgr.innerText = categories.length;
   }
 });
+
 
 // ===== Update  blog category form ====
 const updateCategoryForm = document.getElementById("editCategoryFrm");
@@ -208,16 +202,15 @@ updateCategoryForm &&
   updateCategoryForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    var title = updateCategoryForm.title.value;
-    var id = updateCategoryForm.id.value;
-    var status = true;
+    let title = updateCategoryForm.title.value;
+    let id = updateCategoryForm.id.value;
 
     const docRef_categories = doc(db, "categories", id);
     updateDoc(docRef_categories, {
       title: title,
     }).then(() => updateCategoryForm.reset());
 
-    var mesg = document.querySelector(".add__message");
+    let mesg = document.querySelector(".add__message");
     mesg.style.padding = "10px";
     mesg.innerText = "Blog Category Updated successfully";
     updateCategoryForm.reset();
@@ -233,48 +226,46 @@ updateCategoryForm &&
 // |  |||||||||||||||||||||||       |||||||||||||||||| |
 // |===================================================|
 
-// List blogs in dashboard
 
-// real time collecction data
+
+// List blogs in dashboard real time collecction data
 const blogs_query = query(colRef_blog, orderBy("created_at"));
-
-// document.addEventListener("DOMSubtreeModified", (evnt) => {
 
 onSnapshot(blogs_query, (snapshot) => {
   let blogs = [];
   snapshot.docs.forEach((doc) => {
-    
     let comm = [];
 
-    onSnapshot(query(collection(db, `blogs/${doc.id}/comments`)), (snapshot) =>{
-      snapshot.docs.forEach(doc => {
-        comm.push({...doc.data(), id: doc.id});
-      })
+    getDocs(collection(db, `blogs/${doc.id}/comments`)).then((snp)=>{
+      snp.docs.forEach(doc => (comm.push({...doc.data(), id: doc.id})));
     })
 
     blogs.push({ ...doc.data(), id: doc.id , comments : comm});
   });
 
-  var tblBody = document.querySelector("table#blogs tbody");
+  console.log("Blogs with comments but not seen");
+  console.log(blogs);
+
+
+  let tblBody = document.querySelector("table#blogs tbody");
   if (tblBody) {
     tblBody.innerHTML = buildBlogList(blogs);
   }
 
 
-  var categoriesList = document.querySelector(".form-content #category");
-  // console.log(categoriesList, populateCategory(categories, ""));
+  let categoriesList = document.querySelector(".form-content #category");
   if (categoriesList) {
     categoriesList.innerHTML = populateCategory(categories, "");
   }
 
   // dashboard blogs counts
-  var blg = document.getElementById("card__number__blogs");
+  let blg = document.getElementById("card__number__blogs");
   if (blg) {
     blg.innerText = blogs.length;
   }
 
   // render latest blog
-  var latest__blog = document.querySelector(".latest__blog.blogs_container");
+  let latest__blog = document.querySelector(".latest__blog.blogs_container");
 
   if (latest__blog) {
     latest__blog.innerHTML = buildLatestBlogs(blogs, 6);
@@ -282,7 +273,7 @@ onSnapshot(blogs_query, (snapshot) => {
   }
 
   // most viewed blogList on single blog
-  var all__most_viewd_container = document.querySelector(
+  let all__most_viewd_container = document.querySelector(
     ".right__summary .most_viewed_blogs"
   );
   if (all__most_viewd_container) {
@@ -290,22 +281,21 @@ onSnapshot(blogs_query, (snapshot) => {
   }
 
   // List all blogs in blogs page
-  var all__blog_container = document.querySelector(
+  let all__blog_container = document.querySelector(
     ".all__blogs .blogs_container"
   );
   if (all__blog_container) {
     all__blog_container.innerHTML = buildLatestBlogs(blogs, 8);
-
   }
 
   // change status b
-  var statusBtn = document.querySelectorAll("table#blogs td .status");
+  let statusBtn = document.querySelectorAll("table#blogs td .status");
   statusBtn.forEach(function (ele, index) {
     ele.addEventListener("click", function (e) {
       e.preventDefault();
-      var Bid = this.getAttribute("blog_id");
-      var statusI = this.getAttribute("status");
-      var newStatus = statusI == "true" ? false : true;
+      let Bid = this.getAttribute("blog_id");
+      let statusI = this.getAttribute("status");
+      let newStatus = statusI == "true" ? false : true;
 
       const docRef = doc(db, "blogs", Bid);
 
@@ -320,13 +310,13 @@ onSnapshot(blogs_query, (snapshot) => {
       for (const mutation of mutationList) {
         if (mutation.type === "childList") {
   
-          var statusBtn = document.querySelectorAll("table#blogs td .status");
+          let statusBtn = document.querySelectorAll("table#blogs td .status");
           statusBtn.forEach(function (ele, index) {
             ele.addEventListener("click", function (e) {
             
-              var Bid = this.getAttribute("blog_id");
-              var statusI = this.getAttribute("status");
-              var newStatus = statusI == "true" ? false : true;
+              let Bid = this.getAttribute("blog_id");
+              let statusI = this.getAttribute("status");
+              let newStatus = statusI == "true" ? false : true;
               const docRef = doc(db, "blogs", Bid);
               updateDoc(docRef, {
                 status: newStatus,
@@ -343,7 +333,7 @@ onSnapshot(blogs_query, (snapshot) => {
 //////////////// Increment view number of a blog ///////////////////////////////
 
 
-  var read__more = document.querySelectorAll(
+  let read__more = document.querySelectorAll(
     '#blogs .item .description .read__more, .latest__blog .item .description .read__more, .blog__item .description .read__more'
     );
 
@@ -351,8 +341,8 @@ onSnapshot(blogs_query, (snapshot) => {
   ele.addEventListener("click", function(e){
   e.preventDefault();
 
-  var blog_id = this.getAttribute('blog_id');
-  var views = this.getAttribute('views');
+  let blog_id = this.getAttribute('blog_id');
+  let views = this.getAttribute('views');
 
  const docRef_blog = doc(db, "blogs", blog_id);
  updateDoc(docRef_blog, {
@@ -371,7 +361,7 @@ onSnapshot(blogs_query, (snapshot) => {
 
   if (urlParams.has("edit_blog")) {
     const edit_blog = urlParams.get("edit_blog");
-    var blog = blogs.filter((ele) => {
+    let blog = blogs.filter((ele) => {
       return ele.id == edit_blog;
     })[0];
 
@@ -397,9 +387,12 @@ onSnapshot(projects_query, (snapshot) => {
   });
 
   // render projects
-var projects_container = document.querySelector('.form-content.projects-content');
+let projects_container = document.querySelector('.form-content.projects-content');
 
-projects_container.innerHTML = buildProjects(projects);
+if(projects_container){
+
+  projects_container.innerHTML = buildProjects(projects);
+}
 
 
 });
@@ -409,12 +402,12 @@ projects_container.innerHTML = buildProjects(projects);
 
 
 /// Render a single blog and comments
-var comments_container = document.querySelector(
+let comments_container = document.querySelector(
   ".comments__list .comment__content"
 );
-var date__published = document.querySelector(".blog__content .date__published");
-var comments_counts = document.querySelector(".comments__list .comment__title");
-var commentFrm = document.getElementById("commentFrm");
+let date__published = document.querySelector(".blog__content .date__published");
+let comments_counts = document.querySelector(".comments__list .comment__title");
+let commentFrm = document.getElementById("commentFrm");
 
 // =====Get single Doc =========
 const queryString = window.location.search;
@@ -424,20 +417,17 @@ if (urlParams.has("blog")) {
   const blog_id = urlParams.get("blog");
 
   const docRef_single_blog = doc(db, "blogs", blog_id);
-
-  // console.log(docRef);
   onSnapshot(docRef_single_blog, (doc) => {
-    // populateEditForm({...doc.data(), id: doc.id});
 
-    var title = document.querySelector(
+    let title = document.querySelector(
       ".blog__single__container .blog__content .title"
     );
-    var desc = document.querySelector(
+    let desc = document.querySelector(
       ".blog__single__container .blog__content .blog__content_text"
     );
-    var img = document.querySelector(".blog__single__container .blog__img img");
+    let img = document.querySelector(".blog__single__container .blog__img img");
 
-    var single_blg = { ...doc.data(), id: doc.id };
+    let single_blg = { ...doc.data(), id: doc.id };
 
     title.innerText = single_blg.title;
     desc.innerHTML = single_blg.description;
@@ -472,10 +462,9 @@ if (urlParams.has("blog")) {
   commentFrm &&
     commentFrm.addEventListener("submit", function (e) {
       e.preventDefault();
-      var name = this.Names.value;
-      var email = this.Email.value;
-      var description = this.comment__description.value;
-      const blog_id = urlParams.get("blog");
+      let name = this.Names.value;
+      let email = this.Email.value;
+      let description = this.comment__description.value;
 
       addDoc(docRef_single_blog_comments, {
         name: name,
@@ -491,10 +480,10 @@ if (urlParams.has("blog")) {
 
 
 // adding a blog
-var image = document.getElementById("image");
-var fileItem;
-var fileName;
-var uploadedImageURL;
+let image = document.getElementById("image");
+let fileItem;
+let fileName;
+let uploadedImageURL;
 
 function getFile(e) {
   fileItem = e.target.files[0];
@@ -518,11 +507,11 @@ addBlogForm &&
   addBlogForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    var title = addBlogForm.title.value;
-    var description = addBlogForm.description.value;
-    var category = addBlogForm.category.value;
-    var views = 0;
-    var status = true;
+    let title = addBlogForm.title.value;
+    let description = addBlogForm.description.value;
+    let category = addBlogForm.category.value;
+    let views = 0;
+    let status = true;
 
     let storageRef = ref(storage, "images/" + fileName);
     const uploadTask = uploadBytesResumable(storageRef, fileItem);
@@ -562,7 +551,7 @@ addBlogForm &&
 
           //adding
 
-          var res = addDoc(colRef_blog, {
+          let res = addDoc(colRef_blog, {
             title: title,
             category: category,
             description: description,
@@ -575,7 +564,7 @@ addBlogForm &&
             addBlogForm.reset();
             document.getElementById("imagePreview").innerText = "";
             document.getElementById("description").value = "";
-            var mesg = document.querySelector(".add__message");
+            let mesg = document.querySelector(".add__message");
             mesg.style.padding = "10px";
             mesg.innerText = "Blog created successfully";
             addBlogForm.reset();
@@ -596,10 +585,10 @@ editBlogForm &&
   editBlogForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    var id = editBlogForm.id.value;
-    var title = editBlogForm.title.value;
-    var description = editBlogForm.description.value;
-    var category = editBlogForm.category.value;
+    let id = editBlogForm.id.value;
+    let title = editBlogForm.title.value;
+    let description = editBlogForm.description.value;
+    let category = editBlogForm.category.value;
 
     const reader = new FileReader();
     // fileItem : @an instance of selected file image,
@@ -650,7 +639,7 @@ editBlogForm &&
                 category: category,
               }).then(() => {
                 editBlogForm.reset();
-                var mesg = document.querySelector(".add__message");
+                let mesg = document.querySelector(".add__message");
                 mesg.style.padding = "10px";
                 mesg.innerText = "Blog Updated successfully";
                 setTimeout(() => {
@@ -674,7 +663,7 @@ editBlogForm &&
           category: category,
         }).then(() => {
           editBlogForm.reset();
-          var mesg = document.querySelector(".add__message");
+          let mesg = document.querySelector(".add__message");
           mesg.style.padding = "10px";
           mesg.innerText = "Blog Updated successfully";
           setTimeout(() => {
@@ -697,11 +686,11 @@ addProjectFrm &&
   addProjectFrm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    var title = addProjectFrm.title.value;
-    var description = addProjectFrm.description.value;
-    var web = addProjectFrm.web.value;
-    var github = addProjectFrm.github.value;
-    var status = true;
+    let title = addProjectFrm.title.value;
+    let description = addProjectFrm.description.value;
+    let web = addProjectFrm.web.value;
+    let github = addProjectFrm.github.value;
+    let status = true;
 
     let storageRef = ref(storage, "images/" + fileName);
     const uploadTask = uploadBytesResumable(storageRef, fileItem);
@@ -741,7 +730,7 @@ addProjectFrm &&
 
           //adding
 
-          var res = addDoc(colRef_project, {
+          addDoc(colRef_project, {
             title: title,
             webUrl: web,
             description: description,
@@ -753,7 +742,7 @@ addProjectFrm &&
             addProjectFrm.reset();
             document.getElementById("imagePreview").innerText = "";
             document.getElementById("description").value = "";
-            var mesg = document.querySelector(".add__message");
+            let mesg = document.querySelector(".add__message");
             mesg.style.padding = "10px";
             mesg.innerText = "Project Added successfully";
             setTimeout(() => {
@@ -774,11 +763,11 @@ editProjectFrm &&
   editProjectFrm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    var id = editProjectFrm.id.value;
-    var title = editProjectFrm.title.value;
-    var description = editProjectFrm.description.value;
-    var webUrl = editProjectFrm.web.value;
-    var githubUrl = editProjectFrm.github.value;
+    let id = editProjectFrm.id.value;
+    let title = editProjectFrm.title.value;
+    let description = editProjectFrm.description.value;
+    let webUrl = editProjectFrm.web.value;
+    let githubUrl = editProjectFrm.github.value;
 
     const reader = new FileReader();
 
@@ -831,7 +820,7 @@ editProjectFrm &&
                 webUrl: webUrl
               }).then(() => {
                 editProjectFrm.reset();
-                var mesg = document.querySelector(".add__message");
+                let mesg = document.querySelector(".add__message");
                 mesg.style.padding = "10px";
                 mesg.innerText = "Blog Updated successfully";
                 setTimeout(() => {
@@ -857,7 +846,7 @@ editProjectFrm &&
           webUrl: webUrl
         }).then(() => {
           editProjectFrm.reset();
-          var mesg = document.querySelector(".add__message");
+          let mesg = document.querySelector(".add__message");
           mesg.style.padding = "10px";
           mesg.innerText = "Project Updated successfully";
           setTimeout(() => {
@@ -876,9 +865,9 @@ editProjectFrm &&
 
 
 // Add a contact from front end
-var formError = document.getElementById("form__error");
-var contact__me__form = document.getElementById("contact__me__form");
-var colRef_contacts = collection(db, "contacts");
+let formError = document.getElementById("form__error");
+let contact__me__form = document.getElementById("contact__me__form");
+let colRef_contacts = collection(db, "contacts");
 
 contact__me__form &&
   contact__me__form.addEventListener("submit", function (e) {
@@ -887,18 +876,18 @@ contact__me__form &&
     if (validateForm()) {
       // ===========SAVE The Contact FORM =======
 
-      var name = document.getElementById("contact__name").value;
-      var email = document.getElementById("contact__email").value;
-      var message = document.getElementById("contact__message").value;
+      let name = document.getElementById("contact__name").value;
+      let email = document.getElementById("contact__email").value;
+      let message = document.getElementById("contact__message").value;
 
-      var res = addDoc(colRef_contacts, {
+      addDoc(colRef_contacts, {
         name: name,
         email: email,
         description: message,
         created_at: serverTimestamp(),
       }).then(() => {
         contact__me__form.reset();
-        var mesg = document.querySelector(".add__message");
+        let mesg = document.querySelector(".add__message");
         mesg.style.padding = "10px";
         mesg.style.color = "green";
         mesg.innerText = "Thank you, we will reply via the email asp";
@@ -914,11 +903,11 @@ contact__me__form &&
 
 // List all contacts queries in dashboard
 
-var contacts_container = document.querySelector(".contacts .contact__row");
-var contact_query = query(colRef_contacts);
+let contacts_container = document.querySelector(".contacts .contact__row");
+let contact_query = query(colRef_contacts);
 
 onSnapshot(contact_query, (snapshot) => {
-  var contacts = [];
+  let contacts = [];
   snapshot.docs.forEach((doc) => {
     contacts.push({ ...doc.data(), id: doc.id });
   });
@@ -927,7 +916,7 @@ onSnapshot(contact_query, (snapshot) => {
     contacts_container.innerHTML = buildContactsList(contacts);
   }
 
-  var cantct = document.getElementById("card__number__contacts");
+  let cantct = document.getElementById("card__number__contacts");
   if (cantct) {
     cantct.innerText = contacts.length;
   }

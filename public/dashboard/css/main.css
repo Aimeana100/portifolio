@@ -11,11 +11,6 @@
 }
 
 
-header{
-
-}
-
-
 
 .top__nav{
     height: 75px;
@@ -68,12 +63,6 @@ header{
     align-items: center;
 }
 
-.main__content .sidebar ul li {
-    padding: 0px;
-    list-style: none;
-    display: flex;
-    align-items: center;
-}
 
 .main__content .sidebar ul li.active {
     border-left: 10px solid green;

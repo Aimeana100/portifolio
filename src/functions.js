@@ -1,9 +1,9 @@
 // Image validation at selection
 export function fileValidation(imageId) {
 
-  var fileInput = document.getElementById(imageId);
-  var filePath = fileInput.value;
-  var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+  let  fileInput = document.getElementById(imageId);
+  let  filePath = fileInput.value;
+  let  allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
   if (!allowedExtensions.exec(filePath)) {
     alert(
       "Pls Select an image file having extensions .jpeg/.jpg/.png/.gif only."
@@ -15,7 +15,7 @@ export function fileValidation(imageId) {
     //Image preview
 
     if (fileInput.files && fileInput.files[0]) {
-      var reader = new FileReader();
+      let  reader = new FileReader();
       reader.onload = function (e) {
         document.getElementById("imagePreview").innerHTML =
           '<img width="160" src="' + e.target.result + '"/>';
@@ -32,7 +32,7 @@ export function fileValidation(imageId) {
 
 export function populateCategory(categories, selectId) {
 
-  var lists = '<option value="" > --- select --- </option>';
+  let  lists = '<option value="" > --- select --- </option>';
   categories.forEach((ele, index) => {
     lists +=
       "<option " +
@@ -54,7 +54,8 @@ export function populateCategory(categories, selectId) {
 
 // build blogList in dashboard
 export function buildBlogList(blogs) {
-  var tableBody = "";
+
+  let tableBody = "";
   blogs.forEach((row, index) => {
     tableBody += `<tr><td>
      ${index + 1} ${row.status ? '' : '<i style="color:#ABB6A8" class="fa fa-trash" aria-hidden="true"></i>'} </td>
@@ -78,7 +79,7 @@ export function buildBlogList(blogs) {
 // build projects
 
 export function buildProjects(projects){
-  var projectHtml = "";
+  let  projectHtml = "";
   projects.forEach((row, index) => {
     projectHtml += `<div class="project__item">
     <div class="top">
@@ -107,7 +108,8 @@ export function buildProjects(projects){
 // build single blog in dashboard  =====================
 // Populate single blog into edit form =================
 export function populateEditForm(blog) {
-  var editBlogFrm = document.getElementById("editBlogFrm");
+  let editBlogFrm = document.getElementById("editBlogFrm");
+
   editBlogFrm.title.value = blog.title;
   editBlogFrm.description.value = blog.description;
   editBlogFrm.id.value = blog.id;
@@ -162,7 +164,7 @@ export function buildComments(comments){
 
 // build category in dashboard
  export function buildBlogCategoryList(categories) {
-  var bodyCategories = "";
+  let bodyCategories = "";
   categories.forEach((row, index) => {
 
     bodyCategories += `<tr><td> ${index + 1} </td>
@@ -184,14 +186,14 @@ export function buildComments(comments){
 // Populate single category into edit form ======================
 
 export function populateEditCategory(category) {
-  var editBlogFrm = document.getElementById("editCategoryFrm");
+  let  editBlogFrm = document.getElementById("editCategoryFrm");
   editBlogFrm.title.value = category.title;
   editBlogFrm.id.value = category.id;
 }
 
 // buld blog List form User interface
 export function buildLatestBlogs(blogs, number) {
-  var latestBlogs = "";
+  let  latestBlogs = "";
 
   blogs.forEach((ele, index) => {
     console.log(ele.comments)
@@ -237,7 +239,7 @@ export function buildLatestBlogs(blogs, number) {
 
 // BUILD a category list on blogs page
 export function buildCategoriesList(categories) {
-  var categoryList = "";
+  let  categoryList = "";
   categories.forEach((ele, index) => {
     categoryList += `<p category__id=${ele.id} title=${ele.title}  class="category_item"> <img src="assets/images/arrow_right_alt_red.svg" alt=""> ${ele.title} </p>`;
   });
@@ -246,7 +248,7 @@ export function buildCategoriesList(categories) {
 
 // Build most viewd post on blogs page
 export function mostViewedBlogs(blogs) {
-  var list = "";
+  let  list = "";
   blogs.forEach((ele, index) => {
     
     list += ` <div class="blog__item">
@@ -284,7 +286,7 @@ export function mostViewedBlogs(blogs) {
 // ===========================================
 
 export function buildContactsList(contacts){
-  var html = "";
+  let  html = "";
   contacts.forEach((ele)=>{
     html += `<div class="message__item">
     <div class="sender">
@@ -308,21 +310,11 @@ export function convertDateToString(timestamp){
 
 let date = timestamp.toDate();
 
-let mm = date.getMonth();
-let dd = date.getDate();
-let yyyy = date.getFullYear();
-
-// date = dd + '-' + mm + '-' + yyyy;
-
-
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
-// const d = new Date(date);
 const d = date;
-// const now = new Date();
-
 return d.getDate() + ", " + monthNames[Number(d.getMonth())] + " " + d.getFullYear();
 
 
@@ -334,20 +326,20 @@ return d.getDate() + ", " + monthNames[Number(d.getMonth())] + " " + d.getFullYe
 //======================Authentication\\=================================================
 
 // ENCRYPT & DECRYPT FUNCTIONS
-    var crypt = {
+    let crypt = {
       // (B1) THE SECRET KEY
       secret : "CIPHERKEY",
      
       // (B2) ENCRYPT
       encrypt : (clear) => {
-        var cipher = CryptoJS.AES.encrypt(clear, crypt.secret);
+        let cipher = CryptoJS.AES.encrypt(clear, crypt.secret);
         cipher = cipher.toString();
         return cipher;
       },
      
       // (B3) DECRYPT
       decrypt : (cipher) => {
-        var decipher = CryptoJS.AES.decrypt(cipher, crypt.secret);
+        let decipher = CryptoJS.AES.decrypt(cipher, crypt.secret);
         decipher = decipher.toString(CryptoJS.enc.Utf8);
         return decipher;
       }
