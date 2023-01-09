@@ -224,7 +224,8 @@ export function populateEditCategory(category) {
 export function buildLatestBlogs(blogs, number) {
   let  latestBlogs = "";
 
-  blogs.forEach((ele, index) => {
+  
+  blogs.filter(blog => {return blog.status}).forEach((ele, index) => {
     console.log(ele.comments)
     latestBlogs += `<div class="item">
     <div class="img">
