@@ -448,7 +448,8 @@ Contacts
 
 .project__item{
     background-color: #f0ffdf;
-    padding: 1.5%;
+    padding: 1.2%;
+    margin: 1%;
   }
   .project__item .top{
     display: flex;

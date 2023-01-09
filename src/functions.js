@@ -76,7 +76,7 @@ export function buildBlogList(blogs) {
 }
 
 
-// build projects
+// build dashboard projects
 
 export function buildProjects(projects){
   let  projectHtml = "";
@@ -84,21 +84,50 @@ export function buildProjects(projects){
     projectHtml += `<div class="project__item">
     <div class="top">
       <div class="image__container">
-        <img width="120" src="../assets/images/blog_1.jpg" alt="" />
+        <img width="180" src="${row.image}" alt="" />
       </div>
       <div class="links">
-        <h2 class="title">Title</h2>
-        <p><span> GitHub : </span> <a href=""> Git </a></p>
-        <p><span> WEB : </span> <a href=""> WEb </a></p>
-        <p class="description">description</p>
+        <h2 class="title"> ${row.title} </h2>
+        <p><span> GitHub : </span>
+         <a target="_blank" href="${row.githubUrl}"> Git </a></p>
+        <p><span> WEB : </span> <a target="_blank"  href="${row.webUrl}"> WEb </a></p>
+        <p class="description"> ${row.description} </p>
       </div>
     </div>
 
     <div class="options">
       <a href="#"> Edit </a>
-      <a href="#"> Delete </a>
+      <a projId=${row.id} class="deletePrj" href="#"> Delete </a>
     </div>
   </div>`;
+
+  })
+
+  return projectHtml ;
+}
+
+// build projects homepage
+
+export function buildHomeProjects(projects){
+  let  projectHtml = "";
+  projects.forEach((row, index) => {
+    projectHtml += `
+    <div class="item">
+      <div class="img">
+        <img src="${row.image}" alt="" />
+      </div>
+
+      <div class="description">
+        <div class="title">
+          <h3> ${row.title} </h3>
+        </div>
+        <div class="goto">
+          <a target="_blank" href="${row.webUrl}" class="web"> <img src="" alt="" /> web </a>
+          <a target="_blank" href="${row.githubUrl}" class="github"> <img src="" alt="" /> github </a>
+        </div>
+      </div>
+    </div>
+  `;
 
   })
 

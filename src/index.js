@@ -7,6 +7,7 @@ import {
   buildCategoriesList,
   buildComments,
   buildContactsList,
+  buildHomeProjects,
   buildLatestBlogs,
   buildProjects,
   convertDateToString,
@@ -165,7 +166,6 @@ if(tblBody){
   
 }
 
-
   // list categories on blogs and single blog page
   let all__category_container = document.querySelector(
     ".right__summary .categories"
@@ -176,8 +176,8 @@ if(tblBody){
   }
 
   // =========== Edit CATEGORY ===============
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
+  let queryString = window.location.search;
+  let urlParams = new URLSearchParams(queryString);
 
   if (urlParams.has("category_id")) {
     const id = urlParams.get("category_id");
@@ -223,28 +223,30 @@ updateCategoryForm &&
 
 
 // |======================Blog=========================|
-// |  |||||||||||||||||||||||       |||||||||||||||||| |
+// |  |||||||||||||||||||||||  |||||||||||||||||||
 // |===================================================|
 
 
 
 // List blogs in dashboard real time collecction data
 const blogs_query = query(colRef_blog, orderBy("created_at"));
-
-onSnapshot(blogs_query, (snapshot) => {
   let blogs = [];
+onSnapshot(blogs_query, (snapshot) => {
+
   snapshot.docs.forEach((doc) => {
-    let comm = [];
-
-    getDocs(collection(db, `blogs/${doc.id}/comments`)).then((snp)=>{
-      snp.docs.forEach(doc => (comm.push({...doc.data(), id: doc.id})));
-    })
-
-    blogs.push({ ...doc.data(), id: doc.id , comments : comm});
+    blogs.push({ ...doc.data(), id: doc.id });
   });
 
-  console.log("Blogs with comments but not seen");
-  console.log(blogs);
+  let comm
+  blogs.forEach((ele , index) => {
+    comm = []
+    getDocs(collection(db, `blogs/${ele.id}/comments`)).then((snp)=>{
+      snp.docs.forEach(doc => {comm.push({...doc.data(), id: doc.id})} );
+
+    })
+    blogs[index] = {...ele, comments: comm}
+  })
+
 
 
   let tblBody = document.querySelector("table#blogs tbody");
@@ -357,7 +359,9 @@ onSnapshot(blogs_query, (snapshot) => {
 
   // =========== Edit Blog ===============
   // const queryString = window.location.search;
-  // const urlParams = new URLSearchParams(queryString);
+
+  let queryString = window.location.search;
+  let urlParams = new URLSearchParams(queryString);
 
   if (urlParams.has("edit_blog")) {
     const edit_blog = urlParams.get("edit_blog");
@@ -376,9 +380,8 @@ onSnapshot(blogs_query, (snapshot) => {
 });
 
 
-// real time collecction data
+// add project
 const projects_query = query(colRef_project, orderBy("created_at"));
-// document.addEventListener("DOMSubtreeModified", (evnt) => {
 
 onSnapshot(projects_query, (snapshot) => {
   let projects = [];
@@ -388,14 +391,36 @@ onSnapshot(projects_query, (snapshot) => {
 
   // render projects
 let projects_container = document.querySelector('.form-content.projects-content');
-
+let homeProjects = document.querySelector('#projects .project_container');
 if(projects_container){
 
   projects_container.innerHTML = buildProjects(projects);
+
+// delete project
+
+let deleteProct = document.querySelectorAll('.deletePrj');
+deleteProct.forEach((ele, index) => {
+  ele.addEventListener("click", function(e){
+    e.preventDefault();
+    if(confirm("Want to delete ?")){
+      deleteDoc(doc(db, "projects", ele.getAttribute('projId')));
+
+    }
+  })
+})
+
 }
 
 
+if(homeProjects){
+  homeProjects.innerHTML = buildHomeProjects(projects);
+}
+
+
+
+
 });
+
 
 
 
@@ -410,8 +435,8 @@ let comments_counts = document.querySelector(".comments__list .comment__title");
 let commentFrm = document.getElementById("commentFrm");
 
 // =====Get single Doc =========
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
+let queryString = window.location.search;
+let urlParams = new URLSearchParams(queryString);
 
 if (urlParams.has("blog")) {
   const blog_id = urlParams.get("blog");
@@ -524,12 +549,15 @@ addBlogForm &&
     uploadTask.on(
       "state_changed",
       (snapshot) => {
+
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
 
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
         console.log("Upload is " + progress + "% done");
+
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
@@ -540,27 +568,30 @@ addBlogForm &&
         }
       },
       (error) => {
+
         console.log(error);
         alert("Some problem in upload");
         return false;
       },
       () => {
+        
         // On successful image uploads
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           uploadedImageURL = downloadURL;
 
           //adding
 
-          let res = addDoc(colRef_blog, {
+           addDoc(colRef_blog, {
             title: title,
             category: category,
             description: description,
             created_at: serverTimestamp(),
-            image: uploadedImageURL,
+            image: downloadURL,
             views: views,
             status: status,
             comments: "",
-          }).then(() => {
+          })
+          .then(() => {
             addBlogForm.reset();
             document.getElementById("imagePreview").innerText = "";
             document.getElementById("description").value = "";
@@ -807,9 +838,6 @@ editProjectFrm &&
             // On successful image uploads
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               uploadedImageURL = downloadURL;
-
-              console.log(downloadURL);
-
               // updating
               const docRef_project = doc(db, "projects", id);
               updateDoc(docRef_project, {
@@ -835,9 +863,7 @@ editProjectFrm &&
         );
       });
     } else {
-
         // updating
-
         const docRef_project = doc(db, "projects", id);
         updateDoc(docRef_project, {
           title: title,
