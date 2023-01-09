@@ -230,9 +230,9 @@ updateCategoryForm &&
 
 // List blogs in dashboard real time collecction data
 const blogs_query = query(colRef_blog, orderBy("created_at"));
-  let blogs = [];
-onSnapshot(blogs_query, (snapshot) => {
 
+onSnapshot(blogs_query, (snapshot) => {
+  let blogs = [];
   snapshot.docs.forEach((doc) => {
     blogs.push({ ...doc.data(), id: doc.id });
   });
