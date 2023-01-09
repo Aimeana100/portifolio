@@ -62,7 +62,7 @@
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="category.html"> Category </a>
               </li>
-              <li class="active">
+              <li class="">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="blogs.html"> Blogs </a>
               </li>
@@ -71,7 +71,7 @@
                 <a class="menu__item" href="contacts.html"> Contacts </a>
               </li>
 
-              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="projects.html"> Projects </a></li>
+              <li class="active"> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="projects.html"> Projects </a></li>
 
               <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="exprience.html"> Exprience </a></li>
 
@@ -82,93 +82,104 @@
             <div class="breadcumb">
               <ul>
                 <li><a href=""> Dashboard </a></li>
-                <li class="current">Blogs</li>
+                <li class="current"> Projects </li>
               </ul>
             </div>
 
             <div class="content__heading">
-              <h3>Add Blog</h3>
-
-              <a href="blogs.html"> All Blogs </a>
+              <h3>Add Project </h3>
+              <a href="projects.html"> All Project </a>
             </div>
 
             <div class="form-content">
-              <form action="" id="editBlogFrm">
+              <form action="" name="addProjectFrm" id="addProjectFrm">
                 <div class="form-row">
-                  <label for=""> Blog Title </label>
+                  <label for=""> Project Title </label>
                   <input
                     class="form-control"
-                    type="text"
                     name="title"
-                    id="edit_title"
+                    type="text"
+                    required
                   />
                 </div>
 
                 <div class="form-row">
-                  <label for=""> Blog Image </label>
-                  <input
-                    class="form-control"
-                    type="file"
-                    name="image"
-                    id="image"
-                  />
+                    <label for="">  Github Link </label>
+                    <input
+                      class="form-control"
+                      name="github"
+                      type="url"
+                      required
+                    />
+                </div>
 
-                  <!--<img
-                    style="margin-top: 10px"
-                    height="100"
-                    width="150"
-                    src="../assets/images/bolog_2.jpg"
-                    alt=""
-                  />-->
+                <div class="form-row">
+                    <label for="">  Web Link </label>
+                    <input
+                      class="form-control"
+                      name="web"
+                      type="url"
+                      required
+                    />
+                </div>
+
+                <div class="form-row">
+                  <label for=""> Project Image </label>
+                  <input
+                    name="image"
+                    class="form-control image"
+                    id="image"
+                    type="file"
+                    required
+                  />
 
                   <div style="margin-top: 10px" id="imagePreview"></div>
                 </div>
-
-                <div class="form-row">
-                  <label for=""> Category </label>
-                  <select class="form-control" name="category" id="category">
-                    <option value="">--select--</option>
-                  </select>
-                </div>
-
                 <div class="form-row">
                   <label for=""> Description </label>
                   <textarea
                     class="form-control"
                     name="description"
                     id="description"
-                    rows="4"
-                    id="edit_description"
+                    rows="20"
                   ></textarea>
                 </div>
-
-                <input type="hidden" id="id" name="id" />
 
                 <div class="action__message">
                   <h4 class="add__message"></h4>
                 </div>
 
-
-                <button class="btn btn__send" type="submit">Update</button>
+                <button class="btn btn__send" type="submit">Add</button>
               </form>
             </div>
           </div>
         </div>
       </main>
     </div>
+
     <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
 
     <script>
-      // ClassicEditor.create(document.querySelector("#description")).catch(
-      //   (error) => {
-      //     console.error(error);
-      //   }
-      // );
+      ClassicEditor.create(document.querySelector("#description")).catch(
+        (error) => {
+          console.error(error);
+        }
+      );
     </script>
-    <!-- <script src="../../src/Category.js"></script>
-      <script src="../../src/Blog.js"></script>
-      <script src="../../src/functions.js"></script> -->
-      <script src="../../dist/bundle.js"></script>
+<!-- 
+    <script src="../../src/Blog.js"></script>
+    <script src="../../src/Category.js"></script> -->
+    <!-- <script src="../../src/functions.js"></script> -->
 
+    <script src="../../dist/bundle.js"></script>
+
+    <script>
+
+      // ============ Submit Blog form        =======
+      // var fileItem = document.querySelector(".fileItem");
+      // var uploadPercentage = document.querySelector(".uploadPercentage");
+      // var progress = document.querySelector(".progress");
+
+    </script>
   </body>
 </html>

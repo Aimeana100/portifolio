@@ -10,10 +10,7 @@
       src="https://kit.fontawesome.com/e7a6391963.js"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://kit.fontawesome.com/e7a6391963.js"
-      crossorigin="anonymous"
-    ></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -39,7 +36,12 @@
                 src="../assets/images/Menu.svg"
                 alt=""
               />
-            
+              <!-- <img
+                width="30"
+                height="30"
+                src="../assets/images/Close.svg"
+                alt=""
+              /> -->
             </div>
 
             <div class="profile">
@@ -50,7 +52,7 @@
       </header>
       <main>
         <div class="main__content">
-          <div class="sidebar menu__open">
+          <div class="sidebar">
             <ul>
               <li class="">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
@@ -72,6 +74,7 @@
               <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="projects.html"> Projects </a></li>
 
               <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="exprience.html"> Exprience </a></li>
+
             </ul>
           </div>
 
@@ -79,37 +82,92 @@
             <div class="breadcumb">
               <ul>
                 <li><a href=""> Dashboard </a></li>
-                <li class="current">Blogs</li>
+                <li class="current"> Projects </li>
               </ul>
             </div>
 
             <div class="content__heading">
-              <h3>All Blog</h3>
+              <h3>Add Project</h3>
 
-              <a href="add-blogs.html"> Add Blogs </a>
+              <a href="projects.html"> All Projects </a>
             </div>
 
-            <div class="form-content blogs-content">
-              <table id="blogs">
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Image</th>
-                    <th>views</th>
-                    <th>comments</th>
-                    <th>Option</th>
-                  </tr>
-                </thead>
-                 <tbody>
-                 </tbody>
-              </table>
+            <div class="form-content">
+              <form action="" id="editProjectFrm">
+                <div class="form-row">
+                  <label for=""> Project Title </label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="title"
+                    id="edit_title"
+                  />
+                </div>
+
+                <div class="form-row">
+                  <label for=""> Project Image </label>
+                  <input
+                    class="form-control"
+                    type="file"
+                    name="image"
+                    id="image"
+                  />
+
+                  <!--<img
+                    style="margin-top: 10px"
+                    height="100"
+                    width="150"
+                    src="../assets/images/bolog_2.jpg"
+                    alt=""
+                  />-->
+
+                  <div style="margin-top: 10px" id="imagePreview"></div>
+                </div>
+
+                <div class="form-row">
+                  <label for=""> Category </label>
+                  <select class="form-control" name="category" id="category">
+                    <option value="">--select--</option>
+                  </select>
+                </div>
+
+                <div class="form-row">
+                  <label for=""> Description </label>
+                  <textarea
+                    class="form-control"
+                    name="description"
+                    id="description"
+                    rows="4"
+                    id="edit_description"
+                  ></textarea>
+                </div>
+
+                <input type="hidden" id="id" name="id" />
+
+                <div class="action__message">
+                  <h4 class="add__message"></h4>
+                </div>
+
+                <button class="btn btn__send" type="submit">Update</button>
+              </form>
             </div>
           </div>
         </div>
       </main>
     </div>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
 
-    <script src="../../dist/bundle.js"></script>
+    <script>
+      // ClassicEditor.create(document.querySelector("#description")).catch(
+      //   (error) => {
+      //     console.error(error);
+      //   }
+      // );
+    </script>
+    <!-- <script src="../../src/Category.js"></script>
+      <script src="../../src/Blog.js"></script>
+      <script src="../../src/functions.js"></script> -->
+      <script src="../../dist/bundle.js"></script>
+
   </body>
 </html>

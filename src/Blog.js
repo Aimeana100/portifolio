@@ -5,12 +5,12 @@
 
 
 
-var Blog =  (function() {
+export const Blog =  () => {
   // ===============================
   // Private methods and properties
   //================================
 
-  data = [];
+  var data = [];
 
   // Constructor
   function Item(
@@ -67,9 +67,9 @@ var Blog =  (function() {
     created_at,
     status,
   ) => {
-    if(data.filter(el => {return el.id == id}).length != 0){
-        return;
-    }
+    // if(data.filter(el => {return el.id == id}).length != 0){
+    //     return;
+    // }
     var item = new Item(
       id,
       title,
@@ -82,7 +82,6 @@ var Blog =  (function() {
     );
 
     data.push(item);
-
     saveBlog();
 
     return true;
@@ -140,7 +139,6 @@ obj.update = ((id, title, image, category, description) => {
       }
     }
     
-
 }
 
 // View a blog  || = Increament Views
@@ -158,7 +156,7 @@ obj.update = ((id, title, image, category, description) => {
 
 return obj;
 
-})();
+}
 
 // Blog.addBlog(123, "title", "imageURL", "description ..", "category ..", 12, [{}], true);
 // Blog.clear();
