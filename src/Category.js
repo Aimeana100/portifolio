@@ -12,10 +12,6 @@
         status: data.status,
       }).then(() => {
 
-        // addBlogForm.reset();
-        // document.getElementById("imagePreview").innerText = "";
-        // document.getElementById("description").value = "";
-        
          console.log("Blog Posted successfuly");
 
         resFn();

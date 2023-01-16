@@ -227,7 +227,6 @@ updateCategoryForm &&
 // |===================================================|
 
 
-
 // List blogs in dashboard real time collecction data
 const blogs_query = query(colRef_blog, orderBy("created_at"));
 

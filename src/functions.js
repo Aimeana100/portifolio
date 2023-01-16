@@ -33,10 +33,10 @@ export function fileValidation(imageId) {
 export function populateCategory(categories, selectId) {
 
   let  lists = '<option value="" > --- select --- </option>';
-  categories.forEach((ele, index) => {
+  categories.forEach((ele, index ) => {
     lists +=
       "<option " +
-      (ele.id == selectId ? " selected " : "") +
+      ( ele.id == selectId ? " selected " : "") +
       ' value="' +
       ele.id +
       '">' +
