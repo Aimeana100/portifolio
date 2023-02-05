@@ -9,7 +9,7 @@ mobile__nav__toggle.addEventListener('click', e => {
   desktop__nav__toggle.style.display = "flex";
 });
 
-desktop__nav__toggle.addEventListener('click', e=>{
+desktop__nav__toggle.addEventListener('click', e =>{
 
   e.target.style.display = "none";
   navbar.style.display = "flex";

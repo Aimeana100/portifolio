@@ -341,78 +341,45 @@
       </footer>
     </div>
 
-    <script src="../src/Category.js"></script>
+    <!-- <script src="../src/Category.js"></script>
     <script src="../src/Blog.js"></script>
     <script src="../src/Comment.js"></script>
-    <script src="../src/functions.js"></script>
+    <script src="../src/functions.js"></script> -->
 
+    <script src="../dist/bundle.js"></script> 
     <script src="script/main.js"></script>
 
     <script>
-      var all__category_container = document.querySelector(
-        ".right__summary .categories"
-      );
-      var all__most_viewd_container = document.querySelector(
-        ".right__summary .most_viewed_blogs"
-      );
-      var comments_container = document.querySelector('.comments__list .comment__content');
-      var  date__published = document.querySelector('.blog__content .date__published');
-      var  comments_counts = document.querySelector('.comments__list .comment__title');
-      var commentFrm = document.getElementById('commentFrm');
-
-      
 
 
-      var blg = Blog.getAllBlogs();
-      var ctg = Category.getAllCategories();
 
-      all__category_container.innerHTML = buildCategoriesList(ctg);
-      all__most_viewd_container.innerHTML = mostViewedBlogs(blg);
+      // var blg = Blog.getAllBlogs();
+      // var ctg = Category.getAllCategories();
 
 
-      if (urlParams.has("blog")) {
-        var title = document.querySelector(
-          ".blog__single__container .blog__content .title"
-        );
-        var desc = document.querySelector(
-          ".blog__single__container .blog__content .blog__content_text"
-        );
-        var img = document.querySelector(
-          ".blog__single__container .blog__img img"
-        );
 
-        const id = urlParams.get("blog");
-        var blgs = Blog.getBlog(id)[0];
-  
-        title.innerText = blgs.title;
-        desc.innerHTML = blgs.description;
-        img.setAttribute("src", blgs.image);
-        
-        date__published.innerHTML = `<img src="assets/images/Alarm.svg" alt="" /> ${convertDateToString(blgs.created_at)}`;
-      }
-
-
-      if (urlParams.has("blog")) {
-        const blog_id = urlParams.get("blog");
-        comments_container.innerHTML = buildComments(blog_id);
-        comments_counts.innerHTML = `${Comment.getAllComments(blog_id).length} <span>Comment(s)</span>`;
+      // if (urlParams.has("blog")) {
+      //   const blog_id = urlParams.get("blog");
+      //   comments_container.innerHTML = buildComments(blog_id);
+      //   comments_counts.innerHTML = `${Comment.getAllComments(blog_id).length} <span>Comment(s)</span>`;
      
-      }
+      // }
 
       // document.addEventListener("DOMSubtreeModified", ()=>{
-        commentFrm.addEventListener("submit", function(e){
-          e.preventDefault();
-          var name = this.Names.value;
-          var email = this.Email.value;
-          var description = this.comment__description.value;
-          const blog_id = urlParams.get("blog");
-          var result = Comment.addComment(create_UUID(),name,email,description,blog_id,new Date(),false);
-          if(result){
-            comments_container.innerHTML = buildComments(blog_id);
-            comments_counts.innerHTML = `${Comment.getAllComments(blog_id).length} <span>Comment(s)</span>`;
-            commentFrm.reset();
-          }
-        })
+
+        // commentFrm.addEventListener("submit", function(e){
+        //   e.preventDefault();
+        //   var name = this.Names.value;
+        //   var email = this.Email.value;
+        //   var description = this.comment__description.value;
+        //   const blog_id = urlParams.get("blog");
+        //   var result = Comment.addComment(create_UUID(),name,email,description,blog_id,new Date(),false);
+        //   if(result){
+        //     comments_container.innerHTML = buildComments(blog_id);
+        //     comments_counts.innerHTML = `${Comment.getAllComments(blog_id).length} <span>Comment(s)</span>`;
+        //     commentFrm.reset();
+        //   }
+        // })
       // });
 
 

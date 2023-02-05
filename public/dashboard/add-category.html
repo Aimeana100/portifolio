@@ -69,6 +69,11 @@
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="contacts.html"> Contacts </a>
               </li>
+
+              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="projects.html"> Projects </a></li>
+
+              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="exprience.html"> Exprience </a></li>
+
             </ul>
           </div>
 
@@ -87,7 +92,7 @@
             </div>
 
             <div class="form-content">
-              <form action="" name="addFrm" id="addFrm">
+              <form action="" name="addCategoryFrm" id="addCategoryFrm">
                 <div class="form-row">
                   <label for="">  Title </label>
                   <input
@@ -110,48 +115,9 @@
     </div>
 
 
-    <script src="../../src/Category.js"></script>
-    <script src="../../src/functions.js"></script>
+    <!-- <script src="../../src/Category.js"></script>
+    <script src="../../src/functions.js"></script> -->
+    <script src="../../dist/bundle.js"></script>
 
-    <!-- <script src="../../dist/bundle.js"></script> -->
-
-    <script>
-      // =======Submit Blog category form =======
-
-      // ===== Adding blog ====
-      const addBlogForm = document.getElementById("addFrm");
-      addBlogForm &&
-        addBlogForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-
-          var id = create_UUID();
-          var title = addBlogForm.title.value;
-          var status = true;
-
-
-            var res = Category.addCategory(
-              id,
-              title,
-              true
-            );
-
-            if (res) {
-              var mesg = document.querySelector(".add__message");
-              mesg.style.padding = "10px";
-              mesg.innerText = "Blog Category created successfully";
-              addBlogForm.reset();
-
-              setTimeout(() => {
-                mesg.innerText = "";
-                mesg.style.padding = "0px";
-              }, 3000);
-              console.log(Category.getAllCategories());
-
-            }
-          });
-        
-
-
-    </script>
   </body>
 </html>

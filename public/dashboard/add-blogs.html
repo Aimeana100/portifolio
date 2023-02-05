@@ -70,6 +70,11 @@
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="contacts.html"> Contacts </a>
               </li>
+
+              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="projects.html"> Projects </a></li>
+
+              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="exprience.html"> Exprience </a></li>
+
             </ul>
           </div>
 
@@ -83,7 +88,6 @@
 
             <div class="content__heading">
               <h3>Add Blog</h3>
-
               <a href="blogs.html"> All Blogs </a>
             </div>
 
@@ -151,12 +155,12 @@
         }
       );
     </script>
-
+<!-- 
     <script src="../../src/Blog.js"></script>
-    <script src="../../src/Category.js"></script>
-    <script src="../../src/functions.js"></script>
+    <script src="../../src/Category.js"></script> -->
+    <!-- <script src="../../src/functions.js"></script> -->
 
-    <!-- <script src="../../dist/bundle.js"></script> -->
+    <script src="../../dist/bundle.js"></script>
 
     <script>
 
@@ -165,78 +169,6 @@
       // var uploadPercentage = document.querySelector(".uploadPercentage");
       // var progress = document.querySelector(".progress");
 
-      populateCategory("");
- 
-      var image = document.getElementById("image");
-      var fileItem;
-      var fileName;
-   
-      function getFile(e) {
-        fileItem = e.target.files[0];
-        fileName = fileItem.name;
-      }
-
-      image &&
-        image.addEventListener("change", (e) => {
-          getFile(e);
-          console.log(fileItem);
-          if (!fileValidation("image")) {
-            return false;
-          }
-        });
-
-        
-      // ===== Adding blog ====
-      const addBlogForm = document.getElementById("addBlogFrm");
-      addBlogForm &&
-        addBlogForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-
-          // var imageURL = uploadImage(fileItem, fileName);
-
-          var imgURL = "";
-          var id = create_UUID();
-          var created_at = new Date();
-          var title = addBlogForm.title.value;
-          var description = addBlogForm.description.value;
-          var category = addBlogForm.category.value;
-          var views = 0;
-          var status = true;
-
-          const reader = new FileReader();
-          reader.readAsDataURL(fileItem);
-
-          reader.addEventListener("load", function (ev) {
-            imgURL = getImageURL(reader);
-            var res = Blog.addBlog(
-              id,
-              title,
-              imgURL,
-              description,
-              category,
-              0,
-              created_at,
-              true
-            );
-
-            if (res) {
-              var mesg = document.querySelector(".add__message");
-              mesg.style.padding = "10px";
-              mesg.innerText = "Blog created successfully";
-              addBlogForm.reset();
-              setTimeout(() => {
-                mesg.innerText = "";
-                mesg.style.padding = "0px";
-              }, 3000);
-            }
-          });
-        });
-
-      function getImageURL(reader) {
-        return reader.result;
-      }
-
-      console.log(Blog.getAllBlogs());
     </script>
   </body>
 </html>
