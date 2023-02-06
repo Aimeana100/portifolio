@@ -1,31 +1,30 @@
 // Image validation at selection
-export function fileValidation(imageId) {
+// export function fileValidation(imageId) {
+//   let  fileInput = document.getElementById(imageId);
+//   let  filePath = fileInput.value;
+//   let  allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+//   if (!allowedExtensions.exec(filePath)) {
+//     alert(
+//       "Pls Select an image file having extensions .jpeg/.jpg/.png/.gif only."
+//     );
+//     fileInput.value = "";
+//     return false;
+//   } else {
 
-  let  fileInput = document.getElementById(imageId);
-  let  filePath = fileInput.value;
-  let  allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-  if (!allowedExtensions.exec(filePath)) {
-    alert(
-      "Pls Select an image file having extensions .jpeg/.jpg/.png/.gif only."
-    );
-    fileInput.value = "";
-    return false;
-  } else {
+//     //Image preview
 
-    //Image preview
-
-    if (fileInput.files && fileInput.files[0]) {
-      let  reader = new FileReader();
-      reader.onload = function (e) {
-        document.getElementById("imagePreview").innerHTML =
-          '<img width="160" src="' + e.target.result + '"/>';
-      };
-      reader.readAsDataURL(fileInput.files[0]);
-      return true;
-    }
-    return true;
-  }
-}
+//     if (fileInput.files && fileInput.files[0]) {
+//       let  reader = new FileReader();
+//       reader.onload = function (e) {
+//         document.getElementById("imagePreview").innerHTML =
+//           '<img width="160" src="' + e.target.result + '"/>';
+//       };
+//       reader.readAsDataURL(fileInput.files[0]);
+//       return true;
+//     }
+//     return true;
+//   }
+// }
 
 
 // =========== populate category ============
