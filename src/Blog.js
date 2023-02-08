@@ -116,7 +116,7 @@ const singleBlogs = async () => {
         let email = this.Email.value;
         let description = this.comment__description.value;
 
-        await axios
+       let res =  await axios
           .post(`${baseUrl}/api/comments/add/${single_blg.id}`, {
             names: name,
             email: email,

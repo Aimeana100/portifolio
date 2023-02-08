@@ -1,5 +1,5 @@
 // Login form validation
-const baseUrl = "http://127.0.0.1:5000";
+
 let username__error = document.getElementById("username__error");
 let passowrd__error = document.getElementById("passowrd__error");
 let login_form = document.getElementById("login__form");
@@ -85,29 +85,23 @@ const login = async (email, passowrd) => {
       password: passowrd,
     })
     .then((response) => {
-      mesg.innerText = "Login Successfully";
+      console.log(response);
+      mesg.innerText = `${response.data.message}`;
       mesg.style.color = "#2DFA17";
-      console.log(response.data);
-      Token.saveToken(response.data.accessToken);
-      console.log(Token.loadToken());
-      this.reset();
       setTimeout(() => {
         mesg.innerText = "";
         mesg.style.padding = "0px";
-              
-      setTimeout(() => {
-        window.location.href = `${baseUrl}/auth/login`;
-      }, 2000);
-
-      }, 10000);
-
-      return false;
+        setTimeout(() => {
+location.href = `./dashboard/index.html`;
+        }, 2000);
+      }, 4000);
+      Token.saveToken(response.data.accessToken);
+      this.reset();
     })
     .catch(async (error) => {
 
         if(error.response){
             let resCode = error;
-            console.log(resCode);
       
             mesg.innerText = `Error: ${await loginError(resCode)}`;
             mesg.style.color = "#D16D6A";

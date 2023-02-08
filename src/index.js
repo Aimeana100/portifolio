@@ -124,6 +124,7 @@ if(tblBody){
   if (all__category_container) {
     all__category_container.innerHTML = buildCategoriesList(categories);
   }
+  
 
   // =========== Edit CATEGORY ===============
   let queryString = window.location.search;

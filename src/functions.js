@@ -204,7 +204,7 @@ function buildBlogCategoryList(categories) {
         <a class="edit" href="edit_category.html?category_id=${
           row.id
         }"> <button>Edit</button> </a>
-       <button status=${row.status} cat_id=${row.id} class=" status ${row.status ? 'burn': "revoke"}" > ${row.status ? "Burn": "Revoke"} </button>
+       <button status=${row.status} cat_id=${row.id} class=" status ${row.status ==  "unmuted" ? 'burn': "revoke"}" > ${row.status == "unmuted" ? "Burn": "Revoke"} </button>
         </td>
         </tr>`;
   });
@@ -322,7 +322,7 @@ function buildContactsList(contacts){
   contacts.forEach((ele)=>{
     html += `<div class="message__item">
     <div class="sender">
-      <h2 class="name">${ele.name}</h2>
+      <h2 class="name">${ele.names}</h2>
       <h5 class="contact_date"> ${ convertDateToString(ele.created_at || ele.contact_date ) }    </h5>
       <h4 class="email"> ${ele.email} </h4>
       <p class="message">
@@ -357,29 +357,5 @@ return d.getDate() + ", " + monthNames[Number(d.getMonth())] + " " + d.getFullYe
 // return date;
 }
 
-
-// ====================================================================================
-//======================Authentication\\=================================================
-
-// ENCRYPT & DECRYPT FUNCTIONS
-    let crypt = {
-      // (B1) THE SECRET KEY
-      secret : "CIPHERKEY",
-     
-      // (B2) ENCRYPT
-      encrypt : (clear) => {
-        let cipher = CryptoJS.AES.encrypt(clear, crypt.secret);
-        cipher = cipher.toString();
-        return cipher;
-      },
-     
-      // (B3) DECRYPT
-      decrypt : (cipher) => {
-        let decipher = CryptoJS.AES.decrypt(cipher, crypt.secret);
-        decipher = decipher.toString(CryptoJS.enc.Utf8);
-        return decipher;
-      }
-
-    };
 
 

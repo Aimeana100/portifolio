@@ -157,15 +157,16 @@ const listContacts = async () => {
   let contacts = [];
 
   await axios({
-    method: "post",
+    method: "get",
     url: `${baseUrl}/api/contacts/all`,
     headers: { 
-      "token": localStorage.getItem("token"),
-   },
+      "token": `Bearer ${Token.loadToken()}`,
+    },
   })
     .then(function (response) {
       //handle success
       console.log(response);
+      contacts = response.data;
     })
     .catch(function (response) {
       //handle error
