@@ -1,5 +1,5 @@
 // Contact Formvalidation
-const baseUrl = 'http://127.0.0.1:5000';
+const baseUrl = "http://127.0.0.1:5000";
 let nameError = document.getElementById("name__error");
 let emailError = document.getElementById("email__error");
 let passwordError = document.getElementById("password__error");
@@ -43,11 +43,10 @@ const validatePassoword = () => {
   let passowrd = document.getElementById("password").value;
   let confirm__passowrd = document.getElementById("confirm__password").value;
 
-  if(passowrd != confirm__passowrd){
-    passwordError.innerHTML = 'Password does not match';
+  if (passowrd != confirm__passowrd) {
+    passwordError.innerHTML = "Password does not match";
     return false;
   }
-
   passwordError.innerHTML = "<i class='fas fa-check-circle' ></i>";
   return true;
 };
@@ -61,9 +60,7 @@ register__form.addEventListener("submit", function (e) {
     let email = document.getElementById("email").value;
     let passowrd = document.getElementById("password").value;
 
-    
-     register(name, email, passowrd);
-    
+    register(name, email, passowrd);
   }
 });
 
@@ -83,65 +80,60 @@ const validateForm = () => {
     valid = false;
   }
 
-return valid;
+  return valid;
 };
 
-const register =  async (name, email, passowrd) => {
-  var mesg = document.querySelector(".add__message");
+const register = async (name, email, passowrd) => {
+  let mesg = document.querySelector(".add__message");
   mesg.style.padding = "10px";
 
-await axios.post(`${baseUrl}/api/auth/register`, {
-    names: name,
-    email: email,
-    password: passowrd,
-})
-.then((response) =>
-{
-  mesg.innerText = "Successfully Registered";
-  mesg.style.color = "#2DFA17";
+  await axios
+    .post(`${baseUrl}/api/auth/register`, {
+      names: name,
+      email: email,
+      password: passowrd,
+    })
+    .then((response) => {
+      mesg.innerText = "Successfully Registered";
+      mesg.style.color = "#2DFA17";
 
-  this.reset();
-  setTimeout(() => {
-    mesg.innerText = "";
-    mesg.style.padding = "0px";
+      this.reset();
+      setTimeout(() => {
+        mesg.innerText = "";
+        mesg.style.padding = "0px";
+      }, 10000);
+      setTimeout(() => {
+        window.location.href = `${baseUrl}/auth/login`;
+      }, 3000);
+      return;
+    })
+    .catch(async (error) => {
+      let resCode = error;
+      console.log(resCode);
 
-  }, 10000);
-  setTimeout(() => {
-    window.location.href = `${baseUrl}/auth/login`;
-  }, 3000);
+      mesg.innerText = `Error: ${await registerError(resCode)}`;
+      mesg.style.color = "#D16D6A";
 
-}
+      setTimeout(() => {
+        mesg.innerText = "";
+        mesg.style.padding = "0px";
+      }, 10000);
 
-)
-.catch(async (error) => 
-{
-  let resCode = error.response.status;
-
-  mesg.innerText = `Error: ${await registerError(resCode) }`;
-  mesg.style.color = "#D16D6A";
-
-
-setTimeout(() => {
-  mesg.innerText = "";
-  mesg.style.padding = "0px";
-
-}, 10000);
-}
-);
+      return;
+    });
 };
 
-
 // hundele unsuccessiful registration
-const registerError = async (errorCode) =>{
-  console.log(errorCode);
+const registerError = async (errorCode) => {
+  return errorCode.response.data.message;
+  // if(errorCode === 404){
+  //   return "Invalid URL"
+  // }
+  // if(errorCode === 409){
+  //   return "Email already exists in the system";
+  // }
+  // if(errorCode === 400){
+  //   return 'chech all parameters are valid'
+  // }
 
-  if(errorCode === 404){
-    return "Invalid URL"
-  }
-  if(errorCode === 409){
-    return "Email already exists in the system";
-  }
-  if(errorCode === 400){
-    return 'chech all parameters are valid'
-  }
-} 
+};

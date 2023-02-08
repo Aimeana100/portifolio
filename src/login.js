@@ -1,98 +1,129 @@
-
 // Login form validation
+const baseUrl = "http://127.0.0.1:5000";
+let username__error = document.getElementById("username__error");
+let passowrd__error = document.getElementById("passowrd__error");
+let login_form = document.getElementById("login__form");
+let login__error = document.getElementById("login__error");
 
-var username__error = document.getElementById('username__error');
-var passowrd__error = document.getElementById('passowrd__error');
-var login_form = document.getElementById('login__form');
-var login__error = document.getElementById('login__error');
+let username = document.getElementById("login__username");
+let passowrd = document.getElementById("login__password");
 
-var username = document.getElementById('login__username');
-var passowrd = document.getElementById('login__password');
+const validateUsername = () => {
+  if (username.value.length == 0) {
+    username__error.innerHTML = "Plese enter your username";
+    return false;
+  } else {
+    username__error.innerHTML = "<i class='fas fa-check-circle' ></i>";
+    // return true;
+  }
+};
 
+const validatePassoword = () => {
+  if (passowrd.value.length == 0) {
+    password__error.innerHTML = "Plese enter your Password";
+    return false;
+  } else {
+    password__error.innerHTML = "<i class='fas fa-check-circle' ></i>";
+    // return true;
+  }
+};
 
-  const validateUsername = () => {
-    if(username.value.length == 0){
-      username__error.innerHTML = "Plese enter your username";
-      return false;
-    }
-    else{
-  // username__error.innerHTML = "<i class='fas fa-check-circle' ></i>";
+const auth = (username, passowrd) => {
+  let message = "";
+  let submit = true;
 
-    username__error.innerHTML = "h";
+  if (username != "Anathole") {
+    message += " <p> username is : Anathole </p> ";
+    submit = false;
+  }
+
+  if (passowrd != "12345") {
+    message += " <p> pass is : 12345 </p> ";
+    submit = false;
+  }
+
+  console.log(message, submit, "auth");
+
+  if (!submit) {
+    login__error.innerHTML = message;
+    return false;
+  } else {
     return true;
-    }
-
-
   }
+};
 
-  const validatePassoword = () => {
-
-    if(passowrd.value.length == 0){
-      password__error.innerHTML = "Plese enter your Password";
-      return false;
-    }
-    else{
-    // password__error.innerHTML = "<i class='fas fa-check-circle' ></i>";
-    password__error.innerHTML = "h";
-    return true;
-    }
-
-  }
-
-
-  const auth = (username, passowrd) => {
-    var message = "";
-    var submit = true;
-    if(username != "Anathole"){
-      message += " <p> username is : Anathole </p> ";
-      submit = false;
-    }
-    
-
-    if(passowrd != "12345"){
-      message += " <p> pass is : 12345 </p> ";
-      submit = false;
-
-    }
-
-    console.log(message, submit, "auth");
-
-    if(!submit){
-      login__error.innerHTML = message;
-      return false;
-    }
-
-    else{ 
-      return true;
-    }
-
-  }
-
-
-login_form.addEventListener('submit', function(e){
+login_form.addEventListener("submit", function (e) {
   e.preventDefault();
+  let valid = true;
 
-  var valid = true;
-  // console.log(validateUsername(),validatePassoword(),auth(username.value, passowrd.value), valid  )
-
-  if(validateUsername() === false){
-    valid = false;
-    
-  }
-  if(validatePassoword() === false){
+  if (validateUsername() === false) {
     valid = false;
   }
-  // console.log(validateUsername(),validatePassoword(),auth(username.value, passowrd.value), valid )
-
-  if(!auth(username.value, passowrd.value)){
-
+  if (validatePassoword() === false) {
     valid = false;
-
   }
 
-  console.log(valid);
+  if (!valid) {
+    return valid;
+  }
 
-  if(valid){
-    window.location.href = "dashboard/index.html";
+  //   valid = auth(username.value, passowrd.value);
+  valid = login(username.value, passowrd.value);
+
+  if (valid) {
+    // window.location.href = "dashboard/index.html";
   }
 });
+
+const login = async (email, passowrd) => {
+  let mesg = document.querySelector(".add__message");
+  mesg.style.padding = "10px";
+
+  await axios
+    .post(`${baseUrl}/api/auth/login`, {
+      email: email,
+      password: passowrd,
+    })
+    .then((response) => {
+      mesg.innerText = "Login Successfully";
+      mesg.style.color = "#2DFA17";
+      console.log(response.data);
+      Token.saveToken(response.data.accessToken);
+      console.log(Token.loadToken());
+      this.reset();
+      setTimeout(() => {
+        mesg.innerText = "";
+        mesg.style.padding = "0px";
+              
+      setTimeout(() => {
+        window.location.href = `${baseUrl}/auth/login`;
+      }, 2000);
+
+      }, 10000);
+
+      return false;
+    })
+    .catch(async (error) => {
+
+        if(error.response){
+            let resCode = error;
+            console.log(resCode);
+      
+            mesg.innerText = `Error: ${await loginError(resCode)}`;
+            mesg.style.color = "#D16D6A";
+      
+            setTimeout(() => {
+              mesg.innerText = "";
+              mesg.style.padding = "0px";
+            }, 10000);
+      
+            return;
+        }
+
+    });
+};
+
+// hundele unsuccessiful login
+const loginError = async (errorCode) => {
+  return errorCode.response.data.message;
+};

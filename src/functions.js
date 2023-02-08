@@ -1,35 +1,38 @@
+const baseUrl = 'http://127.0.0.1:5000';
+
+
 // Image validation at selection
-// export function fileValidation(imageId) {
-//   let  fileInput = document.getElementById(imageId);
-//   let  filePath = fileInput.value;
-//   let  allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-//   if (!allowedExtensions.exec(filePath)) {
-//     alert(
-//       "Pls Select an image file having extensions .jpeg/.jpg/.png/.gif only."
-//     );
-//     fileInput.value = "";
-//     return false;
-//   } else {
+function fileValidation(imageId) {
+  let  fileInput = document.getElementById(imageId);
+  let  filePath = fileInput.value;
+  let  allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+  if (!allowedExtensions.exec(filePath)) {
+    alert(
+      "Pls Select an image file having extensions .jpeg/.jpg/.png/.gif only."
+    );
+    fileInput.value = "";
+    return false;
+  } else {
 
-//     //Image preview
+    //Image preview
 
-//     if (fileInput.files && fileInput.files[0]) {
-//       let  reader = new FileReader();
-//       reader.onload = function (e) {
-//         document.getElementById("imagePreview").innerHTML =
-//           '<img width="160" src="' + e.target.result + '"/>';
-//       };
-//       reader.readAsDataURL(fileInput.files[0]);
-//       return true;
-//     }
-//     return true;
-//   }
-// }
+    if (fileInput.files && fileInput.files[0]) {
+      let  reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("imagePreview").innerHTML =
+          '<img width="160" src="' + e.target.result + '"/>';
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+      return true;
+    }
+    return true;
+  }
+}
 
 
 // =========== populate category ============
 
-export function populateCategory(categories, selectId) {
+function populateCategory(categories, selectId) {
 
   let  lists = '<option value="" > --- select --- </option>';
   categories.forEach((ele, index) => {
@@ -52,14 +55,13 @@ export function populateCategory(categories, selectId) {
 // ================================================================
 
 // build blogList in dashboard
-export function buildBlogList(blogs) {
-
+function buildBlogList(blogs) {
   let tableBody = "";
   blogs.forEach((row, index) => {
     tableBody += `<tr><td>
      ${index + 1} ${row.status ? '' : '<i style="color:#ABB6A8" class="fa fa-trash" aria-hidden="true"></i>'} </td>
         <td> ${row.title} </td> 
-        <td> <img  width="100" src="${row.image}" atl="${row.title}" /> </td>
+        <td> <img  width="100" src="${row.image.url}" atl="${row.title}" /> </td>
         <td>${row.views}</td>
         <td> ${row.comments.length} </td>
         <td>
@@ -77,7 +79,7 @@ export function buildBlogList(blogs) {
 
 // build dashboard projects
 
-export function buildProjects(projects){
+function buildProjects(projects){
   let  projectHtml = "";
   projects.forEach((row, index) => {
     projectHtml += `<div class="project__item">
@@ -107,7 +109,7 @@ export function buildProjects(projects){
 
 // build projects homepage
 
-export function buildHomeProjects(projects){
+function buildHomeProjects(projects){
   let  projectHtml = "";
   projects.forEach((row, index) => {
     projectHtml += `
@@ -135,7 +137,7 @@ export function buildHomeProjects(projects){
 
 // build single blog in dashboard  =====================
 // Populate single blog into edit form =================
-export function populateEditForm(blog) {
+function populateEditForm(blog) {
   let editBlogFrm = document.getElementById("editBlogFrm");
 
   editBlogFrm.title.value = blog.title;
@@ -158,9 +160,10 @@ export function populateEditForm(blog) {
 // ===========================================
 
 
-export function buildComments(comments){
+function buildComments(comments){
   let html ='';
   comments.forEach((ele, index)=>{
+
     html += `<div class="coment__item">
     <div class="commenter__photo">
       <img height="50" width="50"  src="assets/images/Ana10_icon.svg" alt="" />
@@ -168,8 +171,8 @@ export function buildComments(comments){
     <div class="commenter__description">
 
       <p>
-        <span class="name">${ele.name}</span>
-        <span class="comment__date"> ${convertDateToString(ele.comment_date)} </span>
+        <span class="name">${ele.names}</span>
+        <span class="comment__date"> ${ convertDateToString(ele.comment_date) } </span>
       </p>
 
       <p class="comment__text">
@@ -191,7 +194,7 @@ export function buildComments(comments){
 // ================================================================
 
 // build category in dashboard
- export function buildBlogCategoryList(categories) {
+function buildBlogCategoryList(categories) {
   let bodyCategories = "";
   categories.forEach((row, index) => {
 
@@ -213,14 +216,14 @@ export function buildComments(comments){
 // build single Cattegory in dashboard  =======================
 // Populate single category into edit form ======================
 
-export function populateEditCategory(category) {
+function populateEditCategory(category) {
   let  editBlogFrm = document.getElementById("editCategoryFrm");
   editBlogFrm.title.value = category.title;
   editBlogFrm.id.value = category.id;
 }
 
 // buld blog List form User interface
-export function buildLatestBlogs(blogs, number) {
+function buildLatestBlogs(blogs, number) {
   let  latestBlogs = "";
 
   
@@ -228,7 +231,7 @@ export function buildLatestBlogs(blogs, number) {
     console.log(ele.comments)
     latestBlogs += `<div class="item">
     <div class="img">
-      <img style='min-height: 140px' src="${ele.image}" alt="" />
+      <img style='min-height: 140px' src="${ele.image.url}" alt="" />
     </div>
     <div class="description">
       <p class="date__desktop">
@@ -267,7 +270,7 @@ export function buildLatestBlogs(blogs, number) {
 
 
 // BUILD a category list on blogs page
-export function buildCategoriesList(categories) {
+function buildCategoriesList(categories) {
   let  categoryList = "";
   categories.forEach((ele, index) => {
     categoryList += `<p category__id=${ele.id} title=${ele.title}  class="category_item"> <img src="assets/images/arrow_right_alt_red.svg" alt=""> ${ele.title} </p>`;
@@ -276,20 +279,20 @@ export function buildCategoriesList(categories) {
 }
 
 // Build most viewd post on blogs page
-export function mostViewedBlogs(blogs) {
+function mostViewedBlogs(blogs) {
   let  list = "";
   blogs.forEach((ele, index) => {
     
     list += ` <div class="blog__item">
     <div class="img">
-      <img src="${ele.image}" alt="">
+      <img style="max-height: 200px" src="${ele.image.url}" alt="">
     </div>
     <div class="description">
       <h4 class="title"> ${ele.title}  </h4>
       <p class="time__frame"> <img src="assets/images/Alarm.svg" alt=""> ${convertDateToString(ele.created_at)} </p>
       <div class="comment_views">
       <p class="comments">
-        <img src="assets/images/inser_ comment.svg" alt="" />
+        <img  src="assets/images/inser_ comment.svg" alt="" />
         <span> ${ele.comments.length} </span>
 
         <img src="assets/images/views.svg" alt="" />
@@ -314,7 +317,7 @@ export function mostViewedBlogs(blogs) {
 // ============CONTACTS PAGE==================
 // ===========================================
 
-export function buildContactsList(contacts){
+function buildContactsList(contacts){
   let  html = "";
   contacts.forEach((ele)=>{
     html += `<div class="message__item">
@@ -335,9 +338,13 @@ export function buildContactsList(contacts){
   return html;
 }
 
-export function convertDateToString(timestamp){
+function convertDateToString(timestamp){
 
-let date = timestamp.toDate();
+  // let date = timestamp.toDate();
+  let date =  new  Date(timestamp);
+
+  // console.log(timestamp, new  Date(timestamp));
+
 
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"

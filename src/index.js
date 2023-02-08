@@ -1,5 +1,3 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 
 import {
   buildBlogCategoryList,
@@ -18,57 +16,8 @@ import {
   populateEditForm,
 } from "./functions";
 
-
-import {
-  getFirestore,
-  collection,
-  onSnapshot,
-  addDoc,
-  deleteDoc,
-  doc,
-  query,
-  where,
-  serverTimestamp,
-  orderBy,
-  getDoc,
-  updateDoc,
-  getDocs
-} from "firebase/firestore";
-
-import { getAuth } from "firebase/auth";
-
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
 import { validateForm } from "./Contact";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB-Zt1GfiH3rjQbPMITywFeU-NZdRFG5vw",
-  authDomain: "portifoilio.firebaseapp.com",
-  projectId: "portifoilio",
-  storageBucket: "portifoilio.appspot.com",
-  messagingSenderId: "963289524335",
-  appId: "1:963289524335:web:f5f2c0d4404c457d36859a",
-  measurementId: "G-1V3GVQ4HZB",
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-// init analitics
-const analytics = getAnalytics(app);
-
-// init services
-const db = getFirestore();
-const auth = getAuth();
-const storage = getStorage();
-
-// ==========================================================
-//======================= Get DOM variabels =================
-//===========================================================
 
 const addCategoryFrm = document.getElementById("addCategoryFrm");
 
@@ -105,6 +54,7 @@ addCategoryFrm &&
 
   });
 
+  
 // Populate CATEGORIES in drop downs <-> real time collecction data
 let categories = [];
 const cat_query = query(colRef_category);
@@ -278,6 +228,8 @@ onSnapshot(blogs_query, (snapshot) => {
   let all__most_viewd_container = document.querySelector(
     ".right__summary .most_viewed_blogs"
   );
+
+  
   if (all__most_viewd_container) {
     all__most_viewd_container.innerHTML = mostViewedBlogs(blogs);
   }
@@ -286,6 +238,7 @@ onSnapshot(blogs_query, (snapshot) => {
   let all__blog_container = document.querySelector(
     ".all__blogs .blogs_container"
   );
+
   if (all__blog_container) {
     all__blog_container.innerHTML = buildLatestBlogs(blogs, 8);
   }
@@ -306,6 +259,8 @@ onSnapshot(blogs_query, (snapshot) => {
       })
     });
   });
+
+
 
   if(tblBody){
     new MutationObserver((mutationList, observer) => {
@@ -503,7 +458,6 @@ if (urlParams.has("blog")) {
   }
 
 
-
 // adding a blog
 let image = document.getElementById("image");
 let fileItem;
@@ -526,7 +480,6 @@ image &&
 
 
 // ===== Adding blog ====
-
 const addBlogForm = document.getElementById("addBlogFrm");
 addBlogForm &&
   addBlogForm.addEventListener("submit", (e) => {
@@ -568,7 +521,6 @@ addBlogForm &&
         }
       },
       (error) => {
-
         console.log(error);
         alert("Some problem in upload");
         return false;
@@ -578,7 +530,6 @@ addBlogForm &&
         // On successful image uploads
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           uploadedImageURL = downloadURL;
-
           //adding
 
            addDoc(colRef_blog, {

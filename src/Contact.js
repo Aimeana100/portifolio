@@ -3,10 +3,11 @@
       let emailError = document.getElementById("email__error");
       let messageError = document.getElementById("message__error");
 
+
       let formSubmitted = false;
 
       // name validation
-      export const validateName = () => {
+       const validateName = () => {
         let name = document.getElementById("contact__name").value;
 
         if (name.length == 0) {
@@ -18,7 +19,7 @@
         return true;
       };
 
-     export const validateEmail = () => {
+      const validateEmail = () => {
         let email = document.getElementById("contact__email").value;
 
         if (email.length == 0) {
@@ -38,7 +39,7 @@
 
 
 
-      export const validateMessage = () => {
+       const validateMessage = () => {
 
         let message = document.getElementById("contact__message").value;
         let required = 10;
@@ -54,7 +55,7 @@
 
       
     
-      export const validateForm = () => {
+       const validateForm = () => {
 
         let valid = true;
         formSubmitted = true;
@@ -74,3 +75,117 @@
         return (valid);
 
       };
+
+
+
+// Add a contact from front end
+let formError = document.getElementById("form__error");
+let contact__me__form = document.getElementById("contact__me__form");
+
+contact__me__form &&
+  contact__me__form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    if (validateForm()) {
+      // ===========SAVE The Contact FORM =======
+
+      let name = document.getElementById("contact__name").value;
+      let email = document.getElementById("contact__email").value;
+      let description = document.getElementById("contact__message").value;
+
+      contact(name, email, description);
+
+    }
+  });
+
+
+
+const contact = async ( name,email,description ) => {
+
+  let mesg = document.querySelector(".add__message");
+  mesg.style.padding = "10px";
+
+  await axios
+    .post(`${baseUrl}/api/contacts/add`, {
+      names : name,
+      email: email,
+      description: description,
+    })
+    .then((response) => {
+
+      contact__me__form.reset();
+      let mesg = document.querySelector(".add__message");
+      mesg.style.padding = "10px";
+      mesg.style.color = "green";
+      mesg.innerText = "Thank you, we will reply via the email asp";
+      contactForm.reset();
+
+      setTimeout(() => {
+        mesg.innerText = "";
+        mesg.style.padding = "0px";
+      }, 10000);
+
+    })
+    .catch(async (error) => {
+
+        if(error.response){
+            let resCode = error;
+            console.log(resCode);
+            mesg.innerText = `Error: ${await contactError(resCode)}`;
+            mesg.style.color = "#D16D6A";
+      
+            setTimeout(() => {
+              mesg.innerText = "";
+              mesg.style.padding = "0px";
+            }, 10000);
+      
+            return;
+        }
+
+    });
+};
+
+// hundele unsuccessiful login
+const contactError = async (errorCode) => {
+  return errorCode.response.data.message;
+};
+
+
+// List all contacts queries in dashboard
+
+const listContacts = async () => {
+  let contacts = [];
+
+  await axios({
+    method: "post",
+    url: `${baseUrl}/api/contacts/all`,
+    headers: { 
+      "token": localStorage.getItem("token"),
+   },
+  })
+    .then(function (response) {
+      //handle success
+      console.log(response);
+    })
+    .catch(function (response) {
+      //handle error
+      console.log(response);
+    });
+
+
+let contacts_container = document.querySelector(".contacts .contact__row");
+
+if (contacts_container) {
+  contacts_container.innerHTML = buildContactsList(contacts);
+}
+
+let cantct = document.getElementById("card__number__contacts");
+if (cantct) {
+  cantct.innerText = contacts.length;
+}
+
+}
+
+listContacts();
+
+
