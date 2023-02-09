@@ -1,4 +1,4 @@
-const baseUrl = 'http://127.0.0.1:5000';
+const baseUrl = 'https://indigo-barracuda-wig.cyclic.app';
 
 
 // Image validation at selection
@@ -14,8 +14,8 @@ function fileValidation(imageId) {
     return false;
   } else {
 
+    
     //Image preview
-
     if (fileInput.files && fileInput.files[0]) {
       let  reader = new FileReader();
       reader.onload = function (e) {
@@ -32,7 +32,9 @@ function fileValidation(imageId) {
 
 // =========== populate category ============
 
-function populateCategory(categories, selectId) {
+function populateCategory(ctg, selectId) {
+
+  let categories = ctg.filter(c => (c.status === 'unmuted'));
 
   let  lists = '<option value="" > --- select --- </option>';
   categories.forEach((ele, index) => {
@@ -69,7 +71,7 @@ function buildBlogList(blogs) {
         <a class="edit" href="edit_blog.html?edit_blog=${
           row.id
         }"> <button>Edit</button> </a>
-        <button blog_id=${row.id} status=${row.status} class="status ${row.status ? 'burn': "revoke"}" >  ${row.status ? "Burn": "Revoke"} </button>
+        <button blog_id=${row.id} status=${row.status} class="status ${row.status == "unmuted" ? 'burn': "revoke"}" >  ${row.status == "unmuted" ? "Burn": "Revoke"} </button>
         </td></tr>`;
   });
 
@@ -131,7 +133,6 @@ function buildHomeProjects(projects){
   `;
 
   })
-
   return projectHtml ;
 }
 
@@ -225,7 +226,6 @@ function populateEditCategory(category) {
 // buld blog List form User interface
 function buildLatestBlogs(blogs, number) {
   let  latestBlogs = "";
-
   
   blogs.filter(blog => {return blog.status}).forEach((ele, index) => {
     console.log(ele.comments)

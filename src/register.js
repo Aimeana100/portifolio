@@ -1,5 +1,4 @@
-// Contact Formvalidation
-const baseUrl = "http://127.0.0.1:5000";
+// Contact Formvalidati
 let nameError = document.getElementById("name__error");
 let emailError = document.getElementById("email__error");
 let passwordError = document.getElementById("password__error");

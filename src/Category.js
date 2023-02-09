@@ -37,7 +37,7 @@ const listCategories = async () => {
       let statusI = this.getAttribute("status");
       let newStatus = statusI == "muted" ? "unmuted" : "muted";
 
-      updateCategory(cId, '', newStatus);
+      updateCategoryStatus(cId, '', newStatus);
       // listCategories();
       
     });
@@ -57,9 +57,8 @@ const listCategories = async () => {
               let Bid = this.getAttribute("cat_id");
               let statusI = this.getAttribute("status");
               let newStatus = statusI == "muted" ? "unmuted" : "muted";
-
-              updateCategory(Bid, '', newStatus);
-
+              console.log(Bid);
+              updateCategoryStatus(Bid, '', newStatus);
 
             });
           });
@@ -153,7 +152,7 @@ const addCategory = async () => {
 };
 
 
-const updateCategory = async (id,name, status) => {
+const updateCategoryStatus = async (id,name, status) => {
   await axios({
     method: "put",
     url: `${baseUrl}/api/categories/update`,
@@ -164,6 +163,7 @@ const updateCategory = async (id,name, status) => {
     data: {
       id: id,
       status: status,
+      name: name,
     },
   })
   .then(async (response) => {
@@ -172,14 +172,57 @@ const updateCategory = async (id,name, status) => {
   //   categories = res.data.map((el) => ({ ...el, id: el._id, title: el.name }));
   //   console.log(categories);
   // });
-
-  listCategories();
+  await listCategories();
   })
   .catch( (error) => {
-    console.error(error);
+    if(error.response.status === 401){
+      window.location.href = "../login.html";
+
+    }
+
+    if(error.response.status === 403){
+    if ( confirm('page expired continue to login')){
+      window.location.href = "../login.html";
+    }
+    }
   });
 
 }
+
+
+// ===== Update  blog category form ====
+const updateCategory = () =>{
+
+  const updateCategoryForm = document.getElementById("editCategoryFrm");
+  updateCategoryForm &&
+    updateCategoryForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+  
+      let title = updateCategoryForm.title.value;
+      let id = updateCategoryForm.id.value;
+  
+      await  updateCategoryStatus(id, title, '');
+    
+      updateCategoryForm.reset();
+
+      let mesg = document.querySelector(".add__message");
+      mesg.style.padding = "10px";
+      mesg.innerText = "Blog Category Updated successfully";
+
+      setTimeout(() => {
+        mesg.innerText = "";
+        mesg.style.padding = "0px";
+        // window.location.href = "category.html";
+      }, 3000);
+      
+      
+    });
+}
+
+
+
+
 listCategories();
 addCategory();
+updateCategory();
 

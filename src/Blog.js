@@ -1,6 +1,5 @@
 const listBlogs = async () => {
   let blogs;
-
   await axios.get(`${baseUrl}/api/blogs/all`).then((res) => {
     // console.log(res.data);
     blogs = res.data.map((el) => ({ ...el, id: el._id }));
@@ -47,17 +46,38 @@ const listBlogs = async () => {
   statusBtn.forEach(function (ele, index) {
     ele.addEventListener("click", function (e) {
       e.preventDefault();
-      let Bid = this.getAttribute("blog_id");
+      let blog_id = this.getAttribute("blog_id");
       let statusI = this.getAttribute("status");
-      let newStatus = statusI == "true" ? false : true;
-
-      const docRef = doc(db, "blogs", Bid);
-
-      updateDoc(docRef, {
-        status: newStatus,
-      });
+      let newStatus = statusI == "unmuted" ? "muted" : "unmuted";
+      updateblogsStatus(blog_id, newStatus)
     });
   });
+
+  if(tblBody){
+    new MutationObserver((mutationList, observer) => {
+      for (const mutation of mutationList) {
+        if (mutation.type === "childList") {
+  
+          let statusBtn = document.querySelectorAll("table#blogs td .status");
+          statusBtn.forEach(function (ele, index) {
+            ele.addEventListener("click", function (e) {
+            
+              let Bid = this.getAttribute("blog_id");
+              let statusI = this.getAttribute("status");
+              let newStatus = statusI == "unmuted" ? "muted" : "unmuted";
+
+              console.log(statusI)
+
+              updateblogsStatus(Bid, newStatus);  
+
+            });
+          });
+        }
+      }
+    }).observe(tblBody, { attributes: true, childList: true, subtree: true });
+  
+  }
+
 };
 
 // =====Get single Doc =========
@@ -116,7 +136,7 @@ const singleBlogs = async () => {
         let email = this.Email.value;
         let description = this.comment__description.value;
 
-       let res =  await axios
+        let res = await axios
           .post(`${baseUrl}/api/comments/add/${single_blg.id}`, {
             names: name,
             email: email,
@@ -144,18 +164,9 @@ const createBlog = async () => {
     addBlogForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      let title = addBlogForm.title.value;
-      let description = addBlogForm.description.value;
-      let category = addBlogForm.category.value;
-      let views = 0;
-      let status = true;
-
-      let bodyFormData = new FormData();
-      bodyFormData.append("title", title);
-      bodyFormData.append("description", description);
-      bodyFormData.append("category", category);
-      bodyFormData.append("category", category);
-      bodyFormData.append("image", addBlogForm.files[0]);
+      let bodyFormData = new FormData(addBlogForm);
+      var imagefile = document.querySelector("#addBlogFrm #image");
+      bodyFormData.append("image", imagefile);
 
       await axios({
         method: "post",
@@ -163,42 +174,79 @@ const createBlog = async () => {
         data: bodyFormData,
         headers: {
           "Content-Type": "multipart/form-data",
-          token: localStorage.getItem("token"),
+          token: `Bearer ${Token.loadToken()}`,
         },
       })
         .then(function (response) {
           //handle success
-          console.log(response);
+          addBlogForm.reset();
+          document.getElementById("imagePreview").innerText = "";
+          document.getElementById("description").value = "";
+          let mesg = document.querySelector(".add__message");
+          mesg.style.padding = "10px";
+          mesg.innerText = "Blog created successfully";
+          addBlogForm.reset();
+          setTimeout(() => {
+            mesg.innerText = "";
+            mesg.style.padding = "0px";
+          }, 3000);
         })
-        .catch(function (response) {
+        .catch(function (error) {
           //handle error
-          console.log(response);
+
+          if (error.response) {
+            mesg.style.backgroundColor = `white`;
+            mesg.innerText = `Error: ${error.response.data.message}`;
+            mesg.style.color = "#D16D6A";
+            setTimeout(() => {
+              mesg.innerText = "";
+              mesg.style.padding = "0px";
+            }, 10000);
+
+            setTimeout(() => {
+              window.location.href = "../login.html";
+            }, 10000);
+          }
         });
 
-      addDoc(colRef_blog, {
-        title: title,
-        category: category,
-        description: description,
-        created_at: serverTimestamp(),
-        image: downloadURL,
-        views: views,
-        status: status,
-        comments: "",
-      }).then(() => {
-        addBlogForm.reset();
-        document.getElementById("imagePreview").innerText = "";
-        document.getElementById("description").value = "";
-        let mesg = document.querySelector(".add__message");
-        mesg.style.padding = "10px";
-        mesg.innerText = "Blog created successfully";
-        addBlogForm.reset();
-        setTimeout(() => {
-          mesg.innerText = "";
-          mesg.style.padding = "0px";
-        }, 3000);
-      });
+    });
+};
+
+const updateblogsStatus = async (id, status) => {
+  console.log(status)
+  await axios({
+    method: "put",
+    url: `${baseUrl}/api/blogs/update`,
+    headers: {
+      "Content-Type": "application/json",
+      token: `Bearer ${Token.loadToken()}`,
+    },
+    data: {
+      id: id,
+      status: status,
+    },
+  })
+    .then(async (response) => {
+      // let categories;
+      // await axios.get(`${baseUrl}/api/categories/all`).then((res) => {
+      //   categories = res.data.map((el) => ({ ...el, id: el._id, title: el.name }));
+      //   console.log(categories);
+      // });
+      // await listBlogs();
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        window.location.href = "../login.html";
+      }
+
+      if (error.response.status === 403) {
+        if (confirm("page expired continue to login")) {
+          window.location.href = "../login.html";
+        }
+      }
     });
 };
 
 singleBlogs();
+createBlog();
 listBlogs();
