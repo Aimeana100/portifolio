@@ -65,7 +65,6 @@
               <div class="heading container">
                 <h2>Login</h2>
               </div>
-
               <div class="login__with__google">
                 <img src="assets/images/login_google.svg" alt="" />
               </div>
@@ -73,7 +72,7 @@
               <form id="login__form" action="dashboard/index.html" method="post">
                 <div class="form__row has__block__label">
                   <label for="login__username"> Username </label>
-                  <input type="text"
+                  <input type="email"
                    name="login__username" 
                    id="login__username" 
                    placeholder=""
@@ -83,7 +82,7 @@
 
                 <div class="form__row has__block__label">
                   <label for="login__password"> Passowrd </label>
-                  <input type="text" 
+                  <input type="password" 
                   name="login__password" 
                   id="login__password"
 
@@ -98,6 +97,9 @@
                   
                 </div>
 
+                <div class="action__message form__row">
+                  <h4 class="add__message"></h4>
+                </div>
 
                 <div class="send">
                   <button class="send">Login</button>
@@ -105,10 +107,10 @@
 
                 <div class="new__register">
                   <p>
-                    <s>
+                    
                       Don't have an account ?
                       <a href="register.html"><span> Register </span></a>
-                    </s>
+  
                   </p>
                 </div>
 
@@ -141,106 +143,13 @@
       </footer>
 
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.2/axios.min.js" ></script>
+
+    <script src="../src/functions.js"></script>
     <script src="script/main.js"></script>
-
-    <script>
-// Login form validation
-
-  var username__error = document.getElementById('username__error');
-  var passowrd__error = document.getElementById('passowrd__error');
-  var login_form = document.getElementById('login__form');
-  var login__error = document.getElementById('login__error');
-
-  var username = document.getElementById('login__username');
-  var passowrd = document.getElementById('login__password');
+    <script src="../src/tokenApi.js"></script>
+    <script src="../src/login.js"></script>
 
 
-    const validateUsername = () => {
-      if(username.value.length == 0){
-        username__error.innerHTML = "Plese enter your username";
-        return false;
-      }
-      else{
-    // username__error.innerHTML = "<i class='fas fa-check-circle' ></i>";
-
-      username__error.innerHTML = "h";
-      return true;
-      }
-
-
-    }
-
-    const validatePassoword = () => {
-
-      if(passowrd.value.length == 0){
-        password__error.innerHTML = "Plese enter your Password";
-        return false;
-      }
-      else{
-      // password__error.innerHTML = "<i class='fas fa-check-circle' ></i>";
-      password__error.innerHTML = "h";
-      return true;
-      }
-
-    }
-
-
-    const auth = (username, passowrd) => {
-      var message = "";
-      var submit = true;
-      if(username != "Anathole"){
-        message += " <p> username is : Anathole </p> ";
-        submit = false;
-      }
-      
-
-      if(passowrd != "12345"){
-        message += " <p> pass is : 12345 </p> ";
-        submit = false;
-
-      }
-
-      console.log(message, submit, "auth");
-
-      if(!submit){
-        login__error.innerHTML = message;
-        return false;
-      }
-
-      else{ 
-        return true;
-      }
-
-    }
-
-
-  login_form.addEventListener('submit', function(e){
-    e.preventDefault();
-
-    var valid = true;
-    // console.log(validateUsername(),validatePassoword(),auth(username.value, passowrd.value), valid  )
-
-    if(validateUsername() === false){
-      valid = false;
-      
-    }
-    if(validatePassoword() === false){
-      valid = false;
-    }
-    // console.log(validateUsername(),validatePassoword(),auth(username.value, passowrd.value), valid )
-
-    if(!auth(username.value, passowrd.value)){
-
-      valid = false;
-
-    }
-
-    console.log(valid);
-
-    if(valid){
-      window.location.href = "dashboard/index.html";
-    }
-  });
-    </script>
   </body>
 </html>

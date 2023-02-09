@@ -106,8 +106,3 @@ var Auth =  (function() {
 
   })();
   
-  
-  // User.addBlog(123, "name","email", "imageURL", "password", true);
-  // User.clear();
-  // console.log(User.getAllUsers());
-  

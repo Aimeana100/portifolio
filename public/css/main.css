@@ -1293,6 +1293,12 @@ max-width: 300px;
   margin: 0px 3px;
 }
 
+/* register */
+
+.register__form .error_down{
+  color: "#D16D6A";
+ 
+}
 
 /* -------- FOOTER----------- */
 

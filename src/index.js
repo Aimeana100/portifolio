@@ -1,6 +1,3 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
 import {
   buildBlogCategoryList,
   buildBlogList,
@@ -18,57 +15,7 @@ import {
   populateEditForm,
 } from "./functions";
 
-
-import {
-  getFirestore,
-  collection,
-  onSnapshot,
-  addDoc,
-  deleteDoc,
-  doc,
-  query,
-  where,
-  serverTimestamp,
-  orderBy,
-  getDoc,
-  updateDoc,
-  getDocs
-} from "firebase/firestore";
-
-import { getAuth } from "firebase/auth";
-
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
 import { validateForm } from "./Contact";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyB-Zt1GfiH3rjQbPMITywFeU-NZdRFG5vw",
-  authDomain: "portifoilio.firebaseapp.com",
-  projectId: "portifoilio",
-  storageBucket: "portifoilio.appspot.com",
-  messagingSenderId: "963289524335",
-  appId: "1:963289524335:web:f5f2c0d4404c457d36859a",
-  measurementId: "G-1V3GVQ4HZB",
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-// init analitics
-const analytics = getAnalytics(app);
-
-// init services
-const db = getFirestore();
-const auth = getAuth();
-const storage = getStorage();
-
-// ==========================================================
-//======================= Get DOM variabels =================
-//===========================================================
 
 const addCategoryFrm = document.getElementById("addCategoryFrm");
 
@@ -92,7 +39,6 @@ addCategoryFrm &&
       title: title,
       status: status,
     }).then(() => {
-
       addCategoryFrm.reset();
       let mesg = document.querySelector(".add__message");
       mesg.style.padding = "10px";
@@ -102,14 +48,13 @@ addCategoryFrm &&
         mesg.style.padding = "0px";
       }, 3000);
     });
-
   });
 
 // Populate CATEGORIES in drop downs <-> real time collecction data
 let categories = [];
 const cat_query = query(colRef_category);
 onSnapshot(cat_query, (snapshot) => {
-   categories = [];
+  categories = [];
   snapshot.docs.forEach((doc) => {
     categories.push({ ...doc.data(), id: doc.id });
   });
@@ -127,44 +72,39 @@ onSnapshot(cat_query, (snapshot) => {
   // handle status change in dashboard
   let statusBtnCat = document.querySelectorAll("table#categories  td .status");
   statusBtnCat.forEach(function (ele, index) {
-  ele.addEventListener("click", function (e) {
-
-
-    let Bid = this.getAttribute("cat_id");
-    let statusI = this.getAttribute("status");
-    let newStatus = statusI == "true" ? false : true;
-    const docCategRef = doc(db, "categories", Bid);
-    updateDoc(docCategRef, {
-      status: newStatus,
-    })
+    ele.addEventListener("click", function (e) {
+      let Bid = this.getAttribute("cat_id");
+      let statusI = this.getAttribute("status");
+      let newStatus = statusI == "true" ? false : true;
+      const docCategRef = doc(db, "categories", Bid);
+      updateDoc(docCategRef, {
+        status: newStatus,
+      });
+    });
   });
-});
 
-if(tblBody){
-
-  new MutationObserver( (mutationList, observer) => {
-    for(const mutation of mutationList ){
-      if(mutation.type === 'childList'){
-
-        let statusBtnCat = document.querySelectorAll("table#categories  td .status");
+  if (tblBody) {
+    new MutationObserver((mutationList, observer) => {
+      for (const mutation of mutationList) {
+        if (mutation.type === "childList") {
+          let statusBtnCat = document.querySelectorAll(
+            "table#categories  td .status"
+          );
           statusBtnCat.forEach(function (ele, index) {
-          ele.addEventListener("click", function (e) {
-          
-            let Bid = this.getAttribute("cat_id");
-            let statusI = this.getAttribute("status");
-            let newStatus = statusI == "true" ? false : true;
-            const docCategRef = doc(db, "categories", Bid);
-            updateDoc(docCategRef, {
-              status: newStatus,
-            })
+            ele.addEventListener("click", function (e) {
+              let Bid = this.getAttribute("cat_id");
+              let statusI = this.getAttribute("status");
+              let newStatus = statusI == "true" ? false : true;
+              const docCategRef = doc(db, "categories", Bid);
+              updateDoc(docCategRef, {
+                status: newStatus,
+              });
+            });
           });
-        });
-
+        }
       }
-    }
-  }).observe(tblBody, { childList: true, subtree: true});
-  
-}
+    }).observe(tblBody, { childList: true, subtree: true });
+  }
 
   // list categories on blogs and single blog page
   let all__category_container = document.querySelector(
@@ -195,7 +135,6 @@ if(tblBody){
   }
 });
 
-
 // ===== Update  blog category form ====
 const updateCategoryForm = document.getElementById("editCategoryFrm");
 updateCategoryForm &&
@@ -221,12 +160,9 @@ updateCategoryForm &&
     }, 3000);
   });
 
-
 // |======================Blog=========================|
 // |  |||||||||||||||||||||||  |||||||||||||||||||
 // |===================================================|
-
-
 
 // List blogs in dashboard real time collecction data
 const blogs_query = query(colRef_blog, orderBy("created_at"));
@@ -237,23 +173,21 @@ onSnapshot(blogs_query, (snapshot) => {
     blogs.push({ ...doc.data(), id: doc.id });
   });
 
-  let comm
-  blogs.forEach((ele , index) => {
-    comm = []
-    getDocs(collection(db, `blogs/${ele.id}/comments`)).then((snp)=>{
-      snp.docs.forEach(doc => {comm.push({...doc.data(), id: doc.id})} );
-
-    })
-    blogs[index] = {...ele, comments: comm}
-  })
-
-
+  let comm;
+  blogs.forEach((ele, index) => {
+    comm = [];
+    getDocs(collection(db, `blogs/${ele.id}/comments`)).then((snp) => {
+      snp.docs.forEach((doc) => {
+        comm.push({ ...doc.data(), id: doc.id });
+      });
+    });
+    blogs[index] = { ...ele, comments: comm };
+  });
 
   let tblBody = document.querySelector("table#blogs tbody");
   if (tblBody) {
     tblBody.innerHTML = buildBlogList(blogs);
   }
-
 
   let categoriesList = document.querySelector(".form-content #category");
   if (categoriesList) {
@@ -271,13 +205,13 @@ onSnapshot(blogs_query, (snapshot) => {
 
   if (latest__blog) {
     latest__blog.innerHTML = buildLatestBlogs(blogs, 6);
-
   }
 
   // most viewed blogList on single blog
   let all__most_viewd_container = document.querySelector(
     ".right__summary .most_viewed_blogs"
   );
+
   if (all__most_viewd_container) {
     all__most_viewd_container.innerHTML = mostViewedBlogs(blogs);
   }
@@ -286,6 +220,7 @@ onSnapshot(blogs_query, (snapshot) => {
   let all__blog_container = document.querySelector(
     ".all__blogs .blogs_container"
   );
+
   if (all__blog_container) {
     all__blog_container.innerHTML = buildLatestBlogs(blogs, 8);
   }
@@ -303,59 +238,53 @@ onSnapshot(blogs_query, (snapshot) => {
 
       updateDoc(docRef, {
         status: newStatus,
-      })
+      });
     });
   });
 
-  if(tblBody){
+  if (tblBody) {
     new MutationObserver((mutationList, observer) => {
       for (const mutation of mutationList) {
         if (mutation.type === "childList") {
-  
           let statusBtn = document.querySelectorAll("table#blogs td .status");
           statusBtn.forEach(function (ele, index) {
             ele.addEventListener("click", function (e) {
-            
               let Bid = this.getAttribute("blog_id");
               let statusI = this.getAttribute("status");
               let newStatus = statusI == "true" ? false : true;
               const docRef = doc(db, "blogs", Bid);
               updateDoc(docRef, {
                 status: newStatus,
-              })
+              });
             });
           });
         }
       }
     }).observe(tblBody, { attributes: true, childList: true, subtree: true });
-  
   }
 
-
-//////////////// Increment view number of a blog ///////////////////////////////
-
+  //////////////// Increment view number of a blog ///////////////////////////////
 
   let read__more = document.querySelectorAll(
-    '#blogs .item .description .read__more, .latest__blog .item .description .read__more, .blog__item .description .read__more'
-    );
+    "#blogs .item .description .read__more, .latest__blog .item .description .read__more, .blog__item .description .read__more"
+  );
 
-  read__more && read__more.forEach((ele)=>{
-  ele.addEventListener("click", function(e){
-  e.preventDefault();
+  read__more &&
+    read__more.forEach((ele) => {
+      ele.addEventListener("click", function (e) {
+        e.preventDefault();
 
-  let blog_id = this.getAttribute('blog_id');
-  let views = this.getAttribute('views');
+        let blog_id = this.getAttribute("blog_id");
+        let views = this.getAttribute("views");
 
- const docRef_blog = doc(db, "blogs", blog_id);
- updateDoc(docRef_blog, {
-  views: Number(views) + 1,
- }).then(() => {
-  window.location.href = "blog-single.html?blog="+blog_id;
- })
-
-})
-})
-
+        const docRef_blog = doc(db, "blogs", blog_id);
+        updateDoc(docRef_blog, {
+          views: Number(views) + 1,
+        }).then(() => {
+          window.location.href = "blog-single.html?blog=" + blog_id;
+        });
+      });
+    });
 
   // =========== Edit Blog ===============
   // const queryString = window.location.search;
@@ -369,16 +298,14 @@ onSnapshot(blogs_query, (snapshot) => {
       return ele.id == edit_blog;
     })[0];
 
-    if(edit_blog) {
+    if (edit_blog) {
       if (categoriesList) {
         categoriesList.innerHTML = populateCategory(categories, blog.category);
       }
       populateEditForm(blog);
     }
-
   }
 });
-
 
 // add project
 const projects_query = query(colRef_project, orderBy("created_at"));
@@ -386,45 +313,34 @@ const projects_query = query(colRef_project, orderBy("created_at"));
 onSnapshot(projects_query, (snapshot) => {
   let projects = [];
   snapshot.docs.forEach((doc) => {
-    projects.push({ ...doc.data(), id: doc.id});
+    projects.push({ ...doc.data(), id: doc.id });
   });
 
   // render projects
-let projects_container = document.querySelector('.form-content.projects-content');
-let homeProjects = document.querySelector('#projects .project_container');
-if(projects_container){
+  let projects_container = document.querySelector(
+    ".form-content.projects-content"
+  );
+  let homeProjects = document.querySelector("#projects .project_container");
+  if (projects_container) {
+    projects_container.innerHTML = buildProjects(projects);
 
-  projects_container.innerHTML = buildProjects(projects);
+    // delete project
 
-// delete project
+    let deleteProct = document.querySelectorAll(".deletePrj");
+    deleteProct.forEach((ele, index) => {
+      ele.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (confirm("Want to delete ?")) {
+          deleteDoc(doc(db, "projects", ele.getAttribute("projId")));
+        }
+      });
+    });
+  }
 
-let deleteProct = document.querySelectorAll('.deletePrj');
-deleteProct.forEach((ele, index) => {
-  ele.addEventListener("click", function(e){
-    e.preventDefault();
-    if(confirm("Want to delete ?")){
-      deleteDoc(doc(db, "projects", ele.getAttribute('projId')));
-
-    }
-  })
-})
-
-}
-
-
-if(homeProjects){
-  homeProjects.innerHTML = buildHomeProjects(projects);
-}
-
-
-
-
+  if (homeProjects) {
+    homeProjects.innerHTML = buildHomeProjects(projects);
+  }
 });
-
-
-
-
-
 
 /// Render a single blog and comments
 let comments_container = document.querySelector(
@@ -443,7 +359,6 @@ if (urlParams.has("blog")) {
 
   const docRef_single_blog = doc(db, "blogs", blog_id);
   onSnapshot(docRef_single_blog, (doc) => {
-
     let title = document.querySelector(
       ".blog__single__container .blog__content .title"
     );
@@ -460,7 +375,6 @@ if (urlParams.has("blog")) {
     date__published.innerHTML = `<img src="assets/images/Alarm.svg" alt="" /> ${convertDateToString(
       single_blg.created_at
     )}`;
-
   });
 
   // retrive comments for a certain blog
@@ -500,9 +414,7 @@ if (urlParams.has("blog")) {
         commentFrm.reset();
       });
     });
-  }
-
-
+}
 
 // adding a blog
 let image = document.getElementById("image");
@@ -524,9 +436,7 @@ image &&
     }
   });
 
-
 // ===== Adding blog ====
-
 const addBlogForm = document.getElementById("addBlogFrm");
 addBlogForm &&
   addBlogForm.addEventListener("submit", (e) => {
@@ -549,7 +459,6 @@ addBlogForm &&
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
 
@@ -568,20 +477,17 @@ addBlogForm &&
         }
       },
       (error) => {
-
         console.log(error);
         alert("Some problem in upload");
         return false;
       },
       () => {
-        
         // On successful image uploads
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           uploadedImageURL = downloadURL;
-
           //adding
 
-           addDoc(colRef_blog, {
+          addDoc(colRef_blog, {
             title: title,
             category: category,
             description: description,
@@ -590,8 +496,7 @@ addBlogForm &&
             views: views,
             status: status,
             comments: "",
-          })
-          .then(() => {
+          }).then(() => {
             addBlogForm.reset();
             document.getElementById("imagePreview").innerText = "";
             document.getElementById("description").value = "";
@@ -608,7 +513,6 @@ addBlogForm &&
       }
     );
   });
-
 
 // ===== Updating blog ====
 const editBlogForm = document.getElementById("editBlogFrm");
@@ -628,10 +532,8 @@ editBlogForm &&
     const uploadTask = uploadBytesResumable(storageRef, fileItem);
 
     if (typeof fileItem != "undefined") {
-
       reader.readAsDataURL(fileItem);
       reader.addEventListener("load", function (ev) {
-
         uploadTask.on(
           "state_changed",
           (snapshot) => {
@@ -679,36 +581,30 @@ editBlogForm &&
                   window.location.href = "blogs.html";
                 }, 4000);
               });
-
             });
           }
         );
       });
     } else {
-
-        // adding
-        const docRef_blog = doc(db, "blogs", id);
-        updateDoc(docRef_blog, {
-          title: title,
-          description: description,
-          category: category,
-        }).then(() => {
-          editBlogForm.reset();
-          let mesg = document.querySelector(".add__message");
-          mesg.style.padding = "10px";
-          mesg.innerText = "Blog Updated successfully";
-          setTimeout(() => {
-            mesg.innerText = "";
-            mesg.style.padding = "0px";
-            window.location.href = "blogs.html";
-          }, 4000);
-        });
+      // adding
+      const docRef_blog = doc(db, "blogs", id);
+      updateDoc(docRef_blog, {
+        title: title,
+        description: description,
+        category: category,
+      }).then(() => {
+        editBlogForm.reset();
+        let mesg = document.querySelector(".add__message");
+        mesg.style.padding = "10px";
+        mesg.innerText = "Blog Updated successfully";
+        setTimeout(() => {
+          mesg.innerText = "";
+          mesg.style.padding = "0px";
+          window.location.href = "blogs.html";
+        }, 4000);
+      });
     }
   });
-
-
-
-
 
 // ===== Adding Project  image is managed by the same fx ad blog ====
 
@@ -786,8 +682,6 @@ addProjectFrm &&
     );
   });
 
-
-
 // ===== Updating Project ====
 const editProjectFrm = document.getElementById("editProjectFrm");
 editProjectFrm &&
@@ -808,10 +702,8 @@ editProjectFrm &&
     const uploadTask = uploadBytesResumable(storageRef, fileItem);
 
     if (typeof fileItem != "undefined") {
-
       reader.readAsDataURL(fileItem);
       reader.addEventListener("load", function (ev) {
-
         uploadTask.on(
           "state_changed",
           (snapshot) => {
@@ -845,7 +737,7 @@ editProjectFrm &&
                 description: description,
                 image: downloadURL,
                 githubUrl: githubUrl,
-                webUrl: webUrl
+                webUrl: webUrl,
               }).then(() => {
                 editProjectFrm.reset();
                 let mesg = document.querySelector(".add__message");
@@ -857,38 +749,33 @@ editProjectFrm &&
                   window.location.href = "blogs.html";
                 }, 4000);
               });
-
             });
           }
         );
       });
     } else {
-        // updating
-        const docRef_project = doc(db, "projects", id);
-        updateDoc(docRef_project, {
-          title: title,
-          description: description,
-          githubUrl: githubUrl,
-          webUrl: webUrl
-        }).then(() => {
-          editProjectFrm.reset();
-          let mesg = document.querySelector(".add__message");
-          mesg.style.padding = "10px";
-          mesg.innerText = "Project Updated successfully";
-          setTimeout(() => {
-            mesg.innerText = "";
-            mesg.style.padding = "0px";
-            window.location.href = "blogs.html";
-          }, 4000);
-        });
+      // updating
+      const docRef_project = doc(db, "projects", id);
+      updateDoc(docRef_project, {
+        title: title,
+        description: description,
+        githubUrl: githubUrl,
+        webUrl: webUrl,
+      }).then(() => {
+        editProjectFrm.reset();
+        let mesg = document.querySelector(".add__message");
+        mesg.style.padding = "10px";
+        mesg.innerText = "Project Updated successfully";
+        setTimeout(() => {
+          mesg.innerText = "";
+          mesg.style.padding = "0px";
+          window.location.href = "blogs.html";
+        }, 4000);
+      });
     }
   });
 
-
-
-
-  // -------------------------------------------------------------------------------------------------------------
-
+// -------------------------------------------------------------------------------------------------------------
 
 // Add a contact from front end
 let formError = document.getElementById("form__error");
@@ -947,13 +834,3 @@ onSnapshot(contact_query, (snapshot) => {
     cantct.innerText = contacts.length;
   }
 });
-
-
-
-
-
- 
-
- 
-
-

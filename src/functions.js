@@ -1,6 +1,8 @@
-// Image validation at selection
-export function fileValidation(imageId) {
+const baseUrl = 'https://indigo-barracuda-wig.cyclic.app';
 
+
+// Image validation at selection
+function fileValidation(imageId) {
   let  fileInput = document.getElementById(imageId);
   let  filePath = fileInput.value;
   let  allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
@@ -12,8 +14,8 @@ export function fileValidation(imageId) {
     return false;
   } else {
 
+    
     //Image preview
-
     if (fileInput.files && fileInput.files[0]) {
       let  reader = new FileReader();
       reader.onload = function (e) {
@@ -30,7 +32,9 @@ export function fileValidation(imageId) {
 
 // =========== populate category ============
 
-export function populateCategory(categories, selectId) {
+function populateCategory(ctg, selectId) {
+
+  let categories = ctg.filter(c => (c.status === 'unmuted'));
 
   let  lists = '<option value="" > --- select --- </option>';
   categories.forEach((ele, index) => {
@@ -53,14 +57,13 @@ export function populateCategory(categories, selectId) {
 // ================================================================
 
 // build blogList in dashboard
-export function buildBlogList(blogs) {
-
+function buildBlogList(blogs) {
   let tableBody = "";
   blogs.forEach((row, index) => {
     tableBody += `<tr><td>
      ${index + 1} ${row.status ? '' : '<i style="color:#ABB6A8" class="fa fa-trash" aria-hidden="true"></i>'} </td>
         <td> ${row.title} </td> 
-        <td> <img  width="100" src="${row.image}" atl="${row.title}" /> </td>
+        <td> <img  width="100" src="${row.image.url}" atl="${row.title}" /> </td>
         <td>${row.views}</td>
         <td> ${row.comments.length} </td>
         <td>
@@ -68,7 +71,7 @@ export function buildBlogList(blogs) {
         <a class="edit" href="edit_blog.html?edit_blog=${
           row.id
         }"> <button>Edit</button> </a>
-        <button blog_id=${row.id} status=${row.status} class="status ${row.status ? 'burn': "revoke"}" >  ${row.status ? "Burn": "Revoke"} </button>
+        <button blog_id=${row.id} status=${row.status} class="status ${row.status == "unmuted" ? 'burn': "revoke"}" >  ${row.status == "unmuted" ? "Burn": "Revoke"} </button>
         </td></tr>`;
   });
 
@@ -78,7 +81,7 @@ export function buildBlogList(blogs) {
 
 // build dashboard projects
 
-export function buildProjects(projects){
+function buildProjects(projects){
   let  projectHtml = "";
   projects.forEach((row, index) => {
     projectHtml += `<div class="project__item">
@@ -108,7 +111,7 @@ export function buildProjects(projects){
 
 // build projects homepage
 
-export function buildHomeProjects(projects){
+function buildHomeProjects(projects){
   let  projectHtml = "";
   projects.forEach((row, index) => {
     projectHtml += `
@@ -130,13 +133,12 @@ export function buildHomeProjects(projects){
   `;
 
   })
-
   return projectHtml ;
 }
 
 // build single blog in dashboard  =====================
 // Populate single blog into edit form =================
-export function populateEditForm(blog) {
+function populateEditForm(blog) {
   let editBlogFrm = document.getElementById("editBlogFrm");
 
   editBlogFrm.title.value = blog.title;
@@ -159,9 +161,10 @@ export function populateEditForm(blog) {
 // ===========================================
 
 
-export function buildComments(comments){
+function buildComments(comments){
   let html ='';
   comments.forEach((ele, index)=>{
+
     html += `<div class="coment__item">
     <div class="commenter__photo">
       <img height="50" width="50"  src="assets/images/Ana10_icon.svg" alt="" />
@@ -169,8 +172,8 @@ export function buildComments(comments){
     <div class="commenter__description">
 
       <p>
-        <span class="name">${ele.name}</span>
-        <span class="comment__date"> ${convertDateToString(ele.comment_date)} </span>
+        <span class="name">${ele.names}</span>
+        <span class="comment__date"> ${ convertDateToString(ele.comment_date) } </span>
       </p>
 
       <p class="comment__text">
@@ -192,7 +195,7 @@ export function buildComments(comments){
 // ================================================================
 
 // build category in dashboard
- export function buildBlogCategoryList(categories) {
+function buildBlogCategoryList(categories) {
   let bodyCategories = "";
   categories.forEach((row, index) => {
 
@@ -202,7 +205,7 @@ export function buildComments(comments){
         <a class="edit" href="edit_category.html?category_id=${
           row.id
         }"> <button>Edit</button> </a>
-       <button status=${row.status} cat_id=${row.id} class=" status ${row.status ? 'burn': "revoke"}" > ${row.status ? "Burn": "Revoke"} </button>
+       <button status=${row.status} cat_id=${row.id} class=" status ${row.status ==  "unmuted" ? 'burn': "revoke"}" > ${row.status == "unmuted" ? "Burn": "Revoke"} </button>
         </td>
         </tr>`;
   });
@@ -214,22 +217,21 @@ export function buildComments(comments){
 // build single Cattegory in dashboard  =======================
 // Populate single category into edit form ======================
 
-export function populateEditCategory(category) {
+function populateEditCategory(category) {
   let  editBlogFrm = document.getElementById("editCategoryFrm");
   editBlogFrm.title.value = category.title;
   editBlogFrm.id.value = category.id;
 }
 
 // buld blog List form User interface
-export function buildLatestBlogs(blogs, number) {
+function buildLatestBlogs(blogs, number) {
   let  latestBlogs = "";
-
   
   blogs.filter(blog => {return blog.status}).forEach((ele, index) => {
     console.log(ele.comments)
     latestBlogs += `<div class="item">
     <div class="img">
-      <img style='min-height: 140px' src="${ele.image}" alt="" />
+      <img style='min-height: 140px' src="${ele.image.url}" alt="" />
     </div>
     <div class="description">
       <p class="date__desktop">
@@ -268,7 +270,7 @@ export function buildLatestBlogs(blogs, number) {
 
 
 // BUILD a category list on blogs page
-export function buildCategoriesList(categories) {
+function buildCategoriesList(categories) {
   let  categoryList = "";
   categories.forEach((ele, index) => {
     categoryList += `<p category__id=${ele.id} title=${ele.title}  class="category_item"> <img src="assets/images/arrow_right_alt_red.svg" alt=""> ${ele.title} </p>`;
@@ -277,20 +279,20 @@ export function buildCategoriesList(categories) {
 }
 
 // Build most viewd post on blogs page
-export function mostViewedBlogs(blogs) {
+function mostViewedBlogs(blogs) {
   let  list = "";
   blogs.forEach((ele, index) => {
     
     list += ` <div class="blog__item">
     <div class="img">
-      <img src="${ele.image}" alt="">
+      <img style="max-height: 200px" src="${ele.image.url}" alt="">
     </div>
     <div class="description">
       <h4 class="title"> ${ele.title}  </h4>
       <p class="time__frame"> <img src="assets/images/Alarm.svg" alt=""> ${convertDateToString(ele.created_at)} </p>
       <div class="comment_views">
       <p class="comments">
-        <img src="assets/images/inser_ comment.svg" alt="" />
+        <img  src="assets/images/inser_ comment.svg" alt="" />
         <span> ${ele.comments.length} </span>
 
         <img src="assets/images/views.svg" alt="" />
@@ -315,12 +317,12 @@ export function mostViewedBlogs(blogs) {
 // ============CONTACTS PAGE==================
 // ===========================================
 
-export function buildContactsList(contacts){
+function buildContactsList(contacts){
   let  html = "";
   contacts.forEach((ele)=>{
     html += `<div class="message__item">
     <div class="sender">
-      <h2 class="name">${ele.name}</h2>
+      <h2 class="name">${ele.names}</h2>
       <h5 class="contact_date"> ${ convertDateToString(ele.created_at || ele.contact_date ) }    </h5>
       <h4 class="email"> ${ele.email} </h4>
       <p class="message">
@@ -336,9 +338,13 @@ export function buildContactsList(contacts){
   return html;
 }
 
-export function convertDateToString(timestamp){
+function convertDateToString(timestamp){
 
-let date = timestamp.toDate();
+  // let date = timestamp.toDate();
+  let date =  new  Date(timestamp);
+
+  // console.log(timestamp, new  Date(timestamp));
+
 
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -351,29 +357,5 @@ return d.getDate() + ", " + monthNames[Number(d.getMonth())] + " " + d.getFullYe
 // return date;
 }
 
-
-// ====================================================================================
-//======================Authentication\\=================================================
-
-// ENCRYPT & DECRYPT FUNCTIONS
-    let crypt = {
-      // (B1) THE SECRET KEY
-      secret : "CIPHERKEY",
-     
-      // (B2) ENCRYPT
-      encrypt : (clear) => {
-        let cipher = CryptoJS.AES.encrypt(clear, crypt.secret);
-        cipher = cipher.toString();
-        return cipher;
-      },
-     
-      // (B3) DECRYPT
-      decrypt : (cipher) => {
-        let decipher = CryptoJS.AES.decrypt(cipher, crypt.secret);
-        decipher = decipher.toString(CryptoJS.enc.Utf8);
-        return decipher;
-      }
-
-    };
 
 
