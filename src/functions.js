@@ -1,4 +1,5 @@
-const baseUrl = 'https://indigo-barracuda-wig.cyclic.app';
+// const baseUrl = 'https://indigo-barracuda-wig.cyclic.app';
+const baseUrl = 'http://127.0.0.1:5000';
 
 
 // Image validation at selection
@@ -141,17 +142,29 @@ function buildHomeProjects(projects){
 function populateEditForm(blog) {
   let editBlogFrm = document.getElementById("editBlogFrm");
 
-  editBlogFrm.title.value = blog.title;
-  editBlogFrm.description.value = blog.description;
-  editBlogFrm.id.value = blog.id;
-  document.querySelector("form#editBlogFrm #imagePreview").innerHTML =
-    "<img width='150' height='100' src='" + blog.image + "' />";
+  if(editBlogFrm){
+    editBlogFrm.title.value = blog.title;
+    editBlogFrm.description.value = blog.description;
+    editBlogFrm.id.value = blog.id;
+    document.querySelector("form#editBlogFrm #imagePreview").innerHTML =
+      "<img width='150'  src='" + blog.image.url + "' />";
 
-  ClassicEditor.create(document.querySelector("#description")).catch(
-    (error) => {
-      console.error(error);
-    }
-  );
+      
+
+    ClassicEditor.create(document.querySelector("#description")).catch(
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    document.querySelector("form#editBlogFrm textarea").addEventListener("change", function(){
+      alert(this.value);
+    });
+  
+  }
+
+
+
 }
 
 

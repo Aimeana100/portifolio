@@ -113,14 +113,6 @@
                     id="image"
                   />
 
-                  <!--<img
-                    style="margin-top: 10px"
-                    height="100"
-                    width="150"
-                    src="../assets/images/bolog_2.jpg"
-                    alt=""
-                  />-->
-
                   <div style="margin-top: 10px" id="imagePreview"></div>
                 </div>
 
@@ -138,7 +130,6 @@
                     name="description"
                     id="description"
                     rows="4"
-                    id="edit_description"
                   ></textarea>
                 </div>
 
@@ -156,20 +147,30 @@
         </div>
       </main>
     </div>
+
     <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
 
     <script>
-      // ClassicEditor.create(document.querySelector("#description")).catch(
+
+      // ClassicEditor.create(document.querySelector("#editBlogFrm #description")).catch(
       //   (error) => {
       //     console.error(error);
       //   }
       // );
+
     </script>
     
-    <!-- <script src="../../src/Category.js"></script>
-      <script src="../../src/Blog.js"></script>
-      <script src="../../src/functions.js"></script> -->
-      <script src="../../dist/bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.2/axios.min.js"></script>
+
+    <script src="../../src/tokenApi.js"></script>
+    <script src="../../src/functions.js"></script>
+    <script src="../../src/Category.js"></script>
+    <script src="../../src/Blog.js"></script>
+
+
+
+    
+      <!-- <script src="../../dist/bundle.js"></script> -->
 
   </body>
 </html>

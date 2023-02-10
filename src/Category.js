@@ -7,7 +7,6 @@
 const listCategories = async () => {
 
   let categories;
-
   await axios.get(`${baseUrl}/api/categories/all`).then((res) => {
     categories = res.data.map((el) => ({ ...el, id: el._id, title: el.name }));
   });
@@ -177,9 +176,7 @@ const updateCategoryStatus = async (id,name, status) => {
   .catch( (error) => {
     if(error.response.status === 401){
       window.location.href = "../login.html";
-
     }
-
     if(error.response.status === 403){
     if ( confirm('page expired continue to login')){
       window.location.href = "../login.html";
