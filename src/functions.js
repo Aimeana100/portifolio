@@ -1,5 +1,5 @@
-// const baseUrl = 'https://indigo-barracuda-wig.cyclic.app';
-const baseUrl = 'http://127.0.0.1:5000';
+const baseUrl = 'https://indigo-barracuda-wig.cyclic.app';
+// const baseUrl = 'http://127.0.0.1:5000';
 
 
 // Image validation at selection
