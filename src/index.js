@@ -305,6 +305,7 @@ onSnapshot(blogs_query, (snapshot) => {
       populateEditForm(blog);
     }
   }
+  
 });
 
 // add project
