@@ -240,6 +240,7 @@ const createBlog = async () => {
           //handle error
 
           if (error.response) {
+            let mesg = document.querySelector(".add__message");
             mesg.style.backgroundColor = `white`;
             mesg.innerText = `Error: ${error.response.data.message}`;
             mesg.style.color = "#D16D6A";

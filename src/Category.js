@@ -11,7 +11,6 @@ const listCategories = async () => {
     categories = res.data.map((el) => ({ ...el, id: el._id, title: el.name }));
   });
 
-
   let categ = document.getElementById("category");
   categ && populateCategory(categories, "");
 
