@@ -150,6 +150,16 @@
     <script src="../src/tokenApi.js"></script>
     <script src="../src/login.js"></script>
 
+    <script>
+      let error = window.localStorage.getItem('loginError')
+      if(error != '' ){
+        let mesg = document.querySelector(".add__message");
+            mesg.innerText = `Error: ${error}`;
+            mesg.style.color = "#D16D6A";
+      }
+      window.localStorage.setItem('loginError', '');
+    </script>
+
 
   </body>
 </html>

@@ -28,7 +28,7 @@ const validatePassoword = () => {
   }
 };
 
-const auth = (username, passowrd) => {
+const authGuest = (username, passowrd) => {
   let message = "";
   let submit = true;
 
@@ -70,9 +70,9 @@ login_form.addEventListener("submit", function (e) {
   //   valid = auth(username.value, passowrd.value);
   valid = login(username.value, passowrd.value);
 
-  if (valid) {
-    // window.location.href = "dashboard/index.html";
-  }
+  // if (valid) {
+  //   window.location.href = "dashboard/index.html";
+  // }
 });
 
 const login = async (email, passowrd) => {
@@ -92,28 +92,26 @@ const login = async (email, passowrd) => {
         mesg.innerText = "";
         mesg.style.padding = "0px";
         setTimeout(() => {
-location.href = `./dashboard/index.html`;
-        }, 2000);
-      }, 4000);
+          // location.href = `./dashboard/index.html`;
+        }, 500);
+      }, 2000);
       Token.saveToken(response.data.accessToken);
+      Auth.saveUser(response.data.foundUser);
       this.reset();
     })
     .catch(async (error) => {
+      if (error.response) {
+        let resCode = error;
+        mesg.innerText = `Error: ${await loginError(resCode)}`;
+        mesg.style.color = "#D16D6A";
 
-        if(error.response){
-            let resCode = error;
-      
-            mesg.innerText = `Error: ${await loginError(resCode)}`;
-            mesg.style.color = "#D16D6A";
-      
-            setTimeout(() => {
-              mesg.innerText = "";
-              mesg.style.padding = "0px";
-            }, 10000);
-      
-            return;
-        }
+        setTimeout(() => {
+          mesg.innerText = "";
+          mesg.style.padding = "0px";
+        }, 10000);
 
+        return;
+      }
     });
 };
 
@@ -121,3 +119,5 @@ location.href = `./dashboard/index.html`;
 const loginError = async (errorCode) => {
   return errorCode.response.data.message;
 };
+
+
