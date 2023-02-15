@@ -5,15 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="css/main.css">
-  
-  
+    <link rel="stylesheet" href="css/main.css" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.2/axios.min.js"></script>
+
+    <script></script>
   </head>
   <body>
     <div class="dashboard__container">
@@ -45,23 +47,36 @@
               Anathole <span><a href="../">logout</a></span>
             </div>
           </div>
-
         </div>
       </header>
       <main>
         <div class="main__content">
-          
           <div class="sidebar">
             <ul>
-              <li class="active"> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="./"> Dashboard </a></li>
+              <li class="active">
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="./"> Dashboard </a>
+              </li>
               <li class="">
                 <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
                 <a class="menu__item" href="category.html"> Category </a>
               </li>
-              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="blogs.html"> Blogs </a></li>
-              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="contacts.html"> Contacts </a></li>
-              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="projects.html"> Projects </a></li>
-              <li> <img src="../assets/images/arrow_right_alt_red.svg" alt=""> <a class="menu__item" href="exprience.html"> Exprience </a></li>
+              <li>
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="blogs.html"> Blogs </a>
+              </li>
+              <li>
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="contacts.html"> Contacts </a>
+              </li>
+              <li>
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="projects.html"> Projects </a>
+              </li>
+              <li>
+                <img src="../assets/images/arrow_right_alt_red.svg" alt="" />
+                <a class="menu__item" href="exprience.html"> Exprience </a>
+              </li>
             </ul>
           </div>
 
@@ -71,14 +86,14 @@
                 <div class="card__title">
                   <h2>Categories</h2>
                 </div>
-                <div class="card__number" id="card__number__categories" >20</div>
+                <div class="card__number" id="card__number__categories">20</div>
               </div>
 
               <div class="cards">
                 <div class="card__title">
                   <h2>Blogs</h2>
                 </div>
-                <div class="card__number" id="card__number__blogs" >20</div>
+                <div class="card__number" id="card__number__blogs">20</div>
               </div>
               <div class="cards">
                 <div class="card__title">
@@ -98,21 +113,16 @@
       </main>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.2/axios.min.js" ></script>
-
-     <script src="../../src/tokenApi.js"></script>
-     <script src="../../src/functions.js"></script>
-     <script src="../../src/Blog.js"></script>
+    <script src="../../src/tokenApi.js"></script>
+    <script src="../../src/functions.js"></script>
+    <script src="../../src/Blog.js"></script>
     <script src="../../src/Category.js"></script>
-    <script src="../../src/Contact.js"></script> 
+    <script src="../../src/Contact.js"></script>
 
     <!-- <script src="../../dist/bundle.js"></script> -->
 
     <script>
-
-      // var cantct = document.getElementById('card__number__contacts');
-      // cantct.innerText = Contact.getAllContacts().length;
-
+            auth();
     </script>
   </body>
 </html>
